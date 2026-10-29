@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Unity-freie Logik (Tabellenmodell, CSV, HTML). Wird in CI getestet und
+       zusaetzlich direkt in das Plugin einkompiliert, damit nur eine DLL entsteht. -->
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>FMViewExporter.Core</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="FMViewExporter.Core.Tests" />
+  </ItemGroup>
+</Project>

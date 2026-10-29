@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Tests
+        run: dotnet test tests/FMViewExporter.Core.Tests -c Release
+
+      - name: Plugin bauen
+        run: dotnet build src/FMViewExporter -c Release
+
+      - name: Pakete schnueren
+        run: ./packaging/package.sh "${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('dev-{0}', github.run_number) }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FMViewExporter-${{ github.run_number }}
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS.txt
+
+      - name: GitHub-Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.zip
+            dist/SHA256SUMS.txt
+          body_path: dist/release-notes.md
+          prerelease: ${{ contains(github.ref_name, '-') }}
