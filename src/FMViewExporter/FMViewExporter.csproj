@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>FMViewExporter</AssemblyName>
+    <RootNamespace>FMViewExporter</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <DebugType>embedded</DebugType>
+    <!-- Welches Spiel und welcher BepInEx-Build die Referenzen liefern (siehe lib/ref/README.md). -->
+    <GameRefDir>$(MSBuildThisFileDirectory)..\..\lib\ref\fm27\</GameRefDir>
+    <BepInExRefDir>$(MSBuildThisFileDirectory)..\..\lib\ref\bepinex-be755\</BepInExRefDir>
+  </PropertyGroup>
+
+  <!-- Der Kern wird einkompiliert, damit im Plugin-Ordner nur eine DLL liegt. -->
+  <ItemGroup>
+    <Compile Include="..\FMViewExporter.Core\**\*.cs" Exclude="..\FMViewExporter.Core\obj\**;..\FMViewExporter.Core\bin\**" LinkBase="Core" />
+  </ItemGroup>
+
+  <!-- Nur Schnittstellen ohne Programmcode. Zur Laufzeit liefern BepInEx und das Spiel die echten Dateien. -->
+  <ItemGroup>
+    <Reference Include="$(BepInExRefDir)BepInEx.Core.dll" Private="false" />
+    <Reference Include="$(BepInExRefDir)BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="$(BepInExRefDir)BepInEx.Unity.Common.dll" Private="false" />
+    <Reference Include="$(BepInExRefDir)Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="$(BepInExRefDir)Il2CppInterop.Common.dll" Private="false" />
+    <Reference Include="$(GameRefDir)Il2Cppmscorlib.dll" Private="false" />
+    <Reference Include="$(GameRefDir)Il2CppSystem.dll" Private="false" />
+    <Reference Include="$(GameRefDir)Il2CppSystem.Core.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.UIElementsModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.TextCoreTextEngineModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.TextCoreFontEngineModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.HierarchyCoreModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.InputForUIModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.PropertiesModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.SharedInternalsModule.dll" Private="false" />
+    <Reference Include="$(GameRefDir)UnityEngine.TextRenderingModule.dll" Private="false" />
+  </ItemGroup>
+</Project>

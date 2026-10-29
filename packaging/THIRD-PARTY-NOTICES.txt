@@ -1,0 +1,16 @@
+Drittanbieter-Komponenten im Komplettpaket
+==========================================
+
+Das Komplettpaket enthaelt einen unveraenderten Build von BepInEx 6
+(Bleeding Edge, siehe packaging/bepinex.env im Repository). Quelltext und
+Lizenzen der Komponenten:
+
+- BepInEx, LGPL-2.1: https://github.com/BepInEx/BepInEx
+- Il2CppInterop, LGPL-3.0: https://github.com/BepInEx/Il2CppInterop
+- UnityDoorstop, LGPL-2.1: https://github.com/NeighTools/UnityDoorstop
+- HarmonyX, MIT: https://github.com/BepInEx/HarmonyX
+- Cpp2IL, MIT: https://github.com/SamboyCoding/Cpp2IL
+- .NET Runtime, MIT: https://github.com/dotnet/runtime
+
+Die Lizenztexte der LGPL liegen im Ordner licenses.
+FM View Exporter selbst steht unter der GNU GPL v3 (LICENSE.txt).

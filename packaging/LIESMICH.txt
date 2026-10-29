@@ -1,0 +1,33 @@
+FM View Exporter
+================
+
+Exportiert die gerade angezeigte Spielerliste in Football Manager als CSV und HTML.
+Freie Software unter der GNU GPL v3: https://github.com/ElectroHugin/FM-View-Exporter
+Nicht offiziell mit Sports Interactive oder SEGA verbunden.
+
+Das Plugin liest nur die Oberflaeche. Es veraendert keinen Spielstand und
+baut keine Internetverbindung auf.
+
+Installation (Komplettpaket)
+----------------------------
+1. Steam: Rechtsklick auf Football Manager > Verwalten > Lokale Dateien durchsuchen.
+2. Den gesamten Inhalt dieser Zip-Datei in diesen Ordner entpacken.
+   Danach liegen winhttp.dll und der Ordner BepInEx direkt neben fm.exe.
+3. Spiel starten. Der erste Start dauert einige Minuten, weil BepInEx
+   einmalig Dateien erzeugt. Dafuer laedt BepInEx einmalig Unity-Grunddateien
+   von unity.bepinex.dev herunter (das ist BepInEx, nicht dieses Plugin).
+
+Tasten
+------
+F10  schreibt ein Abbild der Oberflaeche nach
+     Dokumente\Sports Interactive\FM View Exporter\Diagnose
+F9   Export (folgt in einer spaeteren Version)
+
+Einstellungen: BepInEx\config\de.electrohugin.fmviewexporter.cfg
+(entsteht nach dem ersten Start).
+
+Entfernen
+---------
+winhttp.dll im Spielordner loeschen: Das Spiel startet dann ohne Mods.
+Komplett: zusaetzlich doorstop_config.ini, .doorstop_version, changelog.txt
+und die Ordner BepInEx und dotnet loeschen.
