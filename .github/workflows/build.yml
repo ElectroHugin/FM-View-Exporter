@@ -6,12 +6,20 @@ on:
     tags: ['v*']
   pull_request:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release-Tag, z. B. v0.0.1-erkundung.1 (leer = nur bauen)'
+        required: false
+        default: ''
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      # Ein Release entsteht durch einen gepushten Tag v* oder durch einen manuellen Start mit release_tag.
+      RELEASE_TAG: ${{ inputs.release_tag || (startsWith(github.ref, 'refs/tags/v') && github.ref_name) || '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -26,7 +34,7 @@ jobs:
         run: dotnet build src/FMViewExporter -c Release
 
       - name: Pakete schnueren
-        run: ./packaging/package.sh "${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('dev-{0}', github.run_number) }}"
+        run: ./packaging/package.sh "${RELEASE_TAG:-dev-${{ github.run_number }}}"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -36,11 +44,13 @@ jobs:
             dist/SHA256SUMS.txt
 
       - name: GitHub-Release
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(env.RELEASE_TAG, 'v')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
           files: |
             dist/*.zip
             dist/SHA256SUMS.txt
           body_path: dist/release-notes.md
-          prerelease: ${{ contains(github.ref_name, '-') }}
+          prerelease: ${{ contains(env.RELEASE_TAG, '-') }}
