@@ -30,5 +30,15 @@ namespace FMViewExporter.Core.Tests
             Assert.DoesNotContain("https://", html);
             Assert.DoesNotContain("src=", html);
         }
+
+        [Fact]
+        public void Page_shows_logo_and_favicon()
+        {
+            var table = new ExportTable("t", new[] { "A" }, DateTime.Now);
+            var html = HtmlWriter.ToHtml(table);
+
+            Assert.Contains("<header>" + Branding.LogoSvg, html);
+            Assert.Contains("href=\"data:image/png;base64," + Branding.FaviconPngBase64 + "\"", html);
+        }
     }
 }

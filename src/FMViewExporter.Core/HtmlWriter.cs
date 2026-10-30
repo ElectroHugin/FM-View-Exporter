@@ -14,10 +14,11 @@ namespace FMViewExporter.Core
     {
         private const string Style =
             "body{font-family:Segoe UI,Arial,sans-serif;margin:16px;background:#fff;color:#1b1b1b}" +
-            "h1{font-size:18px;margin:0 0 4px}p{margin:0 0 12px;color:#555;font-size:13px}" +
+            "header{display:flex;align-items:center;gap:10px;margin:0 0 12px}" +
+            "h1{font-size:18px;margin:0 0 2px}p{margin:0;color:#555;font-size:13px}" +
             "table{border-collapse:collapse;font-size:13px}" +
             "th,td{border:1px solid #d0d0d0;padding:4px 8px;text-align:left;white-space:nowrap}" +
-            "th{background:#f0f0f0;cursor:pointer;position:sticky;top:0}" +
+            "th{background:#e8f0fe;border-bottom:2px solid " + Branding.AccentColor + ";cursor:pointer;position:sticky;top:0}" +
             "tr:nth-child(even) td{background:#fafafa}";
 
         // Sortiert nach Text, oder nach Zahl, wenn beide Zellen wie Zahlen aussehen.
@@ -34,11 +35,13 @@ namespace FMViewExporter.Core
         {
             var title = Encode(table.Title);
             writer.Write("<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n");
-            writer.Write("<title>" + title + "</title>\n<style>" + Style + "</style>\n</head>\n<body>\n");
-            writer.Write("<h1>" + title + "</h1>\n");
+            writer.Write("<title>" + title + "</title>\n");
+            writer.Write("<link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + Branding.FaviconPngBase64 + "\">\n");
+            writer.Write("<style>" + Style + "</style>\n</head>\n<body>\n");
+            writer.Write("<header>" + Branding.LogoSvg + "<div>\n<h1>" + title + "</h1>\n");
             writer.Write("<p>" + table.Rows.Count.ToString(CultureInfo.InvariantCulture) + " rows, exported "
                 + table.CreatedAt.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
-                + " with FM View Exporter</p>\n");
+                + " with FM View Exporter</p>\n</div></header>\n");
             writer.Write("<table>\n<thead><tr>");
             foreach (var header in table.Headers)
                 writer.Write("<th>" + Encode(header) + "</th>");

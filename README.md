@@ -1,4 +1,4 @@
-# FM View Exporter
+<img src="docs/branding/banner.png" alt="FM View Exporter" width="100%">
 
 Exportiert die gerade angezeigte Spielerliste in Football Manager (Kader, Spielersuche) als CSV und HTML.
 Seit FM26 hat das Spiel keinen eingebauten Export mehr; dieses Plugin schliesst die Luecke.
