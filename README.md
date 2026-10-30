@@ -12,8 +12,10 @@ Seit FM26 hat das Spiel keinen eingebauten Export mehr; dieses Plugin schliesst 
 
 ## Stand
 
-Testversion (Erkundungs-Build): Das Plugin laeuft in FM27 und schreibt mit **F10** ein Abbild der
-Oberflaeche. Der eigentliche Export mit **F9** folgt in der naechsten Version.
+Testversion: **F9** exportiert die angezeigte Spielerliste (Kader, Spielersuche) als CSV und HTML
+nach `Dokumente\Sports Interactive\FM View Exporter`. Dafuer scrollt das Plugin die Liste einmal
+selbst durch; bitte waehrenddessen nichts anklicken. **F10** schreibt ein Abbild der Oberflaeche
+(hilft bei Fehlern und neuen FM-Versionen).
 
 ## Installation
 
@@ -35,6 +37,8 @@ Entfernen: `winhttp.dll` im Spielordner loeschen.
 | `Hotkeys.Diagnose` | `F10` | Abbild der Oberflaeche |
 | `Export.CsvStyle` | `English` | `English` = Komma, `German` = Semikolon |
 | `Export.OutputFolder` | leer | leer = `Dokumente\Sports Interactive\FM View Exporter` |
+| `Export.ScanColumns` | `false` | `true` = auch seitlich durch alle Spalten scrollen (langsamer) |
+| `Export.FramesPerStep` | `3` | Wartezeit je Scrollschritt; bei fehlenden Werten erhoehen |
 
 ## Entwicklung
 

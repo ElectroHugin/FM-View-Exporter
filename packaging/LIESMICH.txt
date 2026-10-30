@@ -19,9 +19,12 @@ Installation (Komplettpaket)
 
 Tasten
 ------
+F9   exportiert die angezeigte Spielerliste (Kader oder Spielersuche) als
+     CSV und HTML nach Dokumente\Sports Interactive\FM View Exporter.
+     Das Plugin scrollt die Liste dabei selbst durch; bitte warten, bis
+     im Log "Export fertig" steht.
 F10  schreibt ein Abbild der Oberflaeche nach
      Dokumente\Sports Interactive\FM View Exporter\Diagnose
-F9   Export (folgt in einer spaeteren Version)
 
 Einstellungen: BepInEx\config\de.electrohugin.fmviewexporter.cfg
 (entsteht nach dem ersten Start).
