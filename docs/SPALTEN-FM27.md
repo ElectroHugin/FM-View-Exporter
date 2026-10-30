@@ -13,6 +13,8 @@ Hinweise:
 - Sterne (`Ability`, `Potential`, `Role Ability`) werden als Zahl von 0.0 bis 5.0 exportiert.
 - Spalten, die im Spiel nur ein Symbol zeigen (z. B. `Morale`, `Happiness`), sind im Export leer.
 - `(?)` = Bedeutung noch nicht im Spiel bestätigt.
+- Im Spiel heißen die Spalten im Menü *Insert Column* oft anders als im Tabellenkopf
+  (z. B. *Player Of The Match* → `PoM`). Zuordnung: [columns/fm27-menu.csv](columns/fm27-menu.csv).
 - Spalte *Analyzer* = Feld im [FM Player Analyzer](https://github.com/ElectroHugin/FM-Player-Analyzer).
 
 ## Basis
@@ -176,7 +178,7 @@ Hinweise:
 | `Goals per 90 minutes` | Tore pro 90 Min. | Goals per 90 | Dezimal |  |
 | `Goals` | Tore | Goals | Zahl |  |
 | `xG/90` | Erwartete Tore pro 90 Min. | Expected goals per 90 | Dezimal |  |
-| `xG-OP` | xG minus Tore (Über-/Unterperformance) (?) | xG overperformance (?) | Dezimal |  |
+| `xG-OP` | Tore minus xG (Überperformance) | Expected goals overperformance | Dezimal |  |
 | `Mins/Gl` | Minuten pro Tor | Minutes per goal | Zahl |  |
 | `Assists` | Vorlagen | Assists | Zahl |  |
 
@@ -323,12 +325,12 @@ Hinweise:
 | --- | --- | --- | --- | --- |
 | `Contract Start Date` | Vertragsbeginn | Contract start date | Datum T/M/JJJJ, 15/5/2026 |  |
 | `Wage Of Offered Contract` | Gehalt im angebotenen Vertrag | Wage of offered contract | Text |  |
-| `Expires` | Vertragsende. Kommt zweimal vor; die zweite Spalte betrifft den angebotenen Vertrag (?) | Contract expiry. Appears twice; the second refers to the offered contract (?) | Datum, 30/6/2027 |  |
+| `Expires` | Vertragsende (Menü: Contract Expiry Date). Kommt zweimal vor, die zweite Spalte ist vermutlich das Leihende | Contract expiry (menu: Contract Expiry Date). Appears twice; the second is probably the loan expiry | Datum, 30/6/2027 |  |
 | `Wage Contribution` | Gehaltsanteil (?) | Wage contribution (?) | Geld |  |
 | `Wage After Tax` | Gehalt nach Steuern | Wage after tax | Geld, €170K p/w |  |
 | `Status Of Offered Contract` | Status des angebotenen Vertrags | Status of offered contract | Text |  |
 | `Set For Release` | Zur Freigabe vorgesehen | Set for release | Yes/No |  |
-| `Expires` | Ablauf des angebotenen Vertrags (?) | Offered contract expiry (?) | Datum oder N/A |  |
+| `Expires` | Ende des Leihvertrags (Menü: Loan Contract Expiry Date) (?) | Loan contract expiry (menu: Loan Contract Expiry Date) (?) | Datum oder N/A |  |
 | `Contract Status` | Vertragsart | Contract status | Text, Full Time |  |
 | `FFP Contribution` | Anteil an Financial Fair Play | FFP contribution | Geld, €375K p/w |  |
 | `Expiry Date Of Offered Contract` | Ablaufdatum des angebotenen Vertrags | Expiry date of offered contract | Datum oder N/A |  |

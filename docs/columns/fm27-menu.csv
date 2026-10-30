@@ -1,0 +1,185 @@
+menu_path,menu_entry,header
+Attributes > Goalkeeping,Aerial Reach,Aerial Reach
+Attributes > Goalkeeping,Command Of Area,Command Of Area
+Attributes > Goalkeeping,Communication,Communication
+Attributes > Goalkeeping,Eccentricity,Eccentricity
+Attributes > Goalkeeping,Handling,Handling
+Attributes > Goalkeeping,Kicking,Kicking
+Attributes > Goalkeeping,One on Ones,One On Ones
+Attributes > Goalkeeping,Punching (Tendency),Punching
+Attributes > Goalkeeping,Reflexes,Reflexes
+Attributes > Goalkeeping,Rushing out (Tendency),Rushing Out (Tendency)
+Attributes > Goalkeeping,Throwing,Throwing
+Attributes > Mental,Aggression,Aggression
+Attributes > Mental,Anticipation,Anticipation
+Attributes > Mental,Bravery,Bravery
+Attributes > Mental,Composure,Composure
+Attributes > Mental,Concentration,Concentration
+Attributes > Mental,Decisions,Decisions
+Attributes > Mental,Determination,Determination
+Attributes > Mental,Flair,Flair
+Attributes > Mental,Leadership,Leadership
+Attributes > Mental,Off The Ball,Off The Ball
+Attributes > Mental,Positioning,Positioning
+Attributes > Mental,Teamwork,Team Work
+Attributes > Mental,Vision,Vision
+Attributes > Mental,Work Rate,Work Rate
+Attributes > Physical,Acceleration,Acceleration
+Attributes > Physical,Agility,Agility
+Attributes > Physical,Balance,Balance
+Attributes > Physical,Jumping Reach,Jumping Reach
+Attributes > Physical,Natural Fitness,Natural Fitness
+Attributes > Physical,Pace,Pace
+Attributes > Physical,Stamina,Stamina
+Attributes > Physical,Strength,Strength
+Attributes > Technical,Corners,Corners
+Attributes > Technical,Crossing,Crossing
+Attributes > Technical,Dribbling,Dribbling
+Attributes > Technical,Finishing,Finishing
+Attributes > Technical,First Touch,First Touch
+Attributes > Technical,Free Kicks,Free Kick Taking
+Attributes > Technical,Heading,Heading
+Attributes > Technical,Long Shots,Long Shots
+Attributes > Technical,Long Throws,Long Throws
+Attributes > Technical,Marking,Marking
+Attributes > Technical,Passing,Passing
+Attributes > Technical,Penalty Taking,Penalty Taking
+Attributes > Technical,Tackling,Tackling
+Attributes > Technical,Technique,Technique
+Ability and Roles,Assistant manager's opinion of this player's current ability,Ability
+Ability and Roles,Assistant manager's opinion of this player's current ability in the selected role - IP,Role Ability
+Ability and Roles,Assistant manager's opinion of this player's current ability in the selected role - OOP,Role Ability Out Of Possession
+Ability and Roles,Assistant manager's opinion of this player's potential ability,Potential
+Ability and Roles,Assistant manager's opinion of this player's best position,Best Pos
+Ability and Roles,Assistant manager's opinion of this player's best tactical role,Best Role
+Ability and Roles,Player Style,Style
+Ability and Roles,Strongest Area of Game,Pros
+Ability and Roles,Weakest Area of Game,Cons
+Club,Based,Based In
+Club,Club,Club
+Club,Division,Division
+Contract > Bonuses,Appearance Fee,Appearance Fee
+Contract > Bonuses,Assist Bonus,Assist Bonus
+Contract > Bonuses,Clean Sheet Bonus,Clean Sheet Bonus
+Contract > Bonuses,Goal Bonus,Goal Bonus
+Contract > Bonuses,International Cap Bonus,Int Cap Bonus
+Contract > Bonuses,Seasonal Landmark Assist Bonus,Seasonal Landmark Assist Bonus
+Contract > Bonuses,Season Landmark Assist Bonus - Number Of Assists,Seasonal Landmark Assist Bonus - Number Of Assists
+Contract > Bonuses,Seasonal Landmark Combined Goal and Assist Bonus,Seasonal Landmark Combined Goal and Assist Bonus
+Contract > Bonuses,Seasonal Landmark Combined Goal and Assist Bonus - Number of combined Goals and Assists,Seasonal Landmark Combined Goal and Assist Bonus - Number Of Combined Goals and Assists
+Contract > Bonuses,Seasonal Landmark Goal Bonus,Seasonal Landmark Goal Bonus
+Contract > Bonuses,Seasonal Landmark Goal Bonus - Number of Goals,Seasonal Landmark Goal Bonus - Number Of Goals
+Contract > Bonuses,Unused Substitute Fee,Unused Substitute Fee
+Contract > Clauses (Release),Minimum Fee Release Clause (Domestic Club Release Fee Date Change),
+Contract > Clauses (Release),Active Non Promotion Release Clause,Active Non Promotion Release Clause
+Contract > Clauses (Release),Active Relegation Release Clause,Active Relegation Release Clause
+Contract > Clauses (Release),Injury Release Clause,Injury Release Clause
+Contract > Clauses (Release),Minimum Fee Release Clause,Minimum Fee Release Clause
+Contract > Clauses (Release),Minimum Fee Release Clause - Expiry Date,Minimum Fee Release Clause - Expiry Date
+Contract > Clauses (Release),Minimum Fee Release Clause (Clubs in a Continental Competition),Minimum Fee Release Clause (Clubs in a Continental Competition)
+Contract > Clauses (Release),Minimum Fee Release Clause (Clubs in a Continental Competition) - Expiry Date,Minimum Fee Release Clause (Clubs in a Continental Competition) - Expiry Date
+Contract > Clauses (Release),Minimum Fee Release Clause (Clubs in a Major Continental Competition),Minimum Fee Release Clause (Clubs in a Major Continental Competition)
+Contract > Clauses (Release),Minimum Fee Release Clause (Clubs in a Major Continental Competition) - Expiry Date,Minimum Fee Release Clause (Clubs in a Major Continental Competition) - Expiry Date
+Contract > Clauses (Release),Minimum Fee Release Clause (Domestic Clubs in Higher Division),Minimum Fee Release Clause (Domestic Clubs in Higher Division)
+Contract > Clauses (Release),Minimum Fee Release Clause (Domestic Clubs in Higher Division) - Expiry Date,Minimum Fee Release Clause (Domestic Clubs in Higher Division) - Expiry Date
+Contract > Clauses (Release),Minimum Fee Release Clause (Domestic Clubs),Minimum Fee Release Clause (Domestic Clubs)
+Contract > Clauses (Release),Minimum Fee Release Clause (Domestic Clubs) - Expiry Date,Minimum Fee Release Clause (Domestic Clubs) - Expiry Date
+Contract > Clauses (Release),Minimum Fee Release Clause (Foreign Clubs),Minimum Fee Release Clause (Foreign Clubs)
+Contract > Clauses (Release),Minimum Fee Release Clause (Foreign Clubs) - Expiry Date,Minimum Fee Release Clause (Foreign Clubs) - Expiry Date
+Contract > Clauses (Release),Non Promotion Release Clause,Non Promotion Release Clause
+Contract > Clauses (Release),Non-Playing Job Offer Release Clause,Non-Playing Job Offer Release Clause
+Contract > Clauses (Release),Relegation Release Clause,Relegation Release Clause
+Contract > General,Wage Of Offered Contract,Wage Of Offered Contract
+Contract > General,Contract Expiry Date,Expires
+Contract > General,Contract Start Date,Contract Start Date
+Contract > General,Contract Type,Contract Type
+Contract > General,Expiry Date Of Offered Contract,Expiry Date Of Offered Contract
+Contract > General,FFP Contribution,FFP Contribution
+Contract > General,Full/Part Time,Contract Status
+Contract > General,Loan Contract Expiry Date,Expires (2. Spalte) (?)
+Contract > General,Loan Duration,Loan Duration
+Contract > General,Set For Release,Set For Release
+Contract > General,Status Of Offered Contract,Status Of Offered Contract
+Contract > General,Transfer Options,Transfer Options
+Contract > General,Wage,Wage
+Contract > General,Wage After Tax,Wage After Tax
+Contract > General,Wage Contribution,Wage Contribution
+Dynamics and Happiness,General Happiness,Happiness (?)
+Dynamics and Happiness,Hierarchy,Hierarchy
+Dynamics and Happiness,International Happiness,International Happiness
+Dynamics and Happiness,Long-Term Plans,Long-Term Plans
+Dynamics and Happiness,Morale,Morale
+Dynamics and Happiness,Overall Happiness Level,Overall Happiness
+Dynamics and Happiness,Progress,Progress
+Dynamics and Happiness,Promises,Promises
+Dynamics and Happiness,Short-term Plans,Short-term Plans
+Dynamics and Happiness,Social Groups,Social Groups
+Fitness and Injuries,Fatigue,Fatigue
+Fitness and Injuries,Injured On,Injured On
+Fitness and Injuries,Injury,Injury
+Fitness and Injuries,Injury preventing training,Injury preventing training
+Fitness and Injuries,Injury Risk,Injury Risk
+Fitness and Injuries,Injury Susceptibility,Injury Susceptibility
+Fitness and Injuries,Match Load,Match Load
+Fitness and Injuries,Match Sharpness,SHP
+Fitness and Injuries,Overall Physical Condition,CON
+Fitness and Injuries,Overall Risk,Overall Risk
+Fitness and Injuries,Recurring Injury,Recurring Injury
+Fitness and Injuries,Time Out,Time Missed
+Fitness and Injuries,Training Load,Training Load
+Stats (General) > General,Assists,Assists
+Stats (General) > General,Average Rating Club,Average Rating Club
+Stats (General) > General,Average Rating International,Average Rating International
+Stats (General) > General,Average Minutes Per Goal,Mins/Gl
+Stats (General) > General,Average Rating,Rating (?)
+Stats (General) > General,Clean Sheets,Clean Sheets
+Stats (General) > General,Clean Sheets per 90 minutes,Cln/90
+Stats (General) > General,Club Form,Club Form
+Stats (General) > General,Conceded per 90 minutes,Con/90
+Stats (General) > General,Expected Assists,xA
+Stats (General) > General,Expected Assists per 90 minutes,xA/90
+Stats (General) > General,Expected Goals Overperformance,xG-OP
+Stats (General) > General,Expected Goals pers 90 minutes,xG/90
+Stats (General) > General,Fouls Against,Fouls Against
+Stats (General) > General,Fouls Made,Fouls
+Stats (General) > General,Game Win Ratio,Game Win Ratio
+Stats (General) > General,Games Drawn,Games Drawn
+Stats (General) > General,Games Lost,Games Lost
+Stats (General) > General,Games Missed In A Row,Games Missed In A Row
+Stats (General) > General,Games Won,Games Won
+Stats (General) > General,Goals,Goals
+Stats (General) > General,Goals Conceded,Goals Conceded
+Stats (General) > General,Goals per 90 minutes,Goals per 90 minutes
+Stats (General) > General,Form International,Form International
+Stats (General) > General,Last 5 Games,Form (?)
+Stats (General) > General,Form with Value,Form with Value
+Stats (General) > General,Last 5 Games Club,Last 5 Games Club
+Stats (General) > General,Last 5 Games International,Last 5 Games International
+Stats (General) > General,Last Match Rating,Last Match Rating
+Stats (General) > General,Minutes,Minutes
+Stats (General) > General,Minutes Per Game,Mins/Gm
+Stats (General) > General,Minutes Since Last Conceded,Minutes Since Last Conceded
+Stats (General) > General,Minutes Since Last Goal,Minutes Since Last Goal
+Stats (General) > General,Non Penalty Expected Goals,NP-xG
+Stats (General) > General,Non Penalty Expected Goals per 90,NP-xG/90
+Stats (General) > General,Penalties Taken,Pens
+Stats (General) > General,Penalties Faced,Pens Faced
+Stats (General) > General,Penalties Saved,Pens Saved
+Stats (General) > General,Penalties Saved Ratio,Pens Saved Ratio
+Stats (General) > General,Penalties Scored,Pens S
+Stats (General) > General,Penalties Scored Ratio,Pen/R
+Stats (General) > General,Player Of The Match,PoM
+Stats (General) > General,Points Won Per Game,Pts/Gm
+Stats (General) > General,Red Cards,Red
+Stats (General) > General,Starting Appearances,Starts
+Stats (General) > General,Team Goals,Team Goals
+Stats (General) > General,Team Goals Conceded,Tcon
+Stats (General) > General,Team Goals Conceded per 90 minutes,Tcon/90
+Stats (General) > General,Team Goals per 90 Minutes,Tgls/90
+Stats (General) > General,Total Saves per 90 Minutes,Saves/90
+Stats (General) > General,xG,xG
+Stats (General) > General,Yellow Cards,Yel
+Stats (General) > Career,All Time Career Appearances,AT Apps
+Stats (General) > Career,All Time Career Goals,AT Gls
+Stats (General) > Career,All Time League Appearances,AT League Apps
+Stats (General) > Career,All Time League Goals,AT League Goals
