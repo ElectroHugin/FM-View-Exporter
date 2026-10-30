@@ -82,5 +82,14 @@ namespace FMViewExporter.Core.Tests
             Assert.Equal(';', CsvStyle.German.Delimiter());
             Assert.Equal(',', CsvStyle.German.DecimalSeparator());
         }
+
+        [Fact]
+        public void German_style_writes_decimal_comma_in_values_but_not_in_headers()
+        {
+            var table = new ExportTable("Squad", new[] { "xG/90", "Pas %" }, new DateTime(2026, 10, 30));
+            table.AddRow(new[] { "0.45", "81.5%" });
+
+            Assert.Equal("xG/90;Pas %\r\n0,45;81,5%\r\n", CsvWriter.ToCsv(table, CsvStyle.German));
+        }
     }
 }

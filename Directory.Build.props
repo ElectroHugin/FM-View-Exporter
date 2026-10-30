@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <Deterministic>true</Deterministic>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>ElectroHugin</Authors>
     <Product>FM View Exporter</Product>
     <Copyright>Copyright (C) 2026 ElectroHugin</Copyright>

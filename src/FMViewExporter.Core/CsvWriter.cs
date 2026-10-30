@@ -13,9 +13,9 @@ namespace FMViewExporter.Core
         public static void Write(ExportTable table, TextWriter writer, CsvStyle style)
         {
             var delimiter = style.Delimiter();
-            WriteLine(writer, table.Headers, delimiter);
+            WriteLine(writer, table.Headers, delimiter, null);
             foreach (var row in table.Rows)
-                WriteLine(writer, row, delimiter);
+                WriteLine(writer, row, delimiter, style);
         }
 
         public static void WriteFile(ExportTable table, string path, CsvStyle style)
@@ -42,13 +42,13 @@ namespace FMViewExporter.Core
             return needsQuotes ? "\"" + value.Replace("\"", "\"\"") + "\"" : value;
         }
 
-        private static void WriteLine(TextWriter writer, IReadOnlyList<string> cells, char delimiter)
+        private static void WriteLine(TextWriter writer, IReadOnlyList<string> cells, char delimiter, CsvStyle? numbers)
         {
             for (var i = 0; i < cells.Count; i++)
             {
                 if (i > 0)
                     writer.Write(delimiter);
-                writer.Write(Escape(cells[i], delimiter));
+                writer.Write(Escape(numbers.HasValue ? CellText.ForCsv(cells[i], numbers.Value) : cells[i], delimiter));
             }
             writer.Write("\r\n");
         }

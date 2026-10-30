@@ -14,10 +14,12 @@ namespace FMViewExporter
     {
         internal static ManualLogSource Logger { get; private set; } = null!;
         internal static PluginConfig Settings { get; private set; } = null!;
+        internal static BepInEx.Configuration.ConfigFile ConfigFile { get; private set; } = null!;
 
         public override void Load()
         {
             Logger = Log;
+            ConfigFile = Config;
             Settings = new PluginConfig(Config);
 
             Logger.LogInfo($"{PluginInfo.Name} {PluginInfo.Version} geladen. Spiel: {Application.productName} {Application.version}, Unity {Application.unityVersion}");
