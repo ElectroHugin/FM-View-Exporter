@@ -179,6 +179,80 @@ Stats (General) > General,Team Goals per 90 Minutes,Tgls/90
 Stats (General) > General,Total Saves per 90 Minutes,Saves/90
 Stats (General) > General,xG,xG
 Stats (General) > General,Yellow Cards,Yel
+Stats > Aerial Challenges,Aerial Challenges Attempted,Hdrs A
+Stats > Aerial Challenges,Aerial Challenges Attempted per 90 Minutes,Aer A/90
+Stats > Aerial Challenges,Headers Lost per 90 Minutes,Hdrs L/90
+Stats > Aerial Challenges,Headers Won,Hdrs
+Stats > Aerial Challenges,Headers Won per 90 minutes,Hdrs W/90
+Stats > Aerial Challenges,Headers Won Ratio,Hdr %
+Stats > Aerial Challenges,Key Headers per 90 minutes,K Hdrs/90
+Stats > Crosses,Cross Completion Ratio,Cr C/A
+Stats > Crosses,Crosses Attempted,Cr A
+Stats > Crosses,Crosses attempted per 90 minutes,Crs A/90
+Stats > Crosses,Crosses Completed,Cr C
+Stats > Crosses,Crosses completed per 90 minutes,Cr C/90
+Stats > Crosses,Open Play Cross Completion Ratio,OP-Cr %
+Stats > Crosses,Open Play Crosses Attempted,OP-Crs A
+Stats > Crosses,Open Play Crosses attempted per 90 minutes,OP-Crs A/90
+Stats > Crosses,Open Play Crosses completed,OP-Crs C
+Stats > Crosses,Open Play Crosses completed per 90 minutes,OP-Crs C/90
+Stats > Mistakes,Mistakes Leading To Goal,MLG
+Stats > Movement,Distance Covered,Distance
+Stats > Movement,Distance Covered per 90 Minutes,Dist/90
+Stats > Movement,Dribbles Made,Drb
+Stats > Movement,Dribbles Made per 90 minutes,Drb/90
+Stats > Movement,High Intensity Sprints per 90 minutes,Sprints/90
+Stats > Movement,Offsides,Off
+Stats > Passes,Assists per 90 minutes,Asts/90
+Stats > Passes,Chances Created per 90 Minutes,Ch C/90
+Stats > Passes,Clear Cut Chances Created,CCC
+Stats > Passes,Key Passes,Key
+Stats > Passes,Key Passes per 90 minutes,KP/90
+Stats > Passes,Open Play Key Passes per 90 Minutes,OP-KP/90
+Stats > Passes,Pass Completion Ratio,Pas %
+Stats > Passes,Passes Attempted,Pas A
+Stats > Passes,Passes Attempted per 90 Minutes,Ps A/90
+Stats > Passes,Passes Completed,Ps C
+Stats > Passes,Passes Completed per 90 Minutes,Ps C/90
+Stats > Passes,Possession Lost per 90 minutes,Poss Lost/90
+Stats > Passes,Progressive Passes,PsP
+Stats > Passes,Progressive Passes per 90 minutes,Pr passes/90
+Stats > Saves,Expected Goals Prevented,xGP
+Stats > Saves,Expected Goals Prevented per 90 Minutes,xGP/90
+Stats > Saves,Expected Save Percentage,xSv %
+Stats > Saves,Save Ratio,Sv %
+Stats > Saves,Saves Held,Svh
+Stats > Saves,Saves Parried,Svp
+Stats > Saves,Saves Tipped,Svt
+Stats > Shots,Conversion Rate (%),Conv %
+Stats > Shots,Expected Goals per Shot,xG/shot
+Stats > Shots,Free Kick Shots,Free Kick Shots
+Stats > Shots,Goals From Outside The Box,Goals From Outside The Box
+Stats > Shots,Shots,Shots
+Stats > Shots,Shots From Outside The Box Per 90 minutes,Shots From Outside The Box Per 90 minutes
+Stats > Shots,Shots On Target,ShT
+Stats > Shots,Shots On Target per 90 minutes,ShT/90
+Stats > Shots,Shots On Target Ratio,Shot %
+Stats > Shots,Shots per 90 minutes,Shot/90
+Stats > Tackles and Interceptions,Blocks,Blk
+Stats > Tackles and Interceptions,Blocks per 90 minutes,Blk/90
+Stats > Tackles and Interceptions,Clearances,Clearances
+Stats > Tackles and Interceptions,Clearances per 90 minutes,Clr/90
+Stats > Tackles and Interceptions,Interceptions,Itc
+Stats > Tackles and Interceptions,Interceptions per 90 minutes,Int/90
+Stats > Tackles and Interceptions,Key Tackles,K Tck
+Stats > Tackles and Interceptions,Key Tackles per 90 minutes,K Tck/90
+Stats > Tackles and Interceptions,Possession Won per 90 minutes,Poss Won/90
+Stats > Tackles and Interceptions,Pressures Attempted,Pres A
+Stats > Tackles and Interceptions,Pressures attempted per 90 minutes,Pres A/90
+Stats > Tackles and Interceptions,Pressures completed,Pres C
+Stats > Tackles and Interceptions,Pressures completed per 90 minutes,Pres C/90
+Stats > Tackles and Interceptions,Shots Blocked Defending,Shts Blckd
+Stats > Tackles and Interceptions,Shots Blocked Defending per 90 minutes,Shts Blckd/90
+Stats > Tackles and Interceptions,Tackle completion ratio,Tck R
+Stats > Tackles and Interceptions,Tackles attempted,Tck A
+Stats > Tackles and Interceptions,Tackles completed,Tck C
+Stats > Tackles and Interceptions,Tackles per 90 minutes,Tck/90
 Stats (General) > Career,All Time Career Appearances,AT Apps
 Stats (General) > Career,All Time Career Goals,AT Gls
 Stats (General) > Career,All Time League Appearances,AT League Apps

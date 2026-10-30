@@ -218,9 +218,9 @@ Hinweise:
 
 | Spalte | Bedeutung | Meaning | Format | Analyzer |
 | --- | --- | --- | --- | --- |
-| `Svt` | Paraden, Ball festgehalten | Saves held | Zahl |  |
+| `Svt` | Paraden, Ball über die Latte/ums Tor gelenkt (Menü: Saves Tipped) | Saves tipped | Zahl |  |
 | `Svp` | Paraden, Ball abgewehrt | Saves parried | Zahl |  |
-| `Svh` | Paraden, Ball über die Latte/ums Tor gelenkt | Saves tipped | Zahl |  |
+| `Svh` | Paraden, Ball festgehalten (Menü: Saves Held) | Saves held | Zahl |  |
 | `Sv %` | Paradenquote | Save percentage | Prozent |  |
 | `xSv %` | Erwartete Paradenquote | Expected save percentage | Prozent |  |
 | `xGP/90` | Verhinderte Tore (xG) pro 90 Min. | Expected goals prevented per 90 | Dezimal |  |
@@ -272,7 +272,7 @@ Hinweise:
 | `Sprints/90` | Sprints pro 90 Min. | Sprints per 90 | Dezimal |  |
 | `Dist/90` | Laufdistanz pro 90 Min. | Distance covered per 90 | Dezimal (km) |  |
 | `Distance` | Laufdistanz | Distance covered | Text, 0.0km |  |
-| `MLG` | Spiele seit dem letzten Tor (?) | Matches since last goal (?) | Zahl |  |
+| `MLG` | Fehler, die zu Gegentoren führten | Mistakes leading to goal | Zahl |  |
 | `Form` | Form (letzte Spiele) | Form | Text, - |  |
 | `Form International` | Form in der Nationalmannschaft | International form | Text |  |
 | `Games Won` | Gewonnene Spiele | Games won | Zahl |  |
