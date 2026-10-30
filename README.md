@@ -1,4 +1,4 @@
-# FM View Exporter
+<img src="docs/branding/banner.png" alt="FM View Exporter" width="100%">
 
 **🇩🇪 Deutsch** · [🇬🇧 English](README.en.md)
 
