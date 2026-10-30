@@ -1,5 +1,10 @@
 # Empfohlene Ansicht für den FM Player Analyzer (FM27)
 
+> Maßgeblich für die Spaltenliste ist das Preset „Analyzer“ in der Schnittstellen-Notiz
+> `docs/fm27-schnittstelle.md` im Analyzer-Repo (69 Spalten, zusätzlich `Best Pos`,
+> `Best Role`, `Ability`, `Potential`). Diese Seite erklärt, wie man die Ansicht im Spiel anlegt.
+> Wichtig: `Preferred Foot`, `Left Foot`, `Right Foot` und `Inf` weit vorn einfügen.
+
 Diese Ansicht enthält genau die Spalten, die der
 [FM Player Analyzer](https://github.com/ElectroHugin/FM-Player-Analyzer) braucht, plus alle
 Attribute. Mit rund 75 Spalten bleibt sie weit unter der Grenze von etwa 255 Spalten, ab der
