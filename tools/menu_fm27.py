@@ -16,9 +16,16 @@ MENU = {
  "Club": ["Based", "Club", "Division"],
  "Contract > Bonuses": ["Appearance Fee", "Assist Bonus", "Clean Sheet Bonus", "Goal Bonus", "International Cap Bonus", "Seasonal Landmark Assist Bonus", "Season Landmark Assist Bonus - Number Of Assists", "Seasonal Landmark Combined Goal and Assist Bonus", "Seasonal Landmark Combined Goal and Assist Bonus - Number of combined Goals and Assists", "Seasonal Landmark Goal Bonus", "Seasonal Landmark Goal Bonus - Number of Goals", "Unused Substitute Fee"],
  "Contract > Clauses (Release)": ["Minimum Fee Release Clause (Domestic Club Release Fee Date Change)", "Active Non Promotion Release Clause", "Active Relegation Release Clause", "Injury Release Clause", "Minimum Fee Release Clause", "Minimum Fee Release Clause - Expiry Date", "Minimum Fee Release Clause (Clubs in a Continental Competition)", "Minimum Fee Release Clause (Clubs in a Continental Competition) - Expiry Date", "Minimum Fee Release Clause (Clubs in a Major Continental Competition)", "Minimum Fee Release Clause (Clubs in a Major Continental Competition) - Expiry Date", "Minimum Fee Release Clause (Domestic Clubs in Higher Division)", "Minimum Fee Release Clause (Domestic Clubs in Higher Division) - Expiry Date", "Minimum Fee Release Clause (Domestic Clubs)", "Minimum Fee Release Clause (Domestic Clubs) - Expiry Date", "Minimum Fee Release Clause (Foreign Clubs)", "Minimum Fee Release Clause (Foreign Clubs) - Expiry Date", "Non Promotion Release Clause", "Non-Playing Job Offer Release Clause", "Relegation Release Clause"],
+ "Contract > Clauses": ["Contract Extension After Promotion", "Match Highest Earner Clause", "1-Year Extension After League Games (Avoid Relegation Final Season)", "1-Year Extension After League Games (Final Season)", "1-Year Extension After League Games (Promoted Final Season)", "Optional Contract Extension By Club", "Percentage of Wages paid by Sponsor", "Promotion Wage Rise", "Relegation Wage Drop", "Sell On Fee Percentage", "Top Division Promotion Wage Rise", "Top Division Relegation Wage Drop", "Wage After Reaching Club League Games", "Waive Club Compensation For Managerial Role", "Yearly Wage Rise"],
  "Contract > General": ["Wage Of Offered Contract", "Contract Expiry Date", "Contract Start Date", "Contract Type", "Expiry Date Of Offered Contract", "FFP Contribution", "Full/Part Time", "Loan Contract Expiry Date", "Loan Duration", "Set For Release", "Status Of Offered Contract", "Transfer Options", "Wage", "Wage After Tax", "Wage Contribution"],
  "Dynamics and Happiness": ["General Happiness", "Hierarchy", "International Happiness", "Long-Term Plans", "Morale", "Overall Happiness Level", "Progress", "Promises", "Short-term Plans", "Social Groups"],
  "Fitness and Injuries": ["Fatigue", "Injured On", "Injury", "Injury preventing training", "Injury Risk", "Injury Susceptibility", "Match Load", "Match Sharpness", "Overall Physical Condition", "Overall Risk", "Recurring Injury", "Time Out", "Training Load"],
+ "General": ["Unique ID", "Age", "Based Nation", "Date Of Birth", "Due Date", "Eligible to Sign for Club", "EU National", "Favoured Clubs", "Favoured Personnel", "Height", "Home-Grown Status", "Left Foot", "Media Description", "Media Handling Style", "Nationality", "Nation Of Birth", "Personality", "Player Status", "Position", "Preferred Foot", "Preferred Squad Number", "Promised Squad Number", "Recent Changes (Last 2 Weeks)", "Region Of Birth", "Right Foot", "Second Nationality", "Secondary Position", "Squad Number", "World Reputation"],
+ "International": ["International Caps", "International Goals", "National Team", "Youth Apps", "Youth Goals", "International Appearances (Season)", "International Assists", "Average Rating International", "International Goals Conceded"],
+ "Squad": ["Playing Time Happiness", "Position Selected"],
+ "Tactical Effectiveness": ["Tactical Effectiveness", "Player Ability", "Player Buy-In", "Next Match Info", "Tactical Understanding", "Tactical Comprehension", "Player Capability", "Player Role Suitability", "Managerial Support", "Teammates and Staff Relationships", "Manager Tendencies", "Quality of Next Opposition Report", "Opposition Player Knowledge", "Passing Style", "Build Up", "Chance Creation", "In Possession Shape", "Line of Engagement", "Pressing Intensity", "Pressing Trap", "Out Of Possession Shape", "Player Tactical Ability", "Tactical Complexity"],
+ "Training": ["Progress", "Additional Focus", "Attacking - Tactical", "Attacking - Technical", "Defending - Tactical", "Defending - Technical", "Possession - Tactical", "Possession - Technical", "Goalkeeping", "Fitness", "Set Pieces", "Overall Training Improvement", "Postion Suitability", "Player Trait", "Position/Role", "Training Happiness", "Training Happiness Details", "Training Rating", "Workload"],
+ "Transfer": ["Actual Playing Time", "Agent", "Agreed Playing Time", "Asking Price", "Current Year +1 Future Playing Time", "Current Year +2 Future Playing Time", "Current Year +3 Future Playing Time", "Current Year +4 Future Playing Time", "Fee", "Future Playing Time", "Last Club", "Last Transfer Fee", "Loan Status", "On Loan From", "Overall Fee", "Player's Interest", "Transfer Fees Received", "Transfer Status", "Transfer Value", "Type", "Work Permit Chance", "Work Permit Required"],
  "Stats (General) > General": ["Assists", "Average Rating Club", "Average Rating International", "Average Minutes Per Goal", "Average Rating", "Clean Sheets", "Clean Sheets per 90 minutes", "Club Form", "Conceded per 90 minutes", "Expected Assists", "Expected Assists per 90 minutes", "Expected Goals Overperformance", "Expected Goals pers 90 minutes", "Fouls Against", "Fouls Made", "Game Win Ratio", "Games Drawn", "Games Lost", "Games Missed In A Row", "Games Won", "Goals", "Goals Conceded", "Goals per 90 minutes", "Form International", "Last 5 Games", "Form with Value", "Last 5 Games Club", "Last 5 Games International", "Last Match Rating", "Minutes", "Minutes Per Game", "Minutes Since Last Conceded", "Minutes Since Last Goal", "Non Penalty Expected Goals", "Non Penalty Expected Goals per 90", "Penalties Taken", "Penalties Faced", "Penalties Saved", "Penalties Saved Ratio", "Penalties Scored", "Penalties Scored Ratio", "Player Of The Match", "Points Won Per Game", "Red Cards", "Starting Appearances", "Team Goals", "Team Goals Conceded", "Team Goals Conceded per 90 minutes", "Team Goals per 90 Minutes", "Total Saves per 90 Minutes", "xG", "Yellow Cards"],
  "Stats > Aerial Challenges": ["Aerial Challenges Attempted", "Aerial Challenges Attempted per 90 Minutes", "Headers Lost per 90 Minutes", "Headers Won", "Headers Won per 90 minutes", "Headers Won Ratio", "Key Headers per 90 minutes"],
  "Stats > Crosses": ["Cross Completion Ratio", "Crosses Attempted", "Crosses attempted per 90 minutes", "Crosses Completed", "Crosses completed per 90 minutes", "Open Play Cross Completion Ratio", "Open Play Crosses Attempted", "Open Play Crosses attempted per 90 minutes", "Open Play Crosses completed", "Open Play Crosses completed per 90 minutes"],
@@ -34,10 +41,35 @@ MENU = {
 # Noch nicht erfasst (Screenshots fehlen). Bei "Stats (General) > General" fehlt evtl. der Anfang der Liste.
 # Hinweis: Das Menue blendet Spalten aus, die schon in der Ansicht stehen (z. B. Future Playing Time).
 # Bei "Stats > Crosses" ist die Liste evtl. unten abgeschnitten.
-MISSING = ["Contract > Clauses", "General", "International", "Squad", "Tactical Effectiveness", "Training", "Transfer"]
+# "Player" fehlt in den Screenshots; Listen von Contract > Clauses und General evtl. unten abgeschnitten.
+MISSING = []
 
 # Menueeintrag -> Spaltenkopf, wo beide abweichen. "(?)" = Zuordnung vermutet.
 HEADER = {
+ "Contract Extension After Promotion": "Extension After Promotion",
+ "1-Year Extension After League Games (Avoid Relegation Final Season)": "One-Year Extension After League Games (Avoid Relegation Final Season)",
+ "1-Year Extension After League Games (Final Season)": "One-Year Extension After League Games (Final Season)",
+ "1-Year Extension After League Games (Promoted Final Season)": "One-Year Extension After League Games (Promoted Final Season)",
+ "Date Of Birth": "DoB",
+ "Eligible to Sign for Club": "Eligible",
+ "Media Handling Style": "Media Handling",
+ "Nationality": "Nation (2. Spalte, voller Name)",
+ "Player Status": "Inf (?)",
+ "Preferred Squad Number": "Pref. (?)",
+ "Promised Squad Number": "Prom. (?)",
+ "Region Of Birth": "Birth Region",
+ "Second Nationality": "2nd Nat",
+ "Secondary Position": "Sec. Position",
+ "Squad Number": "No.",
+ "International Caps": "Int Apps",
+ "International Goals": "Int Gls",
+ "Youth Apps": "Yth Apps",
+ "Youth Goals": "Yth Gls",
+ "Tactical Effectiveness": "Effectiveness",
+ "Agreed Playing Time": "Playing Time",
+ "Work Permit Chance": "WP Needed (?)",
+ "Attacking - Technical": "Attacking - Tactical (2. Spalte, Kopf im Spiel falsch) (?)",
+ "Defending - Tactical": "Defending - Technical (2. Spalte, Kopf im Spiel falsch) (?)",
  "Aerial Challenges Attempted": "Hdrs A",
  "Aerial Challenges Attempted per 90 Minutes": "Aer A/90",
  "Headers Lost per 90 Minutes": "Hdrs L/90",

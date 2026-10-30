@@ -34,7 +34,9 @@ Hinweise:
 | `Division` | Liga | Division | Text, Bundesliga |  |
 | `Club` | Verein | Club | Text, FC Bayern | Club |
 | `Based In` | Land des Vereins | Country the club is based in | Text, Germany |  |
-| `Inf` | Info-Symbole (Verletzung, Sperre, Transferliste ...) | Info flags (injury, ban, transfer list ...) | Text/Kürzel | Information |
+| `Prom.` | Versprochene Rückennummer (Menü: Promised Squad Number) (?) | Promised squad number (?) | Zahl |  |
+| `Pref.` | Wunsch-Rückennummer (Menü: Preferred Squad Number) (?) | Preferred squad number (?) | Zahl |  |
+| `Inf` | Spielerstatus/Info-Symbole (Verletzung, Sperre, Transferliste ...) (Menü: Player Status (?)) | Info flags (injury, ban, transfer list ...) | Text/Kürzel | Information |
 | `Sec. Position` | Nebenposition | Secondary position | Text |  |
 | `No.` | Rückennummer | Squad number | Zahl |  |
 
@@ -125,7 +127,7 @@ Hinweise:
 | `Favoured Personnel` | Bevorzugte Personen | Favoured personnel | Text |  |
 | `Favoured Clubs` | Lieblingsvereine | Favoured clubs | Text |  |
 | `EU National` | EU-Bürger | EU national | Yes/No |  |
-| `Eligible` | Spielberechtigt (?) | Eligible (?) | Text |  |
+| `Eligible` | Für den Verein spielberechtigt (Menü: Eligible to Sign for Club) | Eligible to sign for club | Text |  |
 | `DoB` | Geburtsdatum | Date of birth | Datum |  |
 | `World Reputation` | Weltweites Ansehen | World reputation | Text, Unknown |  |
 | `Player Trait` | Spielereigenschaften (Traits) | Player traits | Text |  |
@@ -144,7 +146,6 @@ Hinweise:
 | `Morale` | Moral | Morale | Symbol (kein Text) |  |
 | `Long-Term Plans` | Langfristige Pläne | Long-term plans | Text |  |
 | `International Happiness` | Zufriedenheit in der Nationalmannschaft | International happiness | Text |  |
-| `Prom.` | Versprechen (Kurzform) (?) | Promises (short) (?) | Text |  |
 | `Manager Tendencies` | Trainerneigungen | Manager tendencies | Text |  |
 | `Teammates and Staff Relationships` | Beziehungen zu Mitspielern und Stab | Teammates and staff relationships | Text |  |
 | `Managerial Support` | Rückhalt für den Trainer | Managerial support | Text |  |
@@ -405,7 +406,7 @@ Hinweise:
 | --- | --- | --- | --- | --- |
 | `Transfer Options` | Transferoptionen | Transfer options | Text |  |
 | `Loan Duration` | Leihdauer | Loan duration | Text |  |
-| `WP Needed` | Arbeitserlaubnis nötig | Work permit needed | Yes/No |  |
+| `WP Needed` | Chance auf Arbeitserlaubnis (Menü: Work Permit Chance) (?) | Work permit chance (?) | Text |  |
 | `Last Transfer Fee` | Letzte Ablöse | Last transfer fee | Geld |  |
 | `Loan Status` | Leihstatus | Loan status | Text |  |
 | `On Loan From` | Ausgeliehen von | On loan from | Text |  |
@@ -446,12 +447,29 @@ Hinweise:
 | `Set Pieces` | Training Standards | Training: set pieces | Text |  |
 | `Overall Training Improvement` | Gesamtfortschritt im Training | Overall training improvement | Text |  |
 
+## Medizin/Belastung
+
+| Spalte | Bedeutung | Meaning | Format | Analyzer |
+| --- | --- | --- | --- | --- |
+| `Training Load` | Trainingsbelastung | Training load | Text |  |
+| `Time Missed` | Ausfallzeit | Time missed | Text |  |
+| `Recurring Injury` | Wiederkehrende Verletzung | Recurring injury | Text |  |
+| `Overall Risk` | Gesamtrisiko | Overall risk | Text |  |
+| `CON` | Kondition | Condition | Prozent/Symbol |  |
+| `SHP` | Spielfitness (Sharpness) | Match sharpness | Prozent/Symbol |  |
+| `Match Load` | Spielbelastung | Match load | Text |  |
+| `Injury Susceptibility` | Verletzungsanfälligkeit | Injury susceptibility | Text |  |
+| `Injury Risk` | Verletzungsrisiko | Injury risk | Text |  |
+| `Injury preventing training` | Verletzung verhindert Training | Injury preventing training | Text |  |
+| `Injury` | Aktuelle Verletzung | Current injury | Text |  |
+| `Injured On` | Verletzt seit | Injured on | Datum |  |
+| `Fatigue` | Ermüdung | Fatigue | Text/Symbol |  |
+
 ## Taktik
 
 | Spalte | Bedeutung | Meaning | Format | Analyzer |
 | --- | --- | --- | --- | --- |
-| `Pref.` | Bevorzugte Position/Rolle (?) | Preferred (?) | Text |  |
-| `Effectiveness` | Wirksamkeit in der Taktik (?) | Effectiveness (?) | Text |  |
+| `Effectiveness` | Taktische Wirksamkeit (Menü: Tactical Effectiveness) | Tactical effectiveness | Text |  |
 | `Tactical Understanding` | Taktisches Verständnis | Tactical understanding | Text |  |
 | `Next Match Info` | Info zum nächsten Spiel | Next match info | Text |  |
 | `Player Buy-In` | Akzeptanz der Taktik | Player buy-in | Text |  |
@@ -473,21 +491,3 @@ Hinweise:
 | `Player Capability` | Leistungsvermögen (?) | Player capability (?) | Text |  |
 | `Tactical Comprehension` | Taktisches Auffassungsvermögen | Tactical comprehension | Text |  |
 | `Postion Suitability` | Eignung für die Position (Schreibfehler im Spiel) | Position suitability (typo in game) | Text |  |
-
-## Medizin/Belastung
-
-| Spalte | Bedeutung | Meaning | Format | Analyzer |
-| --- | --- | --- | --- | --- |
-| `Training Load` | Trainingsbelastung | Training load | Text |  |
-| `Time Missed` | Ausfallzeit | Time missed | Text |  |
-| `Recurring Injury` | Wiederkehrende Verletzung | Recurring injury | Text |  |
-| `Overall Risk` | Gesamtrisiko | Overall risk | Text |  |
-| `CON` | Kondition | Condition | Prozent/Symbol |  |
-| `SHP` | Spielfitness (Sharpness) | Match sharpness | Prozent/Symbol |  |
-| `Match Load` | Spielbelastung | Match load | Text |  |
-| `Injury Susceptibility` | Verletzungsanfälligkeit | Injury susceptibility | Text |  |
-| `Injury Risk` | Verletzungsrisiko | Injury risk | Text |  |
-| `Injury preventing training` | Verletzung verhindert Training | Injury preventing training | Text |  |
-| `Injury` | Aktuelle Verletzung | Current injury | Text |  |
-| `Injured On` | Verletzt seit | Injured on | Datum |  |
-| `Fatigue` | Ermüdung | Fatigue | Text/Symbol |  |

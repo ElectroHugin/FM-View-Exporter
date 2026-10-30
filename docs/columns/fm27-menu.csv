@@ -89,6 +89,21 @@ Contract > Clauses (Release),Minimum Fee Release Clause (Foreign Clubs) - Expiry
 Contract > Clauses (Release),Non Promotion Release Clause,Non Promotion Release Clause
 Contract > Clauses (Release),Non-Playing Job Offer Release Clause,Non-Playing Job Offer Release Clause
 Contract > Clauses (Release),Relegation Release Clause,Relegation Release Clause
+Contract > Clauses,Contract Extension After Promotion,Extension After Promotion
+Contract > Clauses,Match Highest Earner Clause,Match Highest Earner Clause
+Contract > Clauses,1-Year Extension After League Games (Avoid Relegation Final Season),One-Year Extension After League Games (Avoid Relegation Final Season)
+Contract > Clauses,1-Year Extension After League Games (Final Season),One-Year Extension After League Games (Final Season)
+Contract > Clauses,1-Year Extension After League Games (Promoted Final Season),One-Year Extension After League Games (Promoted Final Season)
+Contract > Clauses,Optional Contract Extension By Club,Optional Contract Extension By Club
+Contract > Clauses,Percentage of Wages paid by Sponsor,Percentage of Wages paid by Sponsor
+Contract > Clauses,Promotion Wage Rise,Promotion Wage Rise
+Contract > Clauses,Relegation Wage Drop,Relegation Wage Drop
+Contract > Clauses,Sell On Fee Percentage,Sell On Fee Percentage
+Contract > Clauses,Top Division Promotion Wage Rise,Top Division Promotion Wage Rise
+Contract > Clauses,Top Division Relegation Wage Drop,Top Division Relegation Wage Drop
+Contract > Clauses,Wage After Reaching Club League Games,Wage After Reaching Club League Games
+Contract > Clauses,Waive Club Compensation For Managerial Role,Waive Club Compensation For Managerial Role
+Contract > Clauses,Yearly Wage Rise,Yearly Wage Rise
 Contract > General,Wage Of Offered Contract,Wage Of Offered Contract
 Contract > General,Contract Expiry Date,Expires
 Contract > General,Contract Start Date,Contract Start Date
@@ -127,6 +142,110 @@ Fitness and Injuries,Overall Risk,Overall Risk
 Fitness and Injuries,Recurring Injury,Recurring Injury
 Fitness and Injuries,Time Out,Time Missed
 Fitness and Injuries,Training Load,Training Load
+General,Unique ID,Unique ID
+General,Age,Age
+General,Based Nation,
+General,Date Of Birth,DoB
+General,Due Date,Due Date
+General,Eligible to Sign for Club,Eligible
+General,EU National,EU National
+General,Favoured Clubs,Favoured Clubs
+General,Favoured Personnel,Favoured Personnel
+General,Height,Height
+General,Home-Grown Status,Home-Grown Status
+General,Left Foot,Left Foot
+General,Media Description,Media Description
+General,Media Handling Style,Media Handling
+General,Nationality,"Nation (2. Spalte, voller Name)"
+General,Nation Of Birth,Nation of Birth
+General,Personality,Personality
+General,Player Status,Inf (?)
+General,Position,Position
+General,Preferred Foot,Preferred Foot
+General,Preferred Squad Number,Pref. (?)
+General,Promised Squad Number,Prom. (?)
+General,Recent Changes (Last 2 Weeks),Recent Changes (Last 2 Weeks)
+General,Region Of Birth,Birth Region
+General,Right Foot,Right Foot
+General,Second Nationality,2nd Nat
+General,Secondary Position,Sec. Position
+General,Squad Number,No.
+General,World Reputation,World Reputation
+International,International Caps,Int Apps
+International,International Goals,Int Gls
+International,National Team,National Team
+International,Youth Apps,Yth Apps
+International,Youth Goals,Yth Gls
+International,International Appearances (Season),International Appearances (Season)
+International,International Assists,International Assists
+International,Average Rating International,Average Rating International
+International,International Goals Conceded,International Goals Conceded
+Squad,Playing Time Happiness,Playing Time Happiness
+Squad,Position Selected,
+Tactical Effectiveness,Tactical Effectiveness,Effectiveness
+Tactical Effectiveness,Player Ability,Player Ability
+Tactical Effectiveness,Player Buy-In,Player Buy-In
+Tactical Effectiveness,Next Match Info,Next Match Info
+Tactical Effectiveness,Tactical Understanding,Tactical Understanding
+Tactical Effectiveness,Tactical Comprehension,Tactical Comprehension
+Tactical Effectiveness,Player Capability,Player Capability
+Tactical Effectiveness,Player Role Suitability,Player Role Suitability
+Tactical Effectiveness,Managerial Support,Managerial Support
+Tactical Effectiveness,Teammates and Staff Relationships,Teammates and Staff Relationships
+Tactical Effectiveness,Manager Tendencies,Manager Tendencies
+Tactical Effectiveness,Quality of Next Opposition Report,Quality of Next Opposition Report
+Tactical Effectiveness,Opposition Player Knowledge,Opposition Player Knowledge
+Tactical Effectiveness,Passing Style,Passing Style
+Tactical Effectiveness,Build Up,Build Up
+Tactical Effectiveness,Chance Creation,Chance Creation
+Tactical Effectiveness,In Possession Shape,In Possession Shape
+Tactical Effectiveness,Line of Engagement,Line of Engagement
+Tactical Effectiveness,Pressing Intensity,Pressing Intensity
+Tactical Effectiveness,Pressing Trap,Pressing Trap
+Tactical Effectiveness,Out Of Possession Shape,Out Of Possession Shape
+Tactical Effectiveness,Player Tactical Ability,Player Tactical Ability
+Tactical Effectiveness,Tactical Complexity,Tactical Complexity
+Training,Progress,Progress
+Training,Additional Focus,Additional Focus
+Training,Attacking - Tactical,Attacking - Tactical
+Training,Attacking - Technical,"Attacking - Tactical (2. Spalte, Kopf im Spiel falsch) (?)"
+Training,Defending - Tactical,"Defending - Technical (2. Spalte, Kopf im Spiel falsch) (?)"
+Training,Defending - Technical,Defending - Technical
+Training,Possession - Tactical,Possession - Tactical
+Training,Possession - Technical,Possession - Technical
+Training,Goalkeeping,Goalkeeping
+Training,Fitness,Fitness
+Training,Set Pieces,Set Pieces
+Training,Overall Training Improvement,Overall Training Improvement
+Training,Postion Suitability,Postion Suitability
+Training,Player Trait,Player Trait
+Training,Position/Role,Position/Role
+Training,Training Happiness,Training Happiness
+Training,Training Happiness Details,Training Happiness Details
+Training,Training Rating,Training Rating
+Training,Workload,Workload
+Transfer,Actual Playing Time,Actual Playing Time
+Transfer,Agent,Agent
+Transfer,Agreed Playing Time,Playing Time
+Transfer,Asking Price,Asking Price
+Transfer,Current Year +1 Future Playing Time,Current Year +1 Future Playing Time
+Transfer,Current Year +2 Future Playing Time,Current Year +2 Future Playing Time
+Transfer,Current Year +3 Future Playing Time,Current Year +3 Future Playing Time
+Transfer,Current Year +4 Future Playing Time,Current Year +4 Future Playing Time
+Transfer,Fee,Fee
+Transfer,Future Playing Time,Future Playing Time
+Transfer,Last Club,Last Club
+Transfer,Last Transfer Fee,Last Transfer Fee
+Transfer,Loan Status,Loan Status
+Transfer,On Loan From,On Loan From
+Transfer,Overall Fee,Overall Fee
+Transfer,Player's Interest,Player's Interest
+Transfer,Transfer Fees Received,Transfer Fees Received
+Transfer,Transfer Status,Transfer Status
+Transfer,Transfer Value,Transfer Value
+Transfer,Type,Type
+Transfer,Work Permit Chance,WP Needed (?)
+Transfer,Work Permit Required,Work Permit Required
 Stats (General) > General,Assists,Assists
 Stats (General) > General,Average Rating Club,Average Rating Club
 Stats (General) > General,Average Rating International,Average Rating International

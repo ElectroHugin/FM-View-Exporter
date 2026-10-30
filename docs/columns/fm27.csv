@@ -280,16 +280,16 @@ Long-Term Plans,Zufriedenheit,Langfristige Pläne,Long-term plans,Text,
 Right Foot,Person,Stärke rechter Fuß,Right foot,"Text, Very Strong",Right Foot
 Birth Region,Person,Geburtsregion,Birth region,Text,
 International Happiness,Zufriedenheit,Zufriedenheit in der Nationalmannschaft,International happiness,Text,
-Prom.,Zufriedenheit,Versprechen (Kurzform) (?),Promises (short) (?),Text,
-Pref.,Taktik,Bevorzugte Position/Rolle (?),Preferred (?),Text,
+Prom.,Basis,Versprochene Rückennummer (Menü: Promised Squad Number) (?),Promised squad number (?),Zahl,
+Pref.,Basis,Wunsch-Rückennummer (Menü: Preferred Squad Number) (?),Preferred squad number (?),Zahl,
 Preferred Foot,Person,Starker Fuß,Preferred foot,"Text, Right",Preferred Foot
-Inf,Basis,"Info-Symbole (Verletzung, Sperre, Transferliste ...)","Info flags (injury, ban, transfer list ...)",Text/Kürzel,Information
+Inf,Basis,"Spielerstatus/Info-Symbole (Verletzung, Sperre, Transferliste ...) (Menü: Player Status (?))","Info flags (injury, ban, transfer list ...)",Text/Kürzel,Information
 Nation of Birth,Person,Geburtsland,Nation of birth,Text,
 Left Foot,Person,Stärke linker Fuß,Left foot,"Text, Weak",Left Foot
 Favoured Personnel,Person,Bevorzugte Personen,Favoured personnel,Text,
 Favoured Clubs,Person,Lieblingsvereine,Favoured clubs,Text,
 EU National,Person,EU-Bürger,EU national,Yes/No,
-Eligible,Person,Spielberechtigt (?),Eligible (?),Text,
+Eligible,Person,Für den Verein spielberechtigt (Menü: Eligible to Sign for Club),Eligible to sign for club,Text,
 Due Date,Vertrag,Fälligkeitsdatum (?),Due date (?),Datum,
 DoB,Person,Geburtsdatum,Date of birth,Datum,
 Sec. Position,Basis,Nebenposition,Secondary position,Text,
@@ -312,7 +312,7 @@ International Goals Conceded,Karriere,Gegentore in Länderspielen,International 
 Fatigue,Medizin/Belastung,Ermüdung,Fatigue,Text/Symbol,
 International Appearances (Season),Karriere,Länderspiele dieser Saison,International appearances (season),Zahl,
 Yth Gls,Karriere,Tore in Jugend-Nationalmannschaften,Youth international goals,Zahl,
-Effectiveness,Taktik,Wirksamkeit in der Taktik (?),Effectiveness (?),Text,
+Effectiveness,Taktik,Taktische Wirksamkeit (Menü: Tactical Effectiveness),Tactical effectiveness,Text,
 Form with Value,Statistik allgemein,Form mit Notenwert,Form with value,Text,
 Tactical Understanding,Taktik,Taktisches Verständnis,Tactical understanding,Text,
 Next Match Info,Taktik,Info zum nächsten Spiel,Next match info,Text,
@@ -342,7 +342,7 @@ Managerial Support,Zufriedenheit,Rückhalt für den Trainer,Managerial support,T
 Player Role Suitability,Taktik,Eignung für die Rolle,Role suitability,Text,
 Player Capability,Taktik,Leistungsvermögen (?),Player capability (?),Text,
 Tactical Comprehension,Taktik,Taktisches Auffassungsvermögen,Tactical comprehension,Text,
-WP Needed,Transfer,Arbeitserlaubnis nötig,Work permit needed,Yes/No,
+WP Needed,Transfer,Chance auf Arbeitserlaubnis (Menü: Work Permit Chance) (?),Work permit chance (?),Text,
 Fitness,Training,Trainingsschwerpunkt Fitness,Training focus: fitness,Text,
 Goalkeeping,Training,Trainingsschwerpunkt Torwart,Training focus: goalkeeping,Text,
 Possession - Technical,Training,"Training Ballbesitz, technisch","Training: possession, technical",Text,
