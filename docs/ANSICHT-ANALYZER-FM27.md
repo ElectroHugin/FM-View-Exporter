@@ -62,9 +62,13 @@ Alle Attribute der Gruppen *Torwart*, *Mental*, *Physisch* und *Technisch*, also
 
 Bedeutung aller Spalten: [SPALTEN-FM27.md](SPALTEN-FM27.md).
 
-## Offen
+## Hinweise
 
-- FM24 hatte eine Spalte `Reg` (Registrierung), die der Analyzer liest. In FM27 ist sie in der
-  Testansicht nicht aufgetaucht; noch prüfen, ob es sie unter anderem Namen gibt.
-- Der Analyzer kennt bisher nur die FM24-Spaltennamen (`Acc`, `UID`, ...). Für FM27 braucht er
-  eine eigene Zuordnung in `ImportSchema.cpp`; die Tabelle oben ist die Vorlage dafür.
+- FM24 hatte eine Spalte `Reg` (Registrierung). In FM27 gibt es sie nicht; der Analyzer schaltet
+  die Registrierung für FM27 deshalb ab.
+- Der Analyzer liest FM27-Dateien über sein Profil `fm27`
+  ([FM-Player-Analyzer#4](https://github.com/ElectroHugin/FM-Player-Analyzer/pull/4),
+  Doku dort in `docs/IMPORT-FM27.md`). Von den beiden `Nation`-Spalten zählt die erste (Kürzel);
+  alle anderen Spalten aus dem Spaltenverzeichnis werden still ignoriert.
+- Ändern sich Spaltennamen in `docs/columns/fm27.csv`, muss die Zuordnung im Analyzer
+  (`ImportSchema.cpp`) mitgezogen werden.

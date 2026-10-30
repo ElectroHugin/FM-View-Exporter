@@ -4,6 +4,7 @@ Aufruf: python3 tools/columns_fm27.py
 
 Je Spalte: Kopf (exakt wie im Spiel), Gruppe, Bedeutung DE, Meaning EN, Format/Beispiel,
 Feld im FM Player Analyzer (leer = wird dort nicht verwendet).
+Aenderungen an Koepfen oder Analyzer-Feldern auch in ImportSchema.cpp des Analyzers (Profil fm27) nachziehen.
 Reihenfolge = Reihenfolge im Test-Export (Kaderansicht mit allen Spalten).
 """
 import csv, os
