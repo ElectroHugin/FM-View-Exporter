@@ -57,6 +57,16 @@ namespace FMViewExporter.Export
         private IEnumerable<int> Run()
         {
             var watch = Stopwatch.StartNew();
+
+            // Einstellungen bei jedem Export neu einlesen, damit Aenderungen ohne Neustart greifen.
+            try
+            {
+                Plugin.ConfigFile.Reload();
+            }
+            catch (Exception ex)
+            {
+                Plugin.Logger.LogWarning($"Einstellungen konnten nicht neu gelesen werden: {ex.Message}");
+            }
             var table = PlayerTable.Find();
             if (table == null)
             {

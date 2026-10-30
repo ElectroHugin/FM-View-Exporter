@@ -7,6 +7,7 @@
   Sterne (Ability/Potential) werden als Zahl geschrieben.
 - Das Plugin scrollt die Liste selbst durch und fuehrt doppelte Zeilen ueber "Unique ID" zusammen.
 - Neue Einstellungen `Export.ScanColumns` und `Export.FramesPerStep`.
+- Einstellungen werden bei jedem F9 neu eingelesen (kein Neustart noetig).
 - CSV-Stil German schreibt Dezimalzahlen mit Komma.
 - F10: Zahlenwerte (z. B. Anzahl der Listeneintraege) werden jetzt richtig angezeigt.
 
