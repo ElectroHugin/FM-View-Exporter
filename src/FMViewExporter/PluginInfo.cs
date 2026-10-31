@@ -4,6 +4,6 @@ namespace FMViewExporter
     {
         public const string Guid = "de.electrohugin.fmviewexporter";
         public const string Name = "FM View Exporter";
-        public const string Version = "0.0.2";
+        public const string Version = "1.0.0";
     }
 }

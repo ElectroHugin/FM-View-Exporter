@@ -5,7 +5,7 @@
 ### Your FM27 player lists as a spreadsheet. One key press.
 
 A free plugin for **Football Manager 27** that brings back the export Sports
-Interactive dropped: press **F9** on your squad or player search and get every
+Interactive dropped: press **F9** on your squad, player database or shortlist and get every
 column as **CSV** and **HTML**, with headers exactly as in the game.
 
 [![Download](https://img.shields.io/badge/%E2%AC%87%20Download-free-1B6AF5?style=for-the-badge)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
@@ -22,7 +22,8 @@ column as **CSV** and **HTML**, with headers exactly as in the game.
 [Get started](#-get-started-in-5-minutes) ·
 [With the FM Player Analyzer](#-made-for-the-fm-player-analyzer) ·
 [Settings](#-settings) ·
-[FAQ](#-faq)
+[FAQ](#-faq) ·
+[Code signing policy](#-code-signing-policy)
 
 </div>
 
@@ -94,7 +95,7 @@ worked, look for `FM View Exporter … geladen` in `BepInEx\LogOutput.log`.
 
 **5 · Export**
 
-Open your squad or the player search, pick a view and press **F9**. The plugin
+Open your squad, the player database or a shortlist, pick a view and press **F9**. The plugin
 scrolls through the list on its own, so please don't click anything until it is
 done. Your files are in `Documents\Sports Interactive\FM View Exporter`, for
 example `squad_20261030_192739.csv` and `.html`.
@@ -115,7 +116,7 @@ which turns them into role ratings, an optimal Best XI and signing advice.
 1. Import the ready-made Analyzer views from [`views/fm27/`](views/fm27) in the game
    (squad, player database, shortlist). How, and how to build them yourself:
    [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md).
-2. Export your squad and the player search with that view using **F9**.
+2. Export your squad, player database or shortlist with the matching view using **F9**.
 3. Import the CSV files in the Analyzer.
 
 The two projects share one column contract: the column names in
@@ -224,6 +225,27 @@ starting the workflow manually with `release_tag`; tags with a hyphen become
 pre-releases.
 
 </details>
+
+---
+
+## 🔏 Code signing policy
+
+Free code signing for the Windows setup is provided by [SignPath.io](https://about.signpath.io),
+certificate by [SignPath Foundation](https://signpath.org).
+
+- Only files built by GitHub Actions from this public repository are signed. Every signing
+  request is approved by hand.
+- **Committers and reviewers:** [ElectroHugin](https://github.com/ElectroHugin)
+- **Approvers:** [ElectroHugin](https://github.com/ElectroHugin)
+- Bundled third-party files such as [BepInEx](https://github.com/BepInEx/BepInEx) are included
+  as published by their authors and are not signed by this project.
+
+**Privacy.** This program will not transfer any information to other networked systems unless
+specifically requested by the user or the person installing or operating it. The plugin and
+the setup make no network connections. Exports are written only to your own computer. The mod
+loader BepInEx, which the setup installs, downloads Unity base libraries once from
+`unity.bepinex.dev` on the first game start; see the
+[BepInEx project](https://github.com/BepInEx/BepInEx) for its terms.
 
 ---
 

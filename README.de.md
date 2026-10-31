@@ -5,7 +5,7 @@
 ### Deine FM27-Spielerlisten als Tabelle. Ein Tastendruck.
 
 Ein kostenloses Plugin für **Football Manager 27**, das den Export zurückbringt,
-den Sports Interactive gestrichen hat: Im Kader oder in der Spielersuche **F9**
+den Sports Interactive gestrichen hat: Im Kader, in der Spieler-Datenbank oder in der Shortlist **F9**
 drücken und alle Spalten als **CSV** und **HTML** bekommen, mit den
 Spaltenköpfen genau wie im Spiel.
 
@@ -23,7 +23,8 @@ Spaltenköpfen genau wie im Spiel.
 [Loslegen](#-in-5-minuten-startklar) ·
 [Mit dem FM Player Analyzer](#-gemacht-für-den-fm-player-analyzer) ·
 [Einstellungen](#-einstellungen) ·
-[FAQ](#-faq)
+[FAQ](#-faq) ·
+[Code signing policy](#-code-signing-policy-signierung)
 
 </div>
 
@@ -96,7 +97,7 @@ Ob alles geklappt hat, zeigt die Zeile `FM View Exporter … geladen` in
 
 **5 · Exportieren**
 
-Kader oder Spielersuche öffnen, Ansicht wählen und **F9** drücken. Das Plugin
+Kader, Spieler-Datenbank oder Shortlist öffnen, Ansicht wählen und **F9** drücken. Das Plugin
 scrollt die Liste selbst durch, bitte so lange nichts anklicken. Die Dateien
 liegen in `Dokumente\Sports Interactive\FM View Exporter`, zum Beispiel
 `squad_20261030_192739.csv` und `.html`.
@@ -117,7 +118,7 @@ der daraus Rollenbewertungen, eine optimale Startelf und Transfertipps macht.
 1. Die fertigen Analyzer-Ansichten aus [`views/fm27/`](views/fm27) im Spiel importieren
    (Kader, Spieler-Datenbank, Shortlist). Anleitung, auch zum Selberbauen:
    [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md).
-2. Kader und Spielersuche mit dieser Ansicht per **F9** exportieren.
+2. Kader, Spieler-Datenbank oder Shortlist mit der passenden Ansicht per **F9** exportieren.
 3. Die CSV-Dateien im Analyzer importieren.
 
 Beide Projekte teilen sich eine Spaltenvereinbarung: Die Spaltennamen in
@@ -226,6 +227,27 @@ oder einen manuellen Start des Workflows mit `release_tag`; Tags mit Bindestrich
 werden Pre-releases.
 
 </details>
+
+---
+
+## 🔏 Code signing policy (Signierung)
+
+Die kostenlose Signierung des Windows-Setups stellt [SignPath.io](https://about.signpath.io)
+bereit, das Zertifikat kommt von der [SignPath Foundation](https://signpath.org).
+
+- Signiert werden nur Dateien, die GitHub Actions aus diesem öffentlichen Repository baut.
+  Jede Signierung wird von Hand freigegeben.
+- **Committer und Reviewer:** [ElectroHugin](https://github.com/ElectroHugin)
+- **Freigabe (Approver):** [ElectroHugin](https://github.com/ElectroHugin)
+- Mitgelieferte Dateien Dritter wie [BepInEx](https://github.com/BepInEx/BepInEx) bleiben so,
+  wie ihre Autoren sie veröffentlichen, und werden von diesem Projekt nicht signiert.
+
+**Datenschutz.** Dieses Programm überträgt keine Informationen an andere Systeme im Netz, außer
+wenn der Nutzer oder die Person, die es installiert oder betreibt, das ausdrücklich verlangt.
+Plugin und Setup bauen keine Netzwerkverbindungen auf. Exporte landen nur auf deinem eigenen
+Rechner. Der Mod-Loader BepInEx, den das Setup installiert, lädt beim ersten Spielstart einmalig
+Unity-Grundbibliotheken von `unity.bepinex.dev`; dafür gelten die Bedingungen des
+[BepInEx-Projekts](https://github.com/BepInEx/BepInEx).
 
 ---
 
