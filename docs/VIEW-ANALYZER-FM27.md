@@ -1,6 +1,6 @@
 # The "Analyzer" view for FM27
 
-Ready-made FM27 views that contains exactly the columns the
+Ready-made FM27 views that contain exactly the columns the
 [FM Player Analyzer](https://github.com/ElectroHugin/FM-Player-Analyzer) reads:
 identity, contract basics, the assistant's opinion and all 47 attributes.
 Each has 69 columns, far below the roughly 255 columns FM27 fills with values.
