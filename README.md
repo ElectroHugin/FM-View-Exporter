@@ -58,21 +58,32 @@ the old export used to.
 
 **1 · Download**
 
-Grab **`FMViewExporter-…-komplettpaket.zip`** (the full package) from the
+Grab **`FMViewExporter-…-setup.exe`** from the
 [Releases page](https://github.com/ElectroHugin/FM-View-Exporter/releases).
-It ships the mod loader [BepInEx](https://github.com/BepInEx/BepInEx), so you
-need nothing else.
+It contains everything, including the mod loader [BepInEx](https://github.com/BepInEx/BepInEx).
 
-**2 · Open the game folder**
+**2 · Run the setup**
 
-In Steam, right-click *Football Manager 27* → *Manage* → *Browse local files*.
-This is the folder that contains `fm.exe`.
+Start the setup and confirm the Windows prompt (the game folder usually needs
+administrator rights). It finds Football Manager 27 in your Steam libraries on
+its own; if not, pick the folder that contains `fm.exe`. Click **Install**.
 
-**3 · Extract**
+**3 · Pick your settings (optional)**
 
-Extract the **contents** of the zip straight into that folder, not into a
-subfolder. Afterwards `winhttp.dll`, `doorstop_config.ini` and the `BepInEx`
-folder sit next to `fm.exe`.
+In the same window you can set a file prefix such as `fc-bayern`, turn the
+timestamp off, choose CSV, HTML or both, and more. Click **Save settings**.
+
+<details>
+<summary>Prefer to install by hand?</summary>
+
+<br>
+
+Download **`FMViewExporter-…-komplettpaket.zip`** instead. In Steam, right-click
+*Football Manager 27* → *Manage* → *Browse local files* and extract the
+**contents** of the zip straight into that folder, so that `winhttp.dll`,
+`doorstop_config.ini` and the `BepInEx` folder sit next to `fm.exe`.
+
+</details>
 
 **4 · Start the game**
 
@@ -89,8 +100,8 @@ done. Your files are in `Documents\Sports Interactive\FM View Exporter`, for
 example `squad_20261030_192739.csv` and `.html`.
 
 > **Tips**
-> - Updating? Download only `FMViewExporter-…-plugin.zip`, replace `BepInEx\plugins\FMViewExporter.dll` and restart the game.
-> - German Excel? Set `Export.CsvStyle = German` (see [Settings](#-settings)). It applies from the next F9, no restart needed.
+> - Updating? Run the new setup and click **Update**. Your settings are kept.
+> - German Excel? Set the CSV style to `German` in the setup (see [Settings](#-settings)). It applies from the next F9, no restart needed.
 > - Keep export views lean. FM27 only fills roughly the first 255 columns of a view, in the game too.
 
 ---
@@ -130,8 +141,10 @@ becomes `MLG`), which is why both lists exist.
 
 ## 🔧 Settings
 
-The file `BepInEx\config\de.electrohugin.fmviewexporter.cfg` in the game folder
-is created on the first start. Changes in the `Export` section apply from the
+The easiest way is the setup program: run it again at any time and change the
+settings there. They are stored in
+`BepInEx\config\de.electrohugin.fmviewexporter.cfg` in the game folder, which you
+can also edit by hand. Changes in the `Export` section apply from the
 next F9, hotkeys after a restart.
 
 | Setting | Default | Meaning |
@@ -174,7 +187,7 @@ mods.
 Football Manager 27 on Steam for Windows. Linux (Proton) will follow.
 
 **How do I uninstall it?**
-Delete `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
+Run the setup and click **Uninstall**. By hand: delete `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
 `changelog.txt` and the folders `BepInEx` and `dotnet` from the game folder.
 Your saves are not affected.
 
@@ -194,6 +207,8 @@ attach `LogOutput.log`. A dump made with **F10** (in
 |---|---|
 | [`src/FMViewExporter.Core`](src/FMViewExporter.Core) | Table model, CSV and HTML writers (no Unity, unit tested) |
 | [`src/FMViewExporter`](src/FMViewExporter) | The BepInEx plugin (.NET 6) |
+| [`src/FMViewExporter.Setup`](src/FMViewExporter.Setup) | Setup program for Windows (.NET Framework 4.8): install, update, uninstall, settings |
+| [`src/FMViewExporter.Setup.Logic`](src/FMViewExporter.Setup.Logic) | Its logic without UI (unit tested) |
 | [`tests/`](tests) | Tests for the core |
 | [`lib/ref/`](lib/ref) | Reference assemblies for compiling, see [lib/ref/README.md](lib/ref/README.md) |
 | [`packaging/`](packaging) | Full package with BepInEx |

@@ -10,5 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\FMViewExporter.Core\FMViewExporter.Core.csproj" />
+    <ProjectReference Include="..\..\src\FMViewExporter.Setup.Logic\FMViewExporter.Setup.Logic.csproj" />
   </ItemGroup>
 </Project>

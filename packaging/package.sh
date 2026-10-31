@@ -2,6 +2,8 @@
 # Baut aus dem fertigen Plugin zwei Zips:
 #   FMViewExporter-<version>-plugin.zip         nur das Plugin
 #   FMViewExporter-<version>-komplettpaket.zip  BepInEx + Plugin, direkt in den Spielordner entpacken
+# und das Setup-Programm mit eingebautem Komplettpaket:
+#   FMViewExporter-<version>-setup.exe
 set -euo pipefail
 
 VERSION="${1:-dev}"
@@ -53,10 +55,17 @@ cp "$ROOT/packaging/licenses/"*.txt "$FULL/BepInEx/plugins/FMViewExporter/licens
 cp "$ROOT/packaging/LIESMICH.txt" "$FULL/FM View Exporter - LIESMICH.txt"
 (cd "$FULL" && zip -qr "$DIST/FMViewExporter-$VERSION-komplettpaket.zip" .)
 
+# Setup-Programm (.NET Framework 4.8) mit dem Komplettpaket als eingebetteter Ressource
+dotnet build "$ROOT/src/FMViewExporter.Setup" -c Release \
+  -p:PayloadZip="$DIST/FMViewExporter-$VERSION-komplettpaket.zip" \
+  -p:InformationalVersion="$VERSION" -o "$STAGE/setup"
+cp "$STAGE/setup/FMViewExporter-Setup.exe" "$DIST/FMViewExporter-$VERSION-setup.exe"
+
 WINHTTP_SHA="$(sha256sum "$FULL/winhttp.dll" | cut -d' ' -f1)"
-(cd "$DIST" && sha256sum ./*.zip > SHA256SUMS.txt)
+(cd "$DIST" && sha256sum ./*.zip ./*.exe > SHA256SUMS.txt)
 
 cat > "$DIST/release-notes.md" <<NOTES
+**Setup** (empfohlen): \`FMViewExporter-$VERSION-setup.exe\` starten. Es findet FM27 selbst, installiert BepInEx und das Plugin, aktualisiert, deinstalliert und bearbeitet die Einstellungen.
 **Komplettpaket** (BepInEx #$BEPINEX_BUILD + Plugin): Inhalt direkt in den Spielordner entpacken, neben fm.exe.
 **Plugin**: nur das Plugin, wenn BepInEx schon installiert ist.
 

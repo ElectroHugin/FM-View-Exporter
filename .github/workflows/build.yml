@@ -41,6 +41,7 @@ jobs:
           name: FMViewExporter-${{ github.run_number }}
           path: |
             dist/*.zip
+            dist/*.exe
             dist/SHA256SUMS.txt
 
       - name: GitHub-Release
@@ -51,6 +52,7 @@ jobs:
           target_commitish: ${{ github.sha }}
           files: |
             dist/*.zip
+            dist/*.exe
             dist/SHA256SUMS.txt
           body_path: dist/release-notes.md
           prerelease: ${{ contains(env.RELEASE_TAG, '-') }}

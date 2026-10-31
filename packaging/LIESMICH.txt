@@ -8,8 +8,12 @@ Nicht offiziell mit Sports Interactive oder SEGA verbunden.
 Das Plugin liest nur die Oberflaeche. Es veraendert keinen Spielstand und
 baut keine Internetverbindung auf.
 
-Installation (Komplettpaket)
-----------------------------
+Installation
+------------
+Am einfachsten mit FMViewExporter-<version>-setup.exe aus den Releases:
+starten, Installieren klicken, fertig. Das Setup bearbeitet auch die Einstellungen.
+
+Von Hand (Komplettpaket):
 1. Steam: Rechtsklick auf Football Manager > Verwalten > Lokale Dateien durchsuchen.
 2. Den gesamten Inhalt dieser Zip-Datei in diesen Ordner entpacken.
    Danach liegen winhttp.dll und der Ordner BepInEx direkt neben fm.exe.

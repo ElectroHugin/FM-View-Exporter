@@ -2,6 +2,11 @@
 
 ## Unveroeffentlicht
 
+- Neues Setup-Programm `FMViewExporter-<version>-setup.exe` (Englisch, oben rechts auf Deutsch umschaltbar): findet FM27 in den
+  Steam-Bibliotheken, installiert BepInEx und das Plugin, aktualisiert ohne die Einstellungen zu
+  verlieren, deinstalliert (BepInEx bleibt, wenn weitere Mods da sind) und bearbeitet alle
+  Einstellungen in einem Formular. Drei Reiter (Installation, Einstellungen, Über) mit
+  „Speichern" immer sichtbar; passt sich der Windows-Skalierung an (125 %, 150 %).
 - Neue Einstellungen `Export.FilePrefix` (z. B. `fc-bayern` -> `fc-bayern-squad.csv`),
   `Export.Timestamp` (false = fester Dateiname, wird ueberschrieben) und `Export.Formats`
   (Both, CsvOnly, HtmlOnly).
