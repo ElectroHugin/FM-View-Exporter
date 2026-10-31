@@ -103,7 +103,7 @@ Die Exporte passen direkt zum
 der daraus Rollenbewertungen, eine optimale Startelf und Transfertipps macht.
 
 1. Im Spiel einmal die Analyzer-Ansicht anlegen, wie in
-   [docs/ANSICHT-ANALYZER-FM27.md](docs/ANSICHT-ANALYZER-FM27.md) beschrieben.
+   [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md) beschrieben.
 2. Kader und Spielersuche mit dieser Ansicht per **F9** exportieren.
 3. Die CSV-Dateien im Analyzer importieren.
 

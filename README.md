@@ -102,7 +102,7 @@ The exports feed straight into the
 which turns them into role ratings, an optimal Best XI and signing advice.
 
 1. Create the Analyzer view once in the game, as described in
-   [docs/ANSICHT-ANALYZER-FM27.md](docs/ANSICHT-ANALYZER-FM27.md).
+   [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md).
 2. Export your squad and the player search with that view using **F9**.
 3. Import the CSV files in the Analyzer.
 
