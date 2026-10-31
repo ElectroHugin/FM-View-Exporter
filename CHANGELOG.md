@@ -1,5 +1,11 @@
 # Changelog
 
+## Unveroeffentlicht
+
+- F9 findet die Spielertabelle jetzt auch, wenn sie nicht #playertable heisst (z. B. Shortlist):
+  Rueckfall ueber den Aufbau der Tabelle (#column-headers plus Zeilenliste).
+- Wird keine Tabelle gefunden, schreibt das Log Diagnose-Hinweise, wo Kopf- und Tabellenzeilen liegen.
+
 ## 0.0.2-test.1 (Testversion)
 
 - F9 exportiert die Spielertabelle (#playertable) als CSV und HTML: alle Spalten mit den
