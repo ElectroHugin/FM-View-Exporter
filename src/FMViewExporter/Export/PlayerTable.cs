@@ -39,7 +39,8 @@ namespace FMViewExporter.Export
 
         /// <summary>
         /// Sucht die sichtbare Spielertabelle mit der groessten Flaeche. Zuerst ueber den Namen
-        /// #playertable (Kader, Spielersuche); gibt es keine, ueber den Aufbau der Tabelle
+        /// #playertable (Kader, Spielersuche) oder #playertable... (z. B. #playertableshortlist
+        /// in der Shortlist); gibt es keine, ueber den Aufbau der Tabelle
         /// (#column-headers plus Zeilen-Liste), weil andere Ansichten wie die Shortlist die
         /// gleiche Tabelle unter anderem Namen verwenden koennen.
         /// </summary>
@@ -55,7 +56,7 @@ namespace FMViewExporter.Export
             var bestArea = 0f;
             foreach (var panel in panels)
             {
-                foreach (var candidate in Descendants(panel.Root, e => e.name == TableName && !IsHidden(e)))
+                foreach (var candidate in Descendants(panel.Root, e => IsTableName(e.name) && !IsHidden(e)))
                 {
                     var area = Area(candidate);
                     if (area <= bestArea)
@@ -116,7 +117,7 @@ namespace FMViewExporter.Export
             foreach (var panel in RuntimePanels.Find())
             {
                 var found = Descendants(panel.Root, e => !IsHidden(e) &&
-                    (e.name == HeaderContainerName || e.name == TableName || e.ClassListContains(RowClass)));
+                    (e.name == HeaderContainerName || IsTableName(e.name) || e.ClassListContains(RowClass)));
                 var seen = new HashSet<string>();
                 foreach (var element in found)
                 {
@@ -140,6 +141,9 @@ namespace FMViewExporter.Export
             names.Reverse();
             return names.Count == 0 ? "(ohne Namen)" : string.Join(" > ", names);
         }
+
+        private static bool IsTableName(string? name) =>
+            name != null && name.StartsWith(TableName, StringComparison.OrdinalIgnoreCase);
 
         private static float Area(VisualElement element)
         {
@@ -229,6 +233,10 @@ namespace FMViewExporter.Export
 
         private static string GuessViewName(VisualElement table)
         {
+            // #playertableshortlist -> "shortlist"
+            var tableName = table.name;
+            if (tableName != null && tableName.Length > TableName.Length && IsTableName(tableName))
+                return tableName.Substring(TableName.Length);
             for (var e = table.parent; e != null; e = e.parent)
             {
                 var name = e.name;
