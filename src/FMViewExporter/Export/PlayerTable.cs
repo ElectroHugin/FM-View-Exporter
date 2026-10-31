@@ -37,17 +37,28 @@ namespace FMViewExporter.Export
         /// <summary>Name der Ansicht fuer den Dateinamen, z. B. "squad" aus #SquadScreen.</summary>
         public string ViewName { get; }
 
-        /// <summary>Sucht die sichtbare Spielertabelle mit der groessten Flaeche.</summary>
+        /// <summary>
+        /// Sucht die sichtbare Spielertabelle mit der groessten Flaeche. Zuerst ueber den Namen
+        /// #playertable (Kader, Spielersuche) oder #playertable... (z. B. #playertableshortlist
+        /// in der Shortlist); gibt es keine, ueber den Aufbau der Tabelle
+        /// (#column-headers plus Zeilen-Liste), weil andere Ansichten wie die Shortlist die
+        /// gleiche Tabelle unter anderem Namen verwenden koennen.
+        /// </summary>
         public static PlayerTable? Find()
+        {
+            var panels = RuntimePanels.Find();
+            return FindByName(panels) ?? FindByStructure(panels);
+        }
+
+        private static PlayerTable? FindByName(IEnumerable<RuntimePanels.PanelInfo> panels)
         {
             PlayerTable? best = null;
             var bestArea = 0f;
-            foreach (var panel in RuntimePanels.Find())
+            foreach (var panel in panels)
             {
-                foreach (var candidate in Descendants(panel.Root, e => e.name == TableName && !IsHidden(e)))
+                foreach (var candidate in Descendants(panel.Root, e => IsTableName(e.name) && !IsHidden(e)))
                 {
-                    var bounds = candidate.worldBound;
-                    var area = bounds.width * bounds.height;
+                    var area = Area(candidate);
                     if (area <= bestArea)
                         continue;
 
@@ -61,6 +72,83 @@ namespace FMViewExporter.Export
                 }
             }
             return best;
+        }
+
+        private const int MaxStructureLevels = 8;
+
+        private static PlayerTable? FindByStructure(IEnumerable<RuntimePanels.PanelInfo> panels)
+        {
+            PlayerTable? best = null;
+            var bestArea = 0f;
+            foreach (var panel in panels)
+            {
+                foreach (var headers in Descendants(panel.Root, e => e.name == HeaderContainerName && !IsHidden(e)))
+                {
+                    // Vom Kopfbereich nach oben gehen, bis ein Vorfahr auch die Zeilen enthaelt.
+                    var level = 0;
+                    for (var candidate = headers.parent; candidate != null && level < MaxStructureLevels; candidate = candidate.parent, level++)
+                    {
+                        if (IsHidden(candidate))
+                            break;
+                        var rows = FindRowScrollView(candidate);
+                        if (rows == null)
+                            continue;
+
+                        var area = Area(candidate);
+                        if (area > bestArea)
+                        {
+                            best = new PlayerTable(candidate, headers, rows, GuessViewName(candidate));
+                            bestArea = area;
+                        }
+                        break;
+                    }
+                }
+            }
+            return best;
+        }
+
+        /// <summary>
+        /// Kurze Beschreibung fuers Log, wenn keine Tabelle gefunden wurde: wo Kopfzeilen und
+        /// Tabellenzeilen liegen (Namenskette der Vorfahren), damit sich die Ansicht nachziehen laesst.
+        /// </summary>
+        public static List<string> DescribeCandidates()
+        {
+            var result = new List<string>();
+            foreach (var panel in RuntimePanels.Find())
+            {
+                var found = Descendants(panel.Root, e => !IsHidden(e) &&
+                    (e.name == HeaderContainerName || IsTableName(e.name) || e.ClassListContains(RowClass)));
+                var seen = new HashSet<string>();
+                foreach (var element in found)
+                {
+                    var kind = element.ClassListContains(RowClass) ? "Zeile" : "#" + element.name;
+                    var line = kind + " in " + AncestorPath(element);
+                    if (seen.Add(line) && result.Count < 10)
+                        result.Add(line);
+                }
+            }
+            return result;
+        }
+
+        private static string AncestorPath(VisualElement element)
+        {
+            var names = new List<string>();
+            for (var e = element.parent; e != null && names.Count < 12; e = e.parent)
+            {
+                if (!string.IsNullOrEmpty(e.name))
+                    names.Add("#" + e.name);
+            }
+            names.Reverse();
+            return names.Count == 0 ? "(ohne Namen)" : string.Join(" > ", names);
+        }
+
+        private static bool IsTableName(string? name) =>
+            name != null && name.StartsWith(TableName, StringComparison.OrdinalIgnoreCase);
+
+        private static float Area(VisualElement element)
+        {
+            var bounds = element.worldBound;
+            return bounds.width * bounds.height;
         }
 
         /// <summary>Spaltenkoepfe in Anzeige-Reihenfolge; die Auswahlspalte hat einen leeren Kopf.</summary>
@@ -145,6 +233,10 @@ namespace FMViewExporter.Export
 
         private static string GuessViewName(VisualElement table)
         {
+            // #playertableshortlist -> "shortlist"
+            var tableName = table.name;
+            if (tableName != null && tableName.Length > TableName.Length && IsTableName(tableName))
+                return tableName.Substring(TableName.Length);
             for (var e = table.parent; e != null; e = e.parent)
             {
                 var name = e.name;

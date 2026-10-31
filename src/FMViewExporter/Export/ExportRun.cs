@@ -70,7 +70,19 @@ namespace FMViewExporter.Export
             var table = PlayerTable.Find();
             if (table == null)
             {
-                Plugin.Logger.LogWarning("Keine Spielerliste gefunden. Bitte Kader oder Spielersuche oeffnen und F9 erneut druecken.");
+                Plugin.Logger.LogWarning("Keine Spielerliste gefunden. Bitte Kader, Spielersuche oder Shortlist oeffnen und F9 erneut druecken.");
+                try
+                {
+                    var hints = PlayerTable.DescribeCandidates();
+                    if (hints.Count == 0)
+                        Plugin.Logger.LogInfo("Diagnose: keine Tabellenteile sichtbar. Ein Abbild mit F10 hilft bei der Fehlersuche.");
+                    foreach (var hint in hints)
+                        Plugin.Logger.LogInfo("Diagnose: " + hint);
+                }
+                catch (Exception ex)
+                {
+                    Plugin.Logger.LogInfo($"Diagnose nicht moeglich: {ex.Message}");
+                }
                 yield break;
             }
 
