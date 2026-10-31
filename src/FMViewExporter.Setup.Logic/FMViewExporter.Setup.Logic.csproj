@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Logik des Setup-Programms ohne Oberflaeche und ohne Windows-APIs. Wird in CI getestet und
+       zusaetzlich direkt in FMViewExporter.Setup einkompiliert, damit nur eine .exe entsteht. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>FMViewExporter.Setup</RootNamespace>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="FMViewExporter.Core.Tests" />
+  </ItemGroup>
+</Project>

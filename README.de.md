@@ -60,19 +60,31 @@ Datei, so wie früher der eingebaute Export.
 **1 · Herunterladen**
 
 Unter [Releases](https://github.com/ElectroHugin/FM-View-Exporter/releases) die
-Datei **`FMViewExporter-…-komplettpaket.zip`** laden. Sie bringt den Mod-Lader
-[BepInEx](https://github.com/BepInEx/BepInEx) gleich mit, sonst brauchst du nichts.
+Datei **`FMViewExporter-…-setup.exe`** laden. Sie enthält alles, auch den Mod-Lader
+[BepInEx](https://github.com/BepInEx/BepInEx).
 
-**2 · Spielordner öffnen**
+**2 · Setup starten**
 
-In Steam Rechtsklick auf *Football Manager 27* → *Verwalten* → *Lokale Dateien
-durchsuchen*. Das ist der Ordner, in dem `fm.exe` liegt.
+Setup starten und die Windows-Abfrage bestätigen (der Spielordner braucht meist
+Administratorrechte). Es findet Football Manager 27 in deinen Steam-Bibliotheken
+selbst; sonst den Ordner mit `fm.exe` auswählen. Dann **Installieren** klicken.
 
-**3 · Entpacken**
+**3 · Einstellungen wählen (optional)**
 
-Den **Inhalt** der Zip-Datei direkt in diesen Ordner entpacken, nicht in einen
-Unterordner. Danach liegen `winhttp.dll`, `doorstop_config.ini` und der Ordner
-`BepInEx` neben `fm.exe`.
+Im selben Fenster lassen sich ein Dateiname-Präfix wie `fc-bayern`, der
+Zeitstempel, CSV, HTML oder beides und mehr einstellen. **Einstellungen speichern** klicken.
+
+<details>
+<summary>Lieber von Hand installieren?</summary>
+
+<br>
+
+Stattdessen **`FMViewExporter-…-komplettpaket.zip`** laden. In Steam Rechtsklick auf
+*Football Manager 27* → *Verwalten* → *Lokale Dateien durchsuchen* und den **Inhalt**
+der Zip-Datei direkt in diesen Ordner entpacken, sodass `winhttp.dll`,
+`doorstop_config.ini` und der Ordner `BepInEx` neben `fm.exe` liegen.
+
+</details>
 
 **4 · Spiel starten**
 
@@ -90,8 +102,8 @@ liegen in `Dokumente\Sports Interactive\FM View Exporter`, zum Beispiel
 `squad_20261030_192739.csv` und `.html`.
 
 > **Tipps**
-> - Update? Nur `FMViewExporter-…-plugin.zip` laden, `BepInEx\plugins\FMViewExporter.dll` ersetzen und das Spiel neu starten.
-> - Deutsches Excel? `Export.CsvStyle = German` setzen (siehe [Einstellungen](#-einstellungen)). Gilt ab dem nächsten F9, ohne Neustart.
+> - Update? Das neue Setup starten und **Aktualisieren** klicken. Deine Einstellungen bleiben erhalten.
+> - Deutsches Excel? Im Setup den CSV-Stil `German` wählen (siehe [Einstellungen](#-einstellungen)). Gilt ab dem nächsten F9, ohne Neustart.
 > - Exportansichten schlank halten. FM27 befüllt nur ungefähr die ersten 255 Spalten einer Ansicht, auch im Spiel selbst.
 
 ---
@@ -131,8 +143,9 @@ Goal* wird `MLG`), deshalb gibt es beide Listen.
 
 ## 🔧 Einstellungen
 
-Die Datei `BepInEx\config\de.electrohugin.fmviewexporter.cfg` im Spielordner
-entsteht beim ersten Start. Änderungen im Abschnitt `Export` gelten ab dem
+Am einfachsten über das Setup-Programm: jederzeit erneut starten und die Einstellungen
+dort ändern. Sie stehen in `BepInEx\config\de.electrohugin.fmviewexporter.cfg` im
+Spielordner, die man auch von Hand bearbeiten kann. Änderungen im Abschnitt `Export` gelten ab dem
 nächsten F9, Tasten erst nach einem Neustart.
 
 | Einstellung | Standard | Bedeutung |
@@ -176,7 +189,7 @@ ohne Mods.
 Football Manager 27 über Steam unter Windows. Linux (Proton) folgt später.
 
 **Wie deinstalliere ich es?**
-Im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
+Setup starten und **Deinstallieren** klicken. Von Hand: im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
 `changelog.txt` sowie die Ordner `BepInEx` und `dotnet` löschen. Spielstände
 bleiben unberührt.
 
@@ -196,6 +209,8 @@ und `LogOutput.log` anhängen. Hilfreich ist auch ein Abbild mit **F10** aus
 |---|---|
 | [`src/FMViewExporter.Core`](src/FMViewExporter.Core) | Tabellenmodell, CSV- und HTML-Schreiber (ohne Unity, getestet) |
 | [`src/FMViewExporter`](src/FMViewExporter) | Das BepInEx-Plugin (.NET 6) |
+| [`src/FMViewExporter.Setup`](src/FMViewExporter.Setup) | Setup-Programm für Windows (.NET Framework 4.8): Installieren, Aktualisieren, Deinstallieren, Einstellungen |
+| [`src/FMViewExporter.Setup.Logic`](src/FMViewExporter.Setup.Logic) | Dessen Logik ohne Oberfläche (getestet) |
 | [`tests/`](tests) | Tests für den Kern |
 | [`lib/ref/`](lib/ref) | Referenz-Assemblies zum Kompilieren, siehe [lib/ref/README.md](lib/ref/README.md) |
 | [`packaging/`](packaging) | Komplettpaket mit BepInEx |

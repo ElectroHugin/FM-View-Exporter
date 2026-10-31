@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Setup-Programm fuer Windows: installiert BepInEx und das Plugin und bearbeitet die Einstellungen.
+       .NET Framework 4.8 ist in Windows 10/11 eingebaut, die .exe braucht also keine weitere Laufzeit.
+       Das Komplettpaket wird beim Bauen eingebettet: dotnet build -p:PayloadZip=pfad\zum\komplettpaket.zip -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>FMViewExporter.Setup</RootNamespace>
+    <AssemblyName>FMViewExporter-Setup</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>setup.ico</ApplicationIcon>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\FMViewExporter.Setup.Logic\*.cs" LinkBase="Logic" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(PayloadZip)' != ''">
+    <EmbeddedResource Include="$(PayloadZip)" LogicalName="payload.zip" />
+  </ItemGroup>
+</Project>
