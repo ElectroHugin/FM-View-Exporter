@@ -64,6 +64,9 @@ The column menu of the Player Database differs slightly from the squad screen: *
 called *General Info* there, and *Media Handling Style* is just *Media Handling*. The headers in
 the table are the same.
 
+**`Personality` is not offered in the Player Database.** The Player Database view therefore has no
+Personality column; the Analyzer treats it as unknown for those players.
+
 ### Player Database only
 
 | Column in the game | Header in the export | Note |
