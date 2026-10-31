@@ -1,18 +1,25 @@
 # The "Analyzer" view for FM27
 
-A ready-made FM27 view that contains exactly the columns the
+Ready-made FM27 views that contains exactly the columns the
 [FM Player Analyzer](https://github.com/ElectroHugin/FM-Player-Analyzer) reads:
 identity, contract basics, the assistant's opinion and all 47 attributes.
-It has 69 columns, far below the roughly 255 columns FM27 fills with values.
+Each has 69 columns, far below the roughly 255 columns FM27 fills with values.
 
-## Use the ready-made view
+## Use the ready-made views
 
-1. Download [`views/fm27/FM27-PlayerAnalyzer-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Standard.fmf).
-2. In FM27 open your squad or the player search, open the view menu of the table and choose
-   *Import View…*. Pick `FM27-PlayerAnalyzer-Standard.fmf`. In the game the view is called *Player Analyzer – Standard*.
-3. Select the view and press **F9**. Use the same view for the squad and the player search.
+FM27 keeps separate views per screen: a view saved in the squad screen cannot be used in the
+scouting screen and vice versa. That is why there is one file per screen, with the same columns.
 
-> The `.fmf` file is not in the repository yet. Until it is, build the view yourself as
+| Screen | File | Name in the game |
+| --- | --- | --- |
+| Squad | [`views/fm27/FM27-PlayerAnalyzer-Squad-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Squad-Standard.fmf) | *Player Analyzer – Squad Standard* |
+| Scouting / player search | [`views/fm27/FM27-PlayerAnalyzer-Scouting-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Scouting-Standard.fmf) | *Player Analyzer – Scouting Standard* |
+
+1. Download the file for the screen you want.
+2. In FM27 open that screen, open the view menu of the table and choose *Import View…*.
+3. Select the view and press **F9**.
+
+> The `.fmf` files are not in the repository yet. Until they are, build the views yourself as
 > described below.
 
 ## Build it yourself
@@ -65,11 +72,12 @@ noted.
 
 ### Save and share it
 
-Name the view *Player Analyzer – Standard*. Then open the view menu, choose *Export Current View…* and save it as
-`FM27-PlayerAnalyzer-Standard.fmf`.
+Build the view once in each screen. Name it after the screen, then open the view menu, choose
+*Export Current View…* and save it under the matching file name from the table above.
 
-Naming scheme for all views shipped with the exporter: `FM27-PlayerAnalyzer-<Preset>.fmf`, for example
-`-Standard`, `-Full` and `-Stats` for the presets "Analyzer", "Analyzer-Voll" and "Statistik".
+Naming scheme for all views shipped with the exporter:
+`FM27-PlayerAnalyzer-<Screen>-<Preset>.fmf`. `<Screen>` is `Squad` or `Scouting`, `<Preset>` is
+`Standard`, `Full` or `Stats` for the presets "Analyzer", "Analyzer-Voll" and "Statistik".
 
 ## Notes
 
