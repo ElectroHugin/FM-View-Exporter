@@ -102,8 +102,9 @@ Die Exporte passen direkt zum
 [**FM Player Analyzer**](https://github.com/ElectroHugin/FM-Player-Analyzer),
 der daraus Rollenbewertungen, eine optimale Startelf und Transfertipps macht.
 
-1. Im Spiel einmal die Analyzer-Ansicht anlegen, wie in
-   [docs/ANSICHT-ANALYZER-FM27.md](docs/ANSICHT-ANALYZER-FM27.md) beschrieben.
+1. Die fertigen Analyzer-Ansichten aus [`views/fm27/`](views/fm27) im Spiel importieren
+   (Kader, Spieler-Datenbank, Shortlist). Anleitung, auch zum Selberbauen:
+   [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md).
 2. Kader und Spielersuche mit dieser Ansicht per **F9** exportieren.
 3. Die CSV-Dateien im Analyzer importieren.
 
