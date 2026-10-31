@@ -187,9 +187,8 @@ namespace FMViewExporter.Export
         private static string ReadCell(VisualElement cell)
         {
             var texts = new List<string>();
-            var full = 0;
-            var half = 0;
             var stars = 0;
+            var total = 0.0;
             Visit(cell, e =>
             {
                 if (IsHidden(e))
@@ -200,22 +199,18 @@ namespace FMViewExporter.Export
                 if (e.ClassListContains(StarClass) || e.ClassListContains(StarClass + "-no-margin"))
                 {
                     stars++;
+                    var names = new List<string>();
                     var classes = e.GetClassesForIteration();
                     for (var i = 0; classes != null && i < classes.Count; i++)
-                    {
-                        var name = classes[i];
-                        if (name.Contains("-max-"))
-                            full++;
-                        else if (name.Contains("-half-"))
-                            half++;
-                    }
+                        names.Add(classes[i]);
+                    total += StarRating.StarValue(names);
                 }
                 return true;
             });
 
             var value = CellText.Join(texts);
             if (value.Length == 0 && stars > 0)
-                value = (full + half * 0.5).ToString("0.0", CultureInfo.InvariantCulture);
+                value = StarRating.Format(total);
             return value;
         }
 
