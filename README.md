@@ -101,7 +101,8 @@ The exports feed straight into the
 [**FM Player Analyzer**](https://github.com/ElectroHugin/FM-Player-Analyzer),
 which turns them into role ratings, an optimal Best XI and signing advice.
 
-1. Create the Analyzer view once in the game, as described in
+1. Import the ready-made Analyzer views from [`views/fm27/`](views/fm27) in the game
+   (squad, player database, shortlist). How, and how to build them yourself:
    [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md).
 2. Export your squad and the player search with that view using **F9**.
 3. Import the CSV files in the Analyzer.

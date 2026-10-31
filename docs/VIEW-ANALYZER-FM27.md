@@ -20,9 +20,6 @@ player database or the shortlists, and vice versa. That is why there is one file
 2. In FM27 open that screen, open the view menu of the table and choose *Import View…*.
 3. Select the view and press **F9**.
 
-> The `.fmf` files are not in the repository yet. Until they are, build the views yourself as
-> described below.
-
 ## Build it yourself
 
 Start from any view, remove the columns you don't need and insert the ones below with
@@ -63,8 +60,8 @@ header. Keep the list below anyway, so every export looks the same.
 
 The column menu of the Player Database differs slightly from the squad screen: *General* is
 called *General Info* there, *Media Handling Style* is just *Media Handling*, and
-*Stats (General) > General* is *Stats > General* (e.g. *Average Rating*). The headers in
-the table are the same.
+*Stats (General) > General* is *Stats > General* (e.g. *Average Rating*). Most headers in the table are the same; the player column is
+called `Name` instead of `Player`.
 
 **`Personality` is not offered in the Player Database or the Shortlists.** Those views therefore have no
 Personality column; the Analyzer treats it as unknown for those players.
@@ -73,7 +70,7 @@ Personality column; the Analyzer treats it as unknown for those players.
 
 | Column in the game | Header in the export | Note |
 | --- | --- | --- |
-| Rec. (first column) | `Recommendation` | Your scouts' grade from `A+` to `F`, plus the text, e.g. `B- Very Good`; empty when unknown. Kept for scouting; the Analyzer ignores it for now. |
+| Rec. (first column) | `Rec.` | Your scouts' grade from `A+` to `F`, empty when unknown. Kept for scouting; the Analyzer ignores it for now. |
 | Player's Interest (Shortlist) | to be confirmed with the first export | How interested the player is in joining. Kept for transfers; the Analyzer ignores it for now. |
 
 ### Attributes
