@@ -7,9 +7,9 @@ It has 69 columns, far below the roughly 255 columns FM27 fills with values.
 
 ## Use the ready-made view
 
-1. Download [`views/fm27/Analyzer.fmf`](../views/fm27/Analyzer.fmf).
+1. Download [`views/fm27/FM27-PlayerAnalyzer-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Standard.fmf).
 2. In FM27 open your squad or the player search, open the view menu of the table and choose
-   *Import View…*. Pick `Analyzer.fmf`.
+   *Import View…*. Pick `FM27-PlayerAnalyzer-Standard.fmf`. In the game the view is called *Player Analyzer – Standard*.
 3. Select the view and press **F9**. Use the same view for the squad and the player search.
 
 > The `.fmf` file is not in the repository yet. Until it is, build the view yourself as
@@ -65,7 +65,11 @@ noted.
 
 ### Save and share it
 
-Open the view menu, choose *Export Current View…* and save it as `Analyzer.fmf`.
+Name the view *Player Analyzer – Standard*. Then open the view menu, choose *Export Current View…* and save it as
+`FM27-PlayerAnalyzer-Standard.fmf`.
+
+Naming scheme for all views shipped with the exporter: `FM27-PlayerAnalyzer-<Preset>.fmf`, for example
+`-Standard`, `-Full` and `-Stats` for the presets "Analyzer", "Analyzer-Voll" and "Statistik".
 
 ## Notes
 
