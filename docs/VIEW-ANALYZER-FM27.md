@@ -8,12 +8,13 @@ Each has 69 columns, far below the roughly 255 columns FM27 fills with values.
 ## Use the ready-made views
 
 FM27 keeps separate views per screen: a view saved in the squad screen cannot be used in the
-player database and vice versa. That is why there is one file per screen, with the same columns.
+player database or the shortlists, and vice versa. That is why there is one file per screen, with the same columns.
 
 | Screen | File | Name in the game |
 | --- | --- | --- |
 | Squad | [`views/fm27/FM27-PlayerAnalyzer-Squad-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Squad-Standard.fmf) | *Player Analyzer – Squad Standard* |
 | Recruitment > Player Database | [`views/fm27/FM27-PlayerAnalyzer-PlayerDatabase-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-PlayerDatabase-Standard.fmf) | *Player Analyzer – Player Database Standard* |
+| Recruitment > Shortlists | [`views/fm27/FM27-PlayerAnalyzer-Shortlist-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Shortlist-Standard.fmf) | *Player Analyzer – Shortlist Standard* |
 
 1. Download the file for the screen you want.
 2. In FM27 open that screen, open the view menu of the table and choose *Import View…*.
@@ -92,7 +93,7 @@ Build the view once in each screen. Name it after the screen, then open the view
 *Export Current View…* and save it under the matching file name from the table above.
 
 Naming scheme for all views shipped with the exporter:
-`FM27-PlayerAnalyzer-<Screen>-<Preset>.fmf`. `<Screen>` is `Squad` or `PlayerDatabase`, `<Preset>` is
+`FM27-PlayerAnalyzer-<Screen>-<Preset>.fmf`. `<Screen>` is `Squad`, `PlayerDatabase` or `Shortlist`, `<Preset>` is
 `Standard`, `Full` or `Stats` for the presets "Analyzer", "Analyzer-Voll" and "Statistik".
 
 ## Notes
