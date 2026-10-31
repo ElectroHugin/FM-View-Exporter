@@ -233,21 +233,18 @@ namespace FMViewExporter.Export
 
         private static string GuessViewName(VisualElement table)
         {
-            // #playertableshortlist -> "shortlist"
-            var tableName = table.name;
-            if (tableName != null && tableName.Length > TableName.Length && IsTableName(tableName))
-                return tableName.Substring(TableName.Length);
-            for (var e = table.parent; e != null; e = e.parent)
+            var tableNames = new List<string>();
+            Visit(table, e =>
             {
-                var name = e.name;
-                if (!string.IsNullOrEmpty(name) && name.EndsWith("Screen", StringComparison.Ordinal) && name.Length > "Screen".Length)
-                    return name.Substring(0, name.Length - "Screen".Length);
-            }
-            return UnknownScreen;
+                if (IsTableName(e.name))
+                    tableNames.Add(e.name);
+                return true;
+            });
+            var ancestors = new List<string>();
+            for (var e = table.parent; e != null; e = e.parent)
+                ancestors.Add(e.name);
+            return ViewNames.Guess(tableNames, ancestors);
         }
-
-        /// <summary>Ansichtsname, wenn kein Vorfahr "...Screen" heisst (bisher die Spieler-Datenbank).</summary>
-        internal const string UnknownScreen = "players";
 
         internal static bool IsHidden(VisualElement element)
         {

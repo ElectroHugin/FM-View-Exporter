@@ -15,6 +15,10 @@
 - F9 exportiert jetzt auch die Shortlist (Tabelle #playertableshortlist, Dateiname shortlist_...).
   Zusaetzlich Rueckfall ueber den Aufbau der Tabelle (#column-headers plus Zeilenliste),
   falls eine Ansicht ihre Tabelle anders benennt.
+- Shortlist-Exporte hiessen faelschlich `player-database`: FM27 legt einen Rahmen #PlayerTable um
+  #playertableshortlist. Der Ansichtsname kommt jetzt auch aus inneren Tabellennamen und aus den
+  Bereichen #RecruitmentShortlistTool (shortlist) und #PlayerSearchReport (player-database).
+  Der HTML-Titel nennt dieselbe Ansicht wie der Dateiname.
 - Wird keine Tabelle gefunden, schreibt das Log Diagnose-Hinweise, wo Kopf- und Tabellenzeilen liegen.
 
 ## 0.0.2-test.1 (Testversion)
