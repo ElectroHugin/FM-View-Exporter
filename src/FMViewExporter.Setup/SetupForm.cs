@@ -123,7 +123,7 @@ namespace FMViewExporter.Setup
             {
                 var info = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "";
                 var plus = info.IndexOf('+');
-                return plus >= 0 ? info.Substring(0, plus) : info;
+                return (plus >= 0 ? info.Substring(0, plus) : info).TrimStart('v');
             }
         }
 

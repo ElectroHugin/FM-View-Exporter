@@ -25,6 +25,7 @@ mkdir -p "$PLUGIN"
 cp "$PLUGIN_DLL" "$PLUGIN/"
 cp "$ROOT/LICENSE" "$PLUGIN/LICENSE.txt"
 cp "$ROOT/packaging/LIESMICH.txt" "$PLUGIN/"
+cp "$ROOT/packaging/README.txt" "$PLUGIN/"
 (cd "$STAGE/plugin" && zip -qr "$DIST/FMViewExporter-$VERSION-plugin.zip" .)
 
 # Komplettpaket mit BepInEx
@@ -53,6 +54,7 @@ mkdir -p "$FULL/BepInEx/plugins/FMViewExporter/licenses"
 cp "$ROOT/packaging/THIRD-PARTY-NOTICES.txt" "$FULL/BepInEx/plugins/FMViewExporter/"
 cp "$ROOT/packaging/licenses/"*.txt "$FULL/BepInEx/plugins/FMViewExporter/licenses/"
 cp "$ROOT/packaging/LIESMICH.txt" "$FULL/FM View Exporter - LIESMICH.txt"
+cp "$ROOT/packaging/README.txt" "$FULL/FM View Exporter - README.txt"
 (cd "$FULL" && zip -qr "$DIST/FMViewExporter-$VERSION-komplettpaket.zip" .)
 
 # Setup-Programm (.NET Framework 4.8) mit dem Komplettpaket als eingebetteter Ressource
@@ -65,15 +67,20 @@ WINHTTP_SHA="$(sha256sum "$FULL/winhttp.dll" | cut -d' ' -f1)"
 (cd "$DIST" && sha256sum ./*.zip ./*.exe > SHA256SUMS.txt)
 
 cat > "$DIST/release-notes.md" <<NOTES
-**Setup** (empfohlen): \`FMViewExporter-$VERSION-setup.exe\` starten. Es findet FM27 selbst, installiert BepInEx und das Plugin, aktualisiert, deinstalliert und bearbeitet die Einstellungen.
-**Komplettpaket** (BepInEx #$BEPINEX_BUILD + Plugin): Inhalt direkt in den Spielordner entpacken, neben fm.exe.
-**Plugin**: nur das Plugin, wenn BepInEx schon installiert ist.
+**FM View Exporter** exports the player list you are looking at in Football Manager 27 (squad, player database, shortlist) as CSV and HTML with one key press (F9). Free and open source (GPLv3), offline, never touches your save. More in the [README](https://github.com/ElectroHugin/FM-View-Exporter#readme).
 
+| File | Use it when |
+| --- | --- |
+| \`FMViewExporter-$VERSION-setup.exe\` | **Recommended.** Finds FM27 on its own, installs BepInEx and the plugin, updates, uninstalls and edits the settings. |
+| \`FMViewExporter-$VERSION-komplettpaket.zip\` | Manual install: BepInEx #$BEPINEX_BUILD + plugin, extract next to fm.exe. |
+| \`FMViewExporter-$VERSION-plugin.zip\` | Only the plugin, if BepInEx is already installed. |
+
+Changes: see [CHANGELOG.md](https://github.com/ElectroHugin/FM-View-Exporter/blob/main/CHANGELOG.md).
 **Code signing policy:** https://github.com/ElectroHugin/FM-View-Exporter#-code-signing-policy
 
-Anleitung: siehe \`FM View Exporter - LIESMICH.txt\` im Komplettpaket.
+Deutsch: Das Setup ist der einfachste Weg (Installieren, Aktualisieren, Deinstallieren, Einstellungen). Anleitung auf Deutsch: [README.de.md](https://github.com/ElectroHugin/FM-View-Exporter/blob/main/README.de.md).
 
-Pruefsummen (SHA-256):
+SHA-256 checksums:
 \`\`\`
 $(cat "$DIST/SHA256SUMS.txt")
 winhttp.dll (BepInEx-Starter): $WINHTTP_SHA

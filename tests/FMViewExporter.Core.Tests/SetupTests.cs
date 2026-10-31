@@ -100,7 +100,7 @@ namespace FMViewExporter.Core.Tests
             var stream = new MemoryStream();
             using (var zip = new ZipArchive(stream, ZipArchiveMode.Create, true))
             {
-                foreach (var name in new[] { "winhttp.dll", "doorstop_config.ini", "BepInEx/core/BepInEx.Core.dll",
+                foreach (var name in new[] { "winhttp.dll", "doorstop_config.ini", "FM View Exporter - README.txt", "BepInEx/core/BepInEx.Core.dll",
                              "BepInEx/plugins/FMViewExporter/FMViewExporter.dll", "BepInEx/config/de.electrohugin.fmviewexporter.cfg" })
                 {
                     using var writer = new StreamWriter(zip.CreateEntry(name).Open());
@@ -145,6 +145,7 @@ namespace FMViewExporter.Core.Tests
             install.Install(Package(), pluginOnly: false);
             install.Uninstall();
             Assert.False(File.Exists(Path.Combine(_game, "winhttp.dll")));
+            Assert.False(File.Exists(Path.Combine(_game, "FM View Exporter - README.txt")));
             Assert.False(Directory.Exists(Path.Combine(_game, "BepInEx")));
             Assert.True(File.Exists(Path.Combine(_game, "fm.exe")));
         }
