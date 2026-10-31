@@ -5,7 +5,7 @@
 ### Deine FM27-Spielerlisten als Tabelle. Ein Tastendruck.
 
 Ein kostenloses Plugin für **Football Manager 27**, das den Export zurückbringt,
-den Sports Interactive gestrichen hat: Im Kader oder in der Spielersuche **F9**
+den Sports Interactive gestrichen hat: Im Kader, in der Spieler-Datenbank oder in der Shortlist **F9**
 drücken und alle Spalten als **CSV** und **HTML** bekommen, mit den
 Spaltenköpfen genau wie im Spiel.
 
@@ -97,7 +97,7 @@ Ob alles geklappt hat, zeigt die Zeile `FM View Exporter … geladen` in
 
 **5 · Exportieren**
 
-Kader oder Spielersuche öffnen, Ansicht wählen und **F9** drücken. Das Plugin
+Kader, Spieler-Datenbank oder Shortlist öffnen, Ansicht wählen und **F9** drücken. Das Plugin
 scrollt die Liste selbst durch, bitte so lange nichts anklicken. Die Dateien
 liegen in `Dokumente\Sports Interactive\FM View Exporter`, zum Beispiel
 `squad_20261030_192739.csv` und `.html`.
@@ -118,7 +118,7 @@ der daraus Rollenbewertungen, eine optimale Startelf und Transfertipps macht.
 1. Die fertigen Analyzer-Ansichten aus [`views/fm27/`](views/fm27) im Spiel importieren
    (Kader, Spieler-Datenbank, Shortlist). Anleitung, auch zum Selberbauen:
    [docs/VIEW-ANALYZER-FM27.md](docs/VIEW-ANALYZER-FM27.md).
-2. Kader und Spielersuche mit dieser Ansicht per **F9** exportieren.
+2. Kader, Spieler-Datenbank oder Shortlist mit der passenden Ansicht per **F9** exportieren.
 3. Die CSV-Dateien im Analyzer importieren.
 
 Beide Projekte teilen sich eine Spaltenvereinbarung: Die Spaltennamen in

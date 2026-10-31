@@ -1,6 +1,11 @@
 # Changelog
 
-## Unveroeffentlicht
+## 1.0.0 (noch nicht veroeffentlicht)
+
+Erste vollstaendige Version fuer Football Manager 27: F9 exportiert Kader, Spieler-Datenbank und
+Shortlist als CSV und HTML, das Setup installiert und konfiguriert alles. Getestet am 31.10.2026
+mit FM27 und BepInEx BE #755: Deinstallieren, Neuinstallation ueber das Setup, Exporte aller drei
+Ansichten mit Praefix und Zeitstempel in beiden Formaten. Das Setup ist noch nicht signiert.
 
 - Neues Setup-Programm `FMViewExporter-<version>-setup.exe` (Englisch, oben rechts auf Deutsch umschaltbar): findet FM27 in den
   Steam-Bibliotheken, installiert BepInEx und das Plugin, aktualisiert ohne die Einstellungen zu
