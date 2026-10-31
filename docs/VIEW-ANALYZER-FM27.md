@@ -61,7 +61,8 @@ header. Keep the list below anyway, so every export looks the same.
 ### Player Database differences
 
 The column menu of the Player Database differs slightly from the squad screen: *General* is
-called *General Info* there, and *Media Handling Style* is just *Media Handling*. The headers in
+called *General Info* there, *Media Handling Style* is just *Media Handling*, and
+*Stats (General) > General* is *Stats > General* (e.g. *Average Rating*). The headers in
 the table are the same.
 
 **`Personality` is not offered in the Player Database.** The Player Database view therefore has no
