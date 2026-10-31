@@ -1,7 +1,8 @@
 FM View Exporter
 ================
 
-Exportiert die gerade angezeigte Spielerliste in Football Manager als CSV und HTML.
+Exportiert die gerade angezeigte Spielerliste in Football Manager 27 (Kader,
+Spieler-Datenbank, Shortlist) als CSV und HTML.
 Freie Software unter der GNU GPL v3: https://github.com/ElectroHugin/FM-View-Exporter
 Nicht offiziell mit Sports Interactive oder SEGA verbunden.
 
@@ -23,18 +24,20 @@ Von Hand (Komplettpaket):
 
 Tasten
 ------
-F9   exportiert die angezeigte Spielerliste (Kader oder Spielersuche) als
-     CSV und HTML nach Dokumente\Sports Interactive\FM View Exporter.
+F9   exportiert die angezeigte Spielerliste (Kader, Spieler-Datenbank oder
+     Shortlist) als CSV und HTML nach Dokumente\Sports Interactive\FM View Exporter.
      Das Plugin scrollt die Liste dabei selbst durch; bitte warten, bis
      im Log "Export fertig" steht.
 F10  schreibt ein Abbild der Oberflaeche nach
      Dokumente\Sports Interactive\FM View Exporter\Diagnose
 
-Einstellungen: BepInEx\config\de.electrohugin.fmviewexporter.cfg
-(entsteht nach dem ersten Start).
+Einstellungen: das Setup erneut starten oder
+BepInEx\config\de.electrohugin.fmviewexporter.cfg bearbeiten (entsteht nach dem ersten Start).
 
 Entfernen
 ---------
-winhttp.dll im Spielordner loeschen: Das Spiel startet dann ohne Mods.
-Komplett: zusaetzlich doorstop_config.ini, .doorstop_version, changelog.txt
-und die Ordner BepInEx und dotnet loeschen.
+Das Setup starten und Deinstallieren klicken. Von Hand: winhttp.dll im
+Spielordner loeschen, dann startet das Spiel ohne Mods. Komplett: zusaetzlich
+doorstop_config.ini, .doorstop_version, changelog.txt, die beiden Textdateien
+"FM View Exporter - ..." und die Ordner BepInEx und dotnet loeschen.
+Spielstaende bleiben unberuehrt.

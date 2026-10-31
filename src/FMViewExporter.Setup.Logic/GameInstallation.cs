@@ -18,7 +18,7 @@ namespace FMViewExporter.Setup
         /// <summary>Was das Komplettpaket neben fm.exe ablegt (ausser dem Ordner BepInEx).</summary>
         private static readonly string[] LoaderFiles =
         {
-            "winhttp.dll", "doorstop_config.ini", ".doorstop_version", "changelog.txt", "FM View Exporter - LIESMICH.txt"
+            "winhttp.dll", "doorstop_config.ini", ".doorstop_version", "changelog.txt", "FM View Exporter - LIESMICH.txt", "FM View Exporter - README.txt"
         };
 
         private static readonly string[] LoaderFolders = { "BepInEx", "dotnet" };

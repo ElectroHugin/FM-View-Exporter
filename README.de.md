@@ -11,7 +11,7 @@ Spaltenköpfen genau wie im Spiel.
 
 [![Download](https://img.shields.io/badge/%E2%AC%87%20Download-kostenlos-1B6AF5?style=for-the-badge)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
 
-[![Neueste Version](https://img.shields.io/github/v/release/ElectroHugin/FM-View-Exporter?include_prereleases&label=neueste%20Version)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
+[![Neueste Version](https://img.shields.io/github/v/release/ElectroHugin/FM-View-Exporter?label=neueste%20Version)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
 [![Lizenz: GPL v3](https://img.shields.io/badge/Lizenz-GPLv3-blue)](LICENSE)
 ![Plattform](https://img.shields.io/badge/Plattform-Windows%2010%20%2F%2011-0078d4)
 ![Football Manager 27](https://img.shields.io/badge/Football%20Manager-27-1B6AF5)
@@ -100,7 +100,8 @@ Ob alles geklappt hat, zeigt die Zeile `FM View Exporter … geladen` in
 Kader, Spieler-Datenbank oder Shortlist öffnen, Ansicht wählen und **F9** drücken. Das Plugin
 scrollt die Liste selbst durch, bitte so lange nichts anklicken. Die Dateien
 liegen in `Dokumente\Sports Interactive\FM View Exporter`, zum Beispiel
-`squad_20261030_192739.csv` und `.html`.
+`squad_20261030_192739.csv` und `.html`
+(`player-database_…` und `shortlist_…` bei den anderen beiden Bildschirmen).
 
 > **Tipps**
 > - Update? Das neue Setup starten und **Aktualisieren** klicken. Deine Einstellungen bleiben erhalten.
@@ -189,10 +190,17 @@ ohne Mods.
 **Welche Versionen werden unterstützt?**
 Football Manager 27 über Steam unter Windows. Linux (Proton) folgt später.
 
+**Windows oder der Browser warnt vor dem Setup.**
+Das Setup ist neu und noch nicht signiert, und es installiert BepInEx, das sich über
+`winhttp.dll` in das Spiel einklinkt. Virenscanner melden dieses Muster oft, obwohl
+nichts Schädliches passiert. Alle Dateien baut GitHub Actions aus dem öffentlichen
+Quellcode; die Prüfsummen stehen in den Release-Notes. Die Signierung über SignPath
+ist ab 1.0.1 geplant (siehe [Code signing policy](#-code-signing-policy-signierung)).
+
 **Wie deinstalliere ich es?**
 Setup starten und **Deinstallieren** klicken. Von Hand: im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
-`changelog.txt` sowie die Ordner `BepInEx` und `dotnet` löschen. Spielstände
-bleiben unberührt.
+`changelog.txt`, die beiden Textdateien `FM View Exporter - …` sowie die Ordner `BepInEx` und `dotnet`
+löschen. Spielstände bleiben unberührt.
 
 **Ich habe einen Fehler gefunden.**
 Ein [Issue](https://github.com/ElectroHugin/FM-View-Exporter/issues) anlegen
@@ -220,11 +228,12 @@ und `LogOutput.log` anhängen. Hilfreich ist auch ein Abbild mit **F10** aus
 ```
 dotnet test tests/FMViewExporter.Core.Tests -c Release
 dotnet build src/FMViewExporter -c Release
+./packaging/package.sh dev   # Zips und setup.exe in dist/ (lädt BepInEx herunter)
 ```
 
 GitHub Actions baut bei jedem Push. Ein Release entsteht über einen Tag `v*`
 oder einen manuellen Start des Workflows mit `release_tag`; Tags mit Bindestrich
-werden Pre-releases.
+werden Pre-releases. Die Signierung des Setups beschreibt [docs/CODE-SIGNING.md](docs/CODE-SIGNING.md).
 
 </details>
 
@@ -235,6 +244,8 @@ werden Pre-releases.
 Die kostenlose Signierung des Windows-Setups stellt [SignPath.io](https://about.signpath.io)
 bereit, das Zertifikat kommt von der [SignPath Foundation](https://signpath.org).
 
+- Stand: Das Projekt bewirbt sich nach 1.0.0 bei SignPath. Version 1.0.0 ist **nicht
+  signiert**; signierte Releases sind ab 1.0.1 geplant.
 - Signiert werden nur Dateien, die GitHub Actions aus diesem öffentlichen Repository baut.
   Jede Signierung wird von Hand freigegeben.
 - **Committer und Reviewer:** [ElectroHugin](https://github.com/ElectroHugin)
