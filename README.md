@@ -1,111 +1,219 @@
+<div align="center">
+
 <img src="docs/branding/banner.png" alt="FM View Exporter" width="100%">
 
-**🇩🇪 Deutsch** · [🇬🇧 English](README.en.md)
+### Your FM27 player lists as a spreadsheet. One key press.
 
-Exportiert die gerade angezeigte Spielerliste in Football Manager 27 (Kader, Spielersuche) per
-Tastendruck als **CSV** und **HTML**. Seit FM26 hat das Spiel keinen eingebauten Export mehr;
-dieses Plugin schließt die Lücke. Die Dateien passen direkt zum
-[FM Player Analyzer](https://github.com/ElectroHugin/FM-Player-Analyzer).
+A free plugin for **Football Manager 27** that brings back the export Sports
+Interactive dropped: press **F9** on your squad or player search and get every
+column as **CSV** and **HTML**, with headers exactly as in the game.
 
-- Exportiert alle Spalten der Ansicht, mit den Spaltenköpfen genau wie im Spiel, inklusive `Unique ID`.
-- Liest nur die Oberfläche. Verändert keinen Spielstand und baut keine Internetverbindung auf.
-- Frei und quelloffen unter der GNU GPL v3. Nicht offiziell mit Sports Interactive oder SEGA verbunden.
+[![Download](https://img.shields.io/badge/%E2%AC%87%20Download-free-1B6AF5?style=for-the-badge)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
 
-> **Stand:** Testversion für FM27 (Windows, Steam). Getestet mit der Kaderansicht.
+[![Latest release](https://img.shields.io/github/v/release/ElectroHugin/FM-View-Exporter?include_prereleases&label=latest%20version)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
+[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078d4)
+![Football Manager 27](https://img.shields.io/badge/Football%20Manager-27-1B6AF5)
+![Mod loader](https://img.shields.io/badge/BepInEx-6%20IL2CPP-555)
 
-## Voraussetzungen
+**🇬🇧 English** · [🇩🇪 Deutsch](README.de.md)
 
-- Windows 10 oder 11, Football Manager 27 über Steam
-- Keine weiteren Programme nötig: Das Komplettpaket bringt den Mod-Lader
-  [BepInEx](https://github.com/BepInEx/BepInEx) gleich mit.
+[Why you'll want it](#-why-youll-want-it) ·
+[Get started](#-get-started-in-5-minutes) ·
+[With the FM Player Analyzer](#-made-for-the-fm-player-analyzer) ·
+[Settings](#-settings) ·
+[FAQ](#-faq)
 
-## Installation
+</div>
 
-1. Unter [Releases](https://github.com/ElectroHugin/FM-View-Exporter/releases) beim neuesten
-   Release die Datei **`FMViewExporter-…-komplettpaket.zip`** herunterladen.
-2. Den Spielordner öffnen: In Steam Rechtsklick auf *Football Manager 27* >
-   *Verwalten* > *Lokale Dateien durchsuchen*. Das ist der Ordner, in dem `fm.exe` liegt.
-3. Den **Inhalt** der Zip-Datei direkt in diesen Ordner entpacken, nicht in einen Unterordner.
-   Danach liegen `winhttp.dll`, `doorstop_config.ini` und der Ordner `BepInEx` neben `fm.exe`.
-4. Spiel starten. **Der erste Start dauert einige Minuten**, weil BepInEx einmalig Dateien
-   erzeugt. Dafür lädt BepInEx einmalig Unity-Grunddateien von `unity.bepinex.dev` herunter
-   (das ist BepInEx, nicht dieses Plugin). Ab dem zweiten Start geht es normal schnell.
-5. Prüfen: In `BepInEx\LogOutput.log` steht eine Zeile `FM View Exporter … geladen`.
+---
 
-**Update:** Nur die Datei `FMViewExporter-…-plugin.zip` laden und die darin enthaltene
-`BepInEx\plugins\FMViewExporter.dll` im Spielordner ersetzen. Dann das Spiel neu starten.
+## 🔥 Why you'll want it
 
-## Benutzung
+Since FM26 there is no *Print → Export* any more. Your scouting list, your
+squad, all those carefully built views stay locked inside the game. FM View
+Exporter reads the table you are looking at and writes it to a file, the way
+the old export used to.
 
-1. Im Spiel den Kader oder die Spielersuche öffnen und die gewünschte Ansicht wählen.
-2. **F9** drücken. Das Plugin scrollt die Liste einmal selbst durch. Bitte so lange nichts
-   anklicken; bei großen Listen kann das etwas dauern.
-3. Die Dateien liegen in `Dokumente\Sports Interactive\FM View Exporter`, z. B.
-   `squad_20261030_192739.csv` und `.html`.
+| You want | You get |
+|---|---|
+| *"My whole squad in Excel."* | Open the squad, press **F9**, done. A CSV and an HTML file land in your Documents folder. |
+| *"Every column, not just the first screen."* | The plugin scrolls through the list by itself and collects every row and every column of the view. |
+| *"Headers I recognise."* | Column names exactly as FM shows them, from `Unique ID` to `xG-OP`. |
+| *"Players I can track across exports."* | `Unique ID` is exported, so tools can match the same player over a whole save. |
+| *"It should open in German Excel too."* | Comma by default, or semicolon and decimal comma with one setting. |
+| *"I want to know what `Svh` means."* | A [column reference](docs/SPALTEN-FM27.md) explains all 375 columns in English and German. |
 
-Die CSV ist UTF-8 und nutzt standardmäßig Komma als Trennzeichen (englisches Excel). Für
-deutsches Excel `Export.CsvStyle = German` setzen (Semikolon, Dezimalkomma).
+**And it keeps out of your way:**
 
-## Zusammen mit dem FM Player Analyzer
+- 🆓 **Free and open source.** GPLv3, no ads, no account.
+- 🔌 **Offline.** The plugin never connects to the internet.
+- 🛡️ **Your save is never touched.** It only reads what is on screen.
+- 🎯 **No cheating.** It exports exactly what you see. Unscouted values stay hidden.
+- 🧹 **Clean data.** Colours and links are stripped, star ratings become numbers (`0.0` to `5.0`).
 
-1. Im Spiel einmal die Ansicht aus [docs/ANSICHT-ANALYZER-FM27.md](docs/ANSICHT-ANALYZER-FM27.md)
-   anlegen. Sie enthält genau die Spalten, die der Analyzer braucht.
-2. Kader und Spielersuche mit dieser Ansicht per F9 exportieren.
-3. Die CSV-Dateien im Analyzer importieren.
+---
 
-Was jede Spalte bedeutet, steht im [Spaltenverzeichnis](docs/SPALTEN-FM27.md)
-(auch maschinenlesbar als [CSV](docs/columns/fm27.csv)).
+## 🚀 Get started in 5 minutes
 
-## Gut zu wissen
+**1 · Download**
 
-- FM27 zeigt nur in etwa den ersten 255 Spalten einer Ansicht Werte an, auch im Spiel selbst.
-  Für den Export lieber schlanke Ansichten nutzen.
-- Spalten, die im Spiel nur ein Symbol zeigen (z. B. Moral), sind im Export leer.
-  Sterne (Ability, Potential) werden als Zahl von 0.0 bis 5.0 exportiert.
+Grab **`FMViewExporter-…-komplettpaket.zip`** (the full package) from the
+[Releases page](https://github.com/ElectroHugin/FM-View-Exporter/releases).
+It ships the mod loader [BepInEx](https://github.com/BepInEx/BepInEx), so you
+need nothing else.
 
-## Einstellungen
+**2 · Open the game folder**
 
-Datei `BepInEx\config\de.electrohugin.fmviewexporter.cfg` im Spielordner (entsteht beim
-ersten Start). Änderungen am Abschnitt `Export` gelten ab dem nächsten F9, Tasten erst nach
-einem Neustart.
+In Steam, right-click *Football Manager 27* → *Manage* → *Browse local files*.
+This is the folder that contains `fm.exe`.
 
-| Einstellung | Standard | Bedeutung |
+**3 · Extract**
+
+Extract the **contents** of the zip straight into that folder, not into a
+subfolder. Afterwards `winhttp.dll`, `doorstop_config.ini` and the `BepInEx`
+folder sit next to `fm.exe`.
+
+**4 · Start the game**
+
+The **first start takes a few minutes** while BepInEx prepares itself. For this
+BepInEx downloads Unity base libraries once from `unity.bepinex.dev` (that is
+BepInEx, not this plugin). Later starts are as fast as usual. To check it
+worked, look for `FM View Exporter … geladen` in `BepInEx\LogOutput.log`.
+
+**5 · Export**
+
+Open your squad or the player search, pick a view and press **F9**. The plugin
+scrolls through the list on its own, so please don't click anything until it is
+done. Your files are in `Documents\Sports Interactive\FM View Exporter`, for
+example `squad_20261030_192739.csv` and `.html`.
+
+> **Tips**
+> - Updating? Download only `FMViewExporter-…-plugin.zip`, replace `BepInEx\plugins\FMViewExporter.dll` and restart the game.
+> - German Excel? Set `Export.CsvStyle = German` (see [Settings](#-settings)). It applies from the next F9, no restart needed.
+> - Keep export views lean. FM27 only fills roughly the first 255 columns of a view, in the game too.
+
+---
+
+## 🤝 Made for the FM Player Analyzer
+
+The exports feed straight into the
+[**FM Player Analyzer**](https://github.com/ElectroHugin/FM-Player-Analyzer),
+which turns them into role ratings, an optimal Best XI and signing advice.
+
+1. Create the Analyzer view once in the game, as described in
+   [docs/ANSICHT-ANALYZER-FM27.md](docs/ANSICHT-ANALYZER-FM27.md).
+2. Export your squad and the player search with that view using **F9**.
+3. Import the CSV files in the Analyzer.
+
+The two projects share one column contract: the column names in
+[`docs/columns/fm27.csv`](docs/columns/fm27.csv) are what the Analyzer reads.
+
+<details>
+<summary><b>📋 Column reference and menu catalogue</b></summary>
+
+<br>
+
+| File | What's inside |
+|---|---|
+| [docs/SPALTEN-FM27.md](docs/SPALTEN-FM27.md) | All 375 table columns with group, meaning (English and German) and format |
+| [docs/columns/fm27.csv](docs/columns/fm27.csv) | The same as CSV, for tools |
+| [docs/columns/fm27-menu.csv](docs/columns/fm27-menu.csv) | All 377 entries of FM27's *Insert Column* menu and the header each one produces |
+
+The menu names often differ from the table headers (*Mistakes Leading To Goal*
+becomes `MLG`), which is why both lists exist.
+
+</details>
+
+---
+
+## 🔧 Settings
+
+The file `BepInEx\config\de.electrohugin.fmviewexporter.cfg` in the game folder
+is created on the first start. Changes in the `Export` section apply from the
+next F9, hotkeys after a restart.
+
+| Setting | Default | Meaning |
 | --- | --- | --- |
-| `Hotkeys.Export` | `F9` | Export der angezeigten Liste |
-| `Hotkeys.Diagnose` | `F10` | Abbild der Oberfläche (für Fehlersuche) |
-| `Export.CsvStyle` | `English` | `English` = Komma, `German` = Semikolon und Dezimalkomma |
-| `Export.OutputFolder` | leer | leer = `Dokumente\Sports Interactive\FM View Exporter` |
-| `Export.ScanColumns` | `false` | `true` = auch seitlich durch alle Spalten scrollen (langsamer, in FM27 nicht nötig) |
-| `Export.FramesPerStep` | `3` | Wartezeit je Scrollschritt; bei fehlenden Werten erhöhen |
+| `Hotkeys.Export` | `F9` | Export the visible list |
+| `Hotkeys.Diagnose` | `F10` | Dump of the user interface (for troubleshooting) |
+| `Export.CsvStyle` | `English` | `English` = comma, `German` = semicolon and decimal comma |
+| `Export.OutputFolder` | empty | empty = `Documents\Sports Interactive\FM View Exporter` |
+| `Export.ScanColumns` | `false` | `true` = also scroll sideways through all columns (slower, not needed in FM27) |
+| `Export.FramesPerStep` | `3` | Wait per scroll step; increase if values are missing |
 
-## Probleme?
+---
 
-- **Nichts passiert bei F9:** In `BepInEx\LogOutput.log` nachsehen. Steht dort „Keine
-  Spielerliste gefunden“, ist gerade keine Spielertabelle offen.
-- **Spiel startet nicht mehr oder verhält sich seltsam:** `winhttp.dll` im Spielordner
-  umbenennen oder löschen. Das Spiel startet dann ohne Mods.
-- **Fehler melden:** Ein [Issue](https://github.com/ElectroHugin/FM-View-Exporter/issues)
-  anlegen und `LogOutput.log` anhängen. Hilfreich ist auch ein Abbild mit **F10** aus
-  `Dokumente\Sports Interactive\FM View Exporter\Diagnose`.
+## ❓ FAQ
 
-## Deinstallation
+**Is it really free?**
+Yes. Open source under GPLv3, no ads, no paid tier.
 
-Im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`, `changelog.txt`
-sowie die Ordner `BepInEx` und `dotnet` löschen. Spielstände bleiben unberührt.
+**Can it damage my save game?**
+No. The plugin only reads the table on screen and writes files to your
+Documents folder. It never opens or changes a save.
 
-## Entwicklung
+**Some columns are empty. Why?**
+FM27 only fills roughly the first 255 columns of a view, and that happens in
+the game too. Columns that only show an icon (morale, for example) are empty
+as well. Put the columns you need first, or split them over two views.
 
-- `src/FMViewExporter.Core` – Tabellenmodell, CSV, HTML (ohne Unity, getestet)
-- `src/FMViewExporter` – BepInEx-Plugin (.NET 6)
-- `tests/` – Tests fuer den Kern
-- `lib/ref/` – Referenz-Assemblies zum Kompilieren, siehe [lib/ref/README.md](lib/ref/README.md)
-- `packaging/` – Komplettpaket mit BepInEx
-- `tools/columns_fm27.py` – Quelle des Spaltenverzeichnisses (`docs/`)
+**Nothing happens when I press F9.**
+Check `BepInEx\LogOutput.log`. "Keine Spielerliste gefunden" means no player
+table is open right now.
+
+**The game no longer starts or behaves oddly.**
+Rename or delete `winhttp.dll` in the game folder. The game then starts without
+mods.
+
+**Which versions are supported?**
+Football Manager 27 on Steam for Windows. Linux (Proton) will follow.
+
+**How do I uninstall it?**
+Delete `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
+`changelog.txt` and the folders `BepInEx` and `dotnet` from the game folder.
+Your saves are not affected.
+
+**I found a bug.**
+[Open an issue](https://github.com/ElectroHugin/FM-View-Exporter/issues) and
+attach `LogOutput.log`. A dump made with **F10** (in
+`Documents\Sports Interactive\FM View Exporter\Diagnose`) helps too.
+
+---
+
+<details>
+<summary><b>🛠️ For developers: repository layout and building from source</b></summary>
+
+<br>
+
+| Directory | Contents |
+|---|---|
+| [`src/FMViewExporter.Core`](src/FMViewExporter.Core) | Table model, CSV and HTML writers (no Unity, unit tested) |
+| [`src/FMViewExporter`](src/FMViewExporter) | The BepInEx plugin (.NET 6) |
+| [`tests/`](tests) | Tests for the core |
+| [`lib/ref/`](lib/ref) | Reference assemblies for compiling, see [lib/ref/README.md](lib/ref/README.md) |
+| [`packaging/`](packaging) | Full package with BepInEx |
+| [`tools/`](tools) | Sources of the column reference and the menu catalogue |
 
 ```
 dotnet test tests/FMViewExporter.Core.Tests -c Release
 dotnet build src/FMViewExporter -c Release
 ```
 
-GitHub Actions baut bei jedem Push. Ein Release entsteht über einen Tag `v*` oder einen manuellen
-Start des Workflows mit `release_tag`; Tags mit Bindestrich werden Pre-releases.
+GitHub Actions builds every push. A release is created from a `v*` tag or by
+starting the workflow manually with `release_tag`; tags with a hyphen become
+pre-releases.
+
+</details>
+
+---
+
+## License & disclaimer
+
+Licensed under **GPLv3**, see [LICENSE](LICENSE).
+
+This is an unofficial, fan-made tool and is not endorsed by or affiliated with
+Sports Interactive or SEGA. *Football Manager* and Sports Interactive are
+trademarks of Sports Interactive Limited; SEGA is a trademark of SEGA
+Corporation. All in-game data is the property of Sports Interactive and/or
+SEGA. The software is provided "as is", without warranty of any kind.
