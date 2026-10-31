@@ -1,6 +1,6 @@
 # Changelog
 
-## Unveroeffentlicht
+## 1.0.1 (noch nicht veroeffentlicht)
 
 - Sterne bei Ability und Potential: graue Sterne (unsichere Einschaetzung der Scouts) zaehlen jetzt
   mit, so wie das Spiel sie zeigt. Beispiel: 1 gelber + 1 grauer Stern = `2.0` statt `1.0`.

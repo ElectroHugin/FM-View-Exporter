@@ -193,7 +193,7 @@ The setup is new and not code-signed yet, and it installs BepInEx, which hooks i
 the game through `winhttp.dll`. Virus scanners often flag that pattern, even though
 nothing harmful happens. Every file is built by GitHub Actions from the public
 source code; the checksums are in the release notes. Signing via SignPath is
-planned from 1.0.1 (see [Code signing policy](#-code-signing-policy)).
+planned (see [Code signing policy](#-code-signing-policy)).
 
 **How do I uninstall it?**
 Run the setup and click **Uninstall**. By hand: delete `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
@@ -242,8 +242,8 @@ pre-releases. Signing the setup is described in [docs/CODE-SIGNING.md](docs/CODE
 Free code signing for the Windows setup is provided by [SignPath.io](https://about.signpath.io),
 certificate by [SignPath Foundation](https://signpath.org).
 
-- Status: the project applies to SignPath after 1.0.0. Version 1.0.0 is **not signed**;
-  signed releases are planned from 1.0.1.
+- Status: the project is applying to SignPath. Releases are **not signed** yet; signing
+  starts with the first release after SignPath has approved the project.
 - Only files built by GitHub Actions from this public repository are signed. Every signing
   request is approved by hand.
 - **Committers and reviewers:** [ElectroHugin](https://github.com/ElectroHugin)
