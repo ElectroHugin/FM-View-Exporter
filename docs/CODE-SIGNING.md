@@ -5,12 +5,14 @@ und SmartScreen warnen dann deutlich seltener. Das kostet nichts: Die
 [SignPath Foundation](https://signpath.org) stellt Open-Source-Projekten ein Zertifikat
 kostenlos bereit, und [SignPath.io](https://about.signpath.io) übernimmt das Signieren.
 
-Die Code signing policy für Nutzer steht im [README](../README.md#-code-signing-policy).
+Die öffentliche Code signing policy steht in [CODE-SIGNING-POLICY.md](CODE-SIGNING-POLICY.md).
+Das README verlinkt sie nur noch klein am Ende (SignPath verlangt den Begriff „Code signing
+policy“ als Link oder Überschrift auf der Startseite und auf den Release-Seiten).
 
 ## Was im Repository schon vorbereitet ist
 
-- README (englisch und deutsch) mit Abschnitt „Code signing policy“: Rollen, Datenschutz,
-  Hinweis auf SignPath. Die Release-Notes verlinken darauf.
+- `docs/CODE-SIGNING-POLICY.md` mit Rollen, Datenschutz und Hinweis auf SignPath. README
+  (englisch und deutsch) und Release-Notes verlinken darauf.
 - `.github/workflows/build.yml` signiert das Setup bei einem Release (Tag `v…`), aber nur,
   wenn die SignPath-Variablen gesetzt sind. Vorher läuft alles wie bisher, unsigniert.
 - `packaging/refresh-checksums.sh` trägt nach dem Signieren die neuen Prüfsummen in
@@ -22,7 +24,7 @@ Die Code signing policy für Nutzer steht im [README](../README.md#-code-signing
 - OSI-Lizenz für alle Teile: GPLv3 (Plugin, Setup), BepInEx LGPL. Erfüllt.
 - Keine proprietären Teile und keine Schadfunktionen. Erfüllt.
 - Deinstallation muss möglich sein: Setup → „Uninstall“, Anleitung im README. Erfüllt.
-- Datenschutz-Hinweis auf der Startseite: im README. Erfüllt.
+- Code signing policy auf der Startseite: Link im README auf `docs/CODE-SIGNING-POLICY.md`. Erfüllt.
 - **Die Software muss schon in der Form veröffentlicht sein, die signiert werden soll.** Für
   das Setup heißt das: Es braucht ein öffentliches Release mit der setup.exe. Bisher gibt es
   nur Testversionen (0.0.x) ohne Setup. Eine Möglichkeit: v1.0.0 unsigniert veröffentlichen,
@@ -37,7 +39,7 @@ Die Code signing policy für Nutzer steht im [README](../README.md#-code-signing
 2. **Bewerben** unter <https://signpath.org/apply>. Angaben: Repository
    `https://github.com/ElectroHugin/FM-View-Exporter`, Lizenz GPLv3, Beschreibung („Plugin und
    Setup, das Spielerlisten aus Football Manager 27 als CSV/HTML exportiert“), Link zur Code
-   signing policy (README). Die Foundation entscheidet selbst und kann ablehnen.
+   signing policy (`docs/CODE-SIGNING-POLICY.md`). Die Foundation entscheidet selbst und kann ablehnen.
 3. **Nach der Zusage** in SignPath.io (mit Zwei-Faktor-Anmeldung):
    - Projekt anlegen, z. B. Slug `fm-view-exporter`, und GitHub.com als vertrauenswürdiges
      Build-System verbinden (Anleitung von SignPath).

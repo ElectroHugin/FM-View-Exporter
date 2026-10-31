@@ -23,8 +23,7 @@ Spaltenköpfen genau wie im Spiel.
 [Loslegen](#-in-5-minuten-startklar) ·
 [Mit dem FM Player Analyzer](#-gemacht-für-den-fm-player-analyzer) ·
 [Einstellungen](#-einstellungen) ·
-[FAQ](#-faq) ·
-[Code signing policy](#-code-signing-policy-signierung)
+[FAQ](#-faq)
 
 </div>
 
@@ -195,7 +194,7 @@ Das Setup ist neu und noch nicht signiert, und es installiert BepInEx, das sich 
 `winhttp.dll` in das Spiel einklinkt. Virenscanner melden dieses Muster oft, obwohl
 nichts Schädliches passiert. Alle Dateien baut GitHub Actions aus dem öffentlichen
 Quellcode; die Prüfsummen stehen in den Release-Notes. Die Signierung über SignPath
-ist geplant (siehe [Code signing policy](#-code-signing-policy-signierung)).
+ist geplant.
 
 **Wie deinstalliere ich es?**
 Setup starten und **Deinstallieren** klicken. Von Hand: im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
@@ -239,29 +238,6 @@ werden Pre-releases. Die Signierung des Setups beschreibt [docs/CODE-SIGNING.md]
 
 ---
 
-## 🔏 Code signing policy (Signierung)
-
-Die kostenlose Signierung des Windows-Setups stellt [SignPath.io](https://about.signpath.io)
-bereit, das Zertifikat kommt von der [SignPath Foundation](https://signpath.org).
-
-- Stand: Das Projekt bewirbt sich bei SignPath. Releases sind noch **nicht signiert**;
-  signiert wird ab dem ersten Release nach der Zusage von SignPath.
-- Signiert werden nur Dateien, die GitHub Actions aus diesem öffentlichen Repository baut.
-  Jede Signierung wird von Hand freigegeben.
-- **Committer und Reviewer:** [ElectroHugin](https://github.com/ElectroHugin)
-- **Freigabe (Approver):** [ElectroHugin](https://github.com/ElectroHugin)
-- Mitgelieferte Dateien Dritter wie [BepInEx](https://github.com/BepInEx/BepInEx) bleiben so,
-  wie ihre Autoren sie veröffentlichen, und werden von diesem Projekt nicht signiert.
-
-**Datenschutz.** Dieses Programm überträgt keine Informationen an andere Systeme im Netz, außer
-wenn der Nutzer oder die Person, die es installiert oder betreibt, das ausdrücklich verlangt.
-Plugin und Setup bauen keine Netzwerkverbindungen auf. Exporte landen nur auf deinem eigenen
-Rechner. Der Mod-Loader BepInEx, den das Setup installiert, lädt beim ersten Spielstart einmalig
-Unity-Grundbibliotheken von `unity.bepinex.dev`; dafür gelten die Bedingungen des
-[BepInEx-Projekts](https://github.com/BepInEx/BepInEx).
-
----
-
 ## Lizenz und Hinweis
 
 Lizenziert unter **GPLv3**, siehe [LICENSE](LICENSE).
@@ -271,3 +247,5 @@ Interactive oder SEGA. *Football Manager* und Sports Interactive sind Marken
 der Sports Interactive Limited; SEGA ist eine Marke der SEGA Corporation. Alle
 Spieldaten gehören Sports Interactive und/oder SEGA. Die Software wird ohne
 jede Gewährleistung bereitgestellt.
+
+<sub>[Code signing policy](docs/CODE-SIGNING-POLICY.md) (englisch)</sub>
