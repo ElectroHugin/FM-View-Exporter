@@ -1,5 +1,12 @@
 # Changelog
 
+## Unveroeffentlicht
+
+- Sterne bei Ability und Potential: graue Sterne (unsichere Einschaetzung der Scouts) zaehlen jetzt
+  mit, so wie das Spiel sie zeigt. Beispiel: 1 gelber + 1 grauer Stern = `2.0` statt `1.0`.
+  Betrifft vor allem gescoutete Spieler in Spieler-Datenbank und Shortlist (Hinweis aus dem
+  FM Player Analyzer).
+
 ## 1.0.0 (31.10.2026)
 
 Erste vollstaendige Version fuer Football Manager 27: F9 exportiert Kader, Spieler-Datenbank und
