@@ -12,7 +12,22 @@ namespace FMViewExporter.Core
         /// </summary>
         public static string Build(string viewName, DateTime timestamp)
         {
-            return Sanitize(viewName) + "_" + timestamp.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
+            return Build("", viewName, timestamp);
+        }
+
+        /// <summary>
+        /// Baut einen Dateinamen ohne Endung aus Praefix, Ansicht und optionalem Zeitstempel,
+        /// z. B. "fc-bayern-squad" (ohne Zeitstempel) oder "squad_20261029_201500".
+        /// </summary>
+        public static string Build(string prefix, string viewName, DateTime? timestamp)
+        {
+            var name = Sanitize(viewName);
+            var cleanPrefix = string.IsNullOrWhiteSpace(prefix) ? "" : Sanitize(prefix);
+            if (cleanPrefix.Length > 0)
+                name = cleanPrefix + "-" + name;
+            if (timestamp.HasValue)
+                name += "_" + timestamp.Value.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture);
+            return name;
         }
 
         public static string Sanitize(string name)
@@ -22,7 +37,7 @@ namespace FMViewExporter.Core
             foreach (var c in name.Trim().ToLowerInvariant())
             {
                 if (char.IsWhiteSpace(c))
-                    builder.Append('_');
+                    builder.Append('-');
                 else if (Array.IndexOf(invalid, c) < 0 && c != '\\' && c != '/' && c != ':' && c != '*' && c != '?' && c != '"' && c != '<' && c != '>' && c != '|')
                     builder.Append(c);
             }

@@ -140,6 +140,9 @@ next F9, hotkeys after a restart.
 | `Hotkeys.Diagnose` | `F10` | Dump of the user interface (for troubleshooting) |
 | `Export.CsvStyle` | `English` | `English` = comma, `German` = semicolon and decimal comma |
 | `Export.OutputFolder` | empty | empty = `Documents\Sports Interactive\FM View Exporter` |
+| `Export.FilePrefix` | empty | Put in front of the file name, e.g. `fc-bayern` → `fc-bayern-squad.csv` |
+| `Export.Timestamp` | `true` | `false` = fixed file name, each export overwrites the last one |
+| `Export.Formats` | `Both` | `Both`, `CsvOnly` or `HtmlOnly` |
 | `Export.ScanColumns` | `false` | `true` = also scroll sideways through all columns (slower, not needed in FM27) |
 | `Export.FramesPerStep` | `3` | Wait per scroll step; increase if values are missing |
 

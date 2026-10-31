@@ -1,5 +1,13 @@
 # Changelog
 
+## Unveroeffentlicht
+
+- Neue Einstellungen `Export.FilePrefix` (z. B. `fc-bayern` -> `fc-bayern-squad.csv`),
+  `Export.Timestamp` (false = fester Dateiname, wird ueberschrieben) und `Export.Formats`
+  (Both, CsvOnly, HtmlOnly).
+- Exporte aus der Spieler-Datenbank heissen jetzt `player-database_...` statt `players_...`.
+- Fertige Analyzer-Ansichten (.fmf) fuer Kader, Spieler-Datenbank und Shortlist unter `views/fm27/`.
+
 ## 0.0.2-test.1 (Testversion)
 
 - F9 exportiert die Spielertabelle (#playertable) als CSV und HTML: alle Spalten mit den

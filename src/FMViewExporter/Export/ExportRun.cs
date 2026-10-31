@@ -146,6 +146,18 @@ namespace FMViewExporter.Export
             return true;
         }
 
+        /// <summary>Kurzer Name des Bildschirms fuer den Dateinamen, z. B. "Squad" -> "squad".</summary>
+        private static string ScreenFileName(string viewName)
+        {
+            switch (viewName)
+            {
+                case PlayerTable.UnknownScreen:
+                    return "player-database";
+                default:
+                    return viewName;
+            }
+        }
+
         private static void Write(PlayerTable table, List<string> headers, RowCollector rows, Stopwatch watch)
         {
             // Spalten ohne Kopf (Auswahlkaestchen) fallen weg.
@@ -157,13 +169,25 @@ namespace FMViewExporter.Export
                 export.AddRow(keep.Select(i => row[i]).ToList());
 
             var folder = OutputPaths.EnsureFolder(OutputPaths.BaseFolder);
-            var baseName = ExportFileNames.Build(table.ViewName, now);
-            var csv = Path.Combine(folder, baseName + ".csv");
-            var html = Path.Combine(folder, baseName + ".html");
-            CsvWriter.WriteFile(export, csv, Plugin.Settings.CsvStyle.Value);
-            HtmlWriter.WriteFile(export, html);
+            var settings = Plugin.Settings;
+            var baseName = ExportFileNames.Build(settings.FilePrefix.Value, ScreenFileName(table.ViewName),
+                settings.Timestamp.Value ? now : (DateTime?)null);
+            var formats = settings.Formats.Value;
+            var written = new List<string>();
+            if (formats != ExportFormats.HtmlOnly)
+            {
+                var csv = Path.Combine(folder, baseName + ".csv");
+                CsvWriter.WriteFile(export, csv, settings.CsvStyle.Value);
+                written.Add(csv);
+            }
+            if (formats != ExportFormats.CsvOnly)
+            {
+                var html = Path.Combine(folder, baseName + ".html");
+                HtmlWriter.WriteFile(export, html);
+                written.Add(html);
+            }
 
-            Plugin.Logger.LogMessage($"Export fertig: {export.Rows.Count} Zeilen, {export.Headers.Count} Spalten in {watch.Elapsed.TotalSeconds:0.0} s -> {csv}");
+            Plugin.Logger.LogMessage($"Export fertig: {export.Rows.Count} Zeilen, {export.Headers.Count} Spalten in {watch.Elapsed.TotalSeconds:0.0} s -> {string.Join(", ", written)}");
 
             var empty = rows.EmptyColumns().Where(i => headers[i].Length > 0).Select(i => headers[i]).ToList();
             if (empty.Count > 0)
