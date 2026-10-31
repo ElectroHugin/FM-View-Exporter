@@ -22,8 +22,7 @@ column as **CSV** and **HTML**, with headers exactly as in the game.
 [Get started](#-get-started-in-5-minutes) ·
 [With the FM Player Analyzer](#-made-for-the-fm-player-analyzer) ·
 [Settings](#-settings) ·
-[FAQ](#-faq) ·
-[Code signing policy](#-code-signing-policy)
+[FAQ](#-faq)
 
 </div>
 
@@ -193,7 +192,7 @@ The setup is new and not code-signed yet, and it installs BepInEx, which hooks i
 the game through `winhttp.dll`. Virus scanners often flag that pattern, even though
 nothing harmful happens. Every file is built by GitHub Actions from the public
 source code; the checksums are in the release notes. Signing via SignPath is
-planned (see [Code signing policy](#-code-signing-policy)).
+planned.
 
 **How do I uninstall it?**
 Run the setup and click **Uninstall**. By hand: delete `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
@@ -237,29 +236,6 @@ pre-releases. Signing the setup is described in [docs/CODE-SIGNING.md](docs/CODE
 
 ---
 
-## 🔏 Code signing policy
-
-Free code signing for the Windows setup is provided by [SignPath.io](https://about.signpath.io),
-certificate by [SignPath Foundation](https://signpath.org).
-
-- Status: the project is applying to SignPath. Releases are **not signed** yet; signing
-  starts with the first release after SignPath has approved the project.
-- Only files built by GitHub Actions from this public repository are signed. Every signing
-  request is approved by hand.
-- **Committers and reviewers:** [ElectroHugin](https://github.com/ElectroHugin)
-- **Approvers:** [ElectroHugin](https://github.com/ElectroHugin)
-- Bundled third-party files such as [BepInEx](https://github.com/BepInEx/BepInEx) are included
-  as published by their authors and are not signed by this project.
-
-**Privacy.** This program will not transfer any information to other networked systems unless
-specifically requested by the user or the person installing or operating it. The plugin and
-the setup make no network connections. Exports are written only to your own computer. The mod
-loader BepInEx, which the setup installs, downloads Unity base libraries once from
-`unity.bepinex.dev` on the first game start; see the
-[BepInEx project](https://github.com/BepInEx/BepInEx) for its terms.
-
----
-
 ## License & disclaimer
 
 Licensed under **GPLv3**, see [LICENSE](LICENSE).
@@ -269,3 +245,5 @@ Sports Interactive or SEGA. *Football Manager* and Sports Interactive are
 trademarks of Sports Interactive Limited; SEGA is a trademark of SEGA
 Corporation. All in-game data is the property of Sports Interactive and/or
 SEGA. The software is provided "as is", without warranty of any kind.
+
+<sub>[Code signing policy](docs/CODE-SIGNING-POLICY.md)</sub>

@@ -76,7 +76,7 @@ cat > "$DIST/release-notes.md" <<NOTES
 | \`FMViewExporter-$VERSION-plugin.zip\` | Only the plugin, if BepInEx is already installed. |
 
 Changes: see [CHANGELOG.md](https://github.com/ElectroHugin/FM-View-Exporter/blob/main/CHANGELOG.md).
-**Code signing policy:** https://github.com/ElectroHugin/FM-View-Exporter#-code-signing-policy
+**Code signing policy:** https://github.com/ElectroHugin/FM-View-Exporter/blob/main/docs/CODE-SIGNING-POLICY.md
 
 Deutsch: Das Setup ist der einfachste Weg (Installieren, Aktualisieren, Deinstallieren, Einstellungen). Anleitung auf Deutsch: [README.de.md](https://github.com/ElectroHugin/FM-View-Exporter/blob/main/README.de.md).
 
