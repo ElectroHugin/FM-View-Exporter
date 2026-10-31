@@ -58,6 +58,12 @@ header. Keep the list below anyway, so every export looks the same.
 | Ability and Roles | Assistant manager's opinion of this player's current ability | `Ability` |
 | Ability and Roles | Assistant manager's opinion of this player's potential ability | `Potential` |
 
+### Player Database differences
+
+The column menu of the Player Database differs slightly from the squad screen: *General* is
+called *General Info* there, and *Media Handling Style* is just *Media Handling*. The headers in
+the table are the same.
+
 ### Player Database only
 
 | Column in the game | Header in the export | Note |
