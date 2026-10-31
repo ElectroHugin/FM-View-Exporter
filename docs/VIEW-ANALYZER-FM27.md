@@ -59,21 +59,22 @@ header. Keep the list below anyway, so every export looks the same.
 | Ability and Roles | Assistant manager's opinion of this player's current ability | `Ability` |
 | Ability and Roles | Assistant manager's opinion of this player's potential ability | `Potential` |
 
-### Player Database differences
+### Player Database and Shortlist differences
 
 The column menu of the Player Database differs slightly from the squad screen: *General* is
 called *General Info* there, *Media Handling Style* is just *Media Handling*, and
 *Stats (General) > General* is *Stats > General* (e.g. *Average Rating*). The headers in
 the table are the same.
 
-**`Personality` is not offered in the Player Database.** The Player Database view therefore has no
+**`Personality` is not offered in the Player Database or the Shortlists.** Those views therefore have no
 Personality column; the Analyzer treats it as unknown for those players.
 
-### Player Database only
+### Player Database and Shortlist only
 
 | Column in the game | Header in the export | Note |
 | --- | --- | --- |
 | Rec. (first column) | `Recommendation` | Your scouts' grade from `A+` to `F`, plus the text, e.g. `B- Very Good`; empty when unknown. Kept for scouting; the Analyzer ignores it for now. |
+| Player's Interest (Shortlist) | to be confirmed with the first export | How interested the player is in joining. Kept for transfers; the Analyzer ignores it for now. |
 
 ### Attributes
 
