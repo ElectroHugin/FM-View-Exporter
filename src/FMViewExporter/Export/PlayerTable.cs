@@ -243,8 +243,11 @@ namespace FMViewExporter.Export
                 if (!string.IsNullOrEmpty(name) && name.EndsWith("Screen", StringComparison.Ordinal) && name.Length > "Screen".Length)
                     return name.Substring(0, name.Length - "Screen".Length);
             }
-            return "players";
+            return UnknownScreen;
         }
+
+        /// <summary>Ansichtsname, wenn kein Vorfahr "...Screen" heisst (bisher die Spieler-Datenbank).</summary>
+        internal const string UnknownScreen = "players";
 
         internal static bool IsHidden(VisualElement element)
         {
