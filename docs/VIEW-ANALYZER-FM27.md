@@ -8,12 +8,12 @@ Each has 69 columns, far below the roughly 255 columns FM27 fills with values.
 ## Use the ready-made views
 
 FM27 keeps separate views per screen: a view saved in the squad screen cannot be used in the
-scouting screen and vice versa. That is why there is one file per screen, with the same columns.
+player database and vice versa. That is why there is one file per screen, with the same columns.
 
 | Screen | File | Name in the game |
 | --- | --- | --- |
 | Squad | [`views/fm27/FM27-PlayerAnalyzer-Squad-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Squad-Standard.fmf) | *Player Analyzer – Squad Standard* |
-| Scouting / player search | [`views/fm27/FM27-PlayerAnalyzer-Scouting-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-Scouting-Standard.fmf) | *Player Analyzer – Scouting Standard* |
+| Recruitment > Player Database | [`views/fm27/FM27-PlayerAnalyzer-PlayerDatabase-Standard.fmf`](../views/fm27/FM27-PlayerAnalyzer-PlayerDatabase-Standard.fmf) | *Player Analyzer – Player Database Standard* |
 
 1. Download the file for the screen you want.
 2. In FM27 open that screen, open the view menu of the table and choose *Import View…*.
@@ -58,6 +58,12 @@ header. Keep the list below anyway, so every export looks the same.
 | Ability and Roles | Assistant manager's opinion of this player's current ability | `Ability` |
 | Ability and Roles | Assistant manager's opinion of this player's potential ability | `Potential` |
 
+### Player Database only
+
+| Column in the game | Header in the export | Note |
+| --- | --- | --- |
+| Rec. (first column) | `Recommendation` | Your scouts' grade from `A+` to `F`, plus the text, e.g. `B- Very Good`; empty when unknown. Kept for scouting; the Analyzer ignores it for now. |
+
 ### Attributes
 
 Every entry of these four menus, 47 in total. Menu entry and header are the same except where
@@ -76,7 +82,7 @@ Build the view once in each screen. Name it after the screen, then open the view
 *Export Current View…* and save it under the matching file name from the table above.
 
 Naming scheme for all views shipped with the exporter:
-`FM27-PlayerAnalyzer-<Screen>-<Preset>.fmf`. `<Screen>` is `Squad` or `Scouting`, `<Preset>` is
+`FM27-PlayerAnalyzer-<Screen>-<Preset>.fmf`. `<Screen>` is `Squad` or `PlayerDatabase`, `<Preset>` is
 `Standard`, `Full` or `Stats` for the presets "Analyzer", "Analyzer-Voll" and "Statistik".
 
 ## Notes
