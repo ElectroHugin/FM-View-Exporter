@@ -69,6 +69,8 @@ cat > "$DIST/release-notes.md" <<NOTES
 **Komplettpaket** (BepInEx #$BEPINEX_BUILD + Plugin): Inhalt direkt in den Spielordner entpacken, neben fm.exe.
 **Plugin**: nur das Plugin, wenn BepInEx schon installiert ist.
 
+**Code signing policy:** https://github.com/ElectroHugin/FM-View-Exporter#-code-signing-policy
+
 Anleitung: siehe \`FM View Exporter - LIESMICH.txt\` im Komplettpaket.
 
 Pruefsummen (SHA-256):

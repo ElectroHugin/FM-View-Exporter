@@ -19,6 +19,8 @@
   #playertableshortlist. Der Ansichtsname kommt jetzt auch aus inneren Tabellennamen und aus den
   Bereichen #RecruitmentShortlistTool (shortlist) und #PlayerSearchReport (player-database).
   Der HTML-Titel nennt dieselbe Ansicht wie der Dateiname.
+- Code signing policy im README; die CI signiert das Setup bei Releases ueber SignPath, sobald das
+  Projekt dort aufgenommen ist (Anleitung `docs/CODE-SIGNING.md`).
 - Wird keine Tabelle gefunden, schreibt das Log Diagnose-Hinweise, wo Kopf- und Tabellenzeilen liegen.
 
 ## 0.0.2-test.1 (Testversion)
