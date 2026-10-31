@@ -11,10 +11,25 @@ namespace FMViewExporter.Setup
         Number
     }
 
+    /// <summary>Ein Wert einer Auswahl-Einstellung: so steht er in der cfg, so wird er angezeigt.</summary>
+    public sealed class SettingChoice
+    {
+        public SettingChoice(string value, string labelDe, string labelEn)
+        {
+            Value = value;
+            LabelDe = labelDe;
+            LabelEn = labelEn;
+        }
+
+        public string Value { get; }
+        public string LabelDe { get; }
+        public string LabelEn { get; }
+    }
+
     /// <summary>Eine Einstellung des Plugins, wie sie in der cfg-Datei steht.</summary>
     public sealed class SettingDefinition
     {
-        public SettingDefinition(string section, string key, SettingKind kind, string defaultValue, string labelDe, string labelEn, string helpDe, string helpEn, params string[] choices)
+        public SettingDefinition(string section, string key, SettingKind kind, string defaultValue, string labelDe, string labelEn, string helpDe, string helpEn, params SettingChoice[] choices)
         {
             Section = section;
             Key = key;
@@ -35,7 +50,7 @@ namespace FMViewExporter.Setup
         public string LabelEn { get; }
         public string HelpDe { get; }
         public string HelpEn { get; }
-        public string[] Choices { get; }
+        public SettingChoice[] Choices { get; }
     }
 
     /// <summary>
@@ -57,13 +72,16 @@ namespace FMViewExporter.Setup
                 "off = fixed file name, each export overwrites the last one"),
             new SettingDefinition("Export", "Formats", SettingKind.Choice, "Both",
                 "Dateiformate", "File formats",
-                "Both = CSV und HTML", "Both = CSV and HTML",
-                "Both", "CsvOnly", "HtmlOnly"),
+                "welche Dateien pro Export geschrieben werden", "which files each export writes",
+                new SettingChoice("Both", "CSV und HTML", "CSV and HTML"),
+                new SettingChoice("CsvOnly", "Nur CSV", "CSV only"),
+                new SettingChoice("HtmlOnly", "Nur HTML", "HTML only")),
             new SettingDefinition("Export", "CsvStyle", SettingKind.Choice, "English",
                 "CSV-Stil", "CSV style",
-                "English = Komma; German = Semikolon und Dezimalkomma (deutsches Excel)",
-                "English = comma; German = semicolon and decimal comma (German Excel)",
-                "English", "German"),
+                "Trennzeichen passend zu deinem Excel",
+                "separator matching your Excel",
+                new SettingChoice("English", "Englisch (Komma)", "English (comma)"),
+                new SettingChoice("German", "Deutsch (Semikolon, Dezimalkomma)", "German (semicolon, decimal comma)")),
             new SettingDefinition("Export", "OutputFolder", SettingKind.Folder, "",
                 "Zielordner", "Output folder",
                 "leer = Dokumente\\Sports Interactive\\FM View Exporter",
