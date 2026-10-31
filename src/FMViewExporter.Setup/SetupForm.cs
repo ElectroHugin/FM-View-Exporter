@@ -15,7 +15,11 @@ namespace FMViewExporter.Setup
     /// </summary>
     internal sealed class SetupForm : Form
     {
-        private static readonly bool German = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de";
+        /// <summary>Englisch ist Standard; Deutsch laesst sich oben rechts umschalten und wird gemerkt.</summary>
+        private static bool German;
+
+        /// <summary>True, wenn das Fenster wegen eines Sprachwechsels neu geoeffnet werden soll.</summary>
+        public bool RestartRequested { get; private set; }
         private static readonly Color Brand = Color.FromArgb(0x1B, 0x6A, 0xF5);
         private const string ProjectUrl = "https://github.com/ElectroHugin/FM-View-Exporter";
         private const string IssuesUrl = ProjectUrl + "/issues";
@@ -32,6 +36,7 @@ namespace FMViewExporter.Setup
 
         public SetupForm()
         {
+            German = Preferences.Language == "de";
             Text = "FM View Exporter Setup";
             Font = new Font("Segoe UI", 9F);
             // Groessen werden selbst mit der Bildschirmskalierung multipliziert (S), damit bei 125 % oder 150 % nichts abgeschnitten wird.
@@ -112,8 +117,25 @@ namespace FMViewExporter.Setup
                 AutoSize = true,
                 Location = new Point(S(19), S(42))
             };
+            var language = new LinkLabel
+            {
+                Text = German ? "English" : "Deutsch",
+                AutoSize = true,
+                LinkColor = Color.White,
+                ActiveLinkColor = Color.White,
+                VisitedLinkColor = Color.White,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
+            };
+            language.LinkClicked += (s, e) =>
+            {
+                Preferences.Language = German ? "en" : "de";
+                RestartRequested = true;
+                Close();
+            };
             panel.Controls.Add(title);
             panel.Controls.Add(subtitle);
+            panel.Controls.Add(language);
+            panel.Layout += (s, e) => language.Location = new Point(panel.ClientSize.Width - language.Width - S(16), S(12));
             return panel;
         }
 

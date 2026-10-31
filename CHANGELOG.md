@@ -2,7 +2,7 @@
 
 ## Unveroeffentlicht
 
-- Neues Setup-Programm `FMViewExporter-<version>-setup.exe` (Deutsch/Englisch): findet FM27 in den
+- Neues Setup-Programm `FMViewExporter-<version>-setup.exe` (Englisch, oben rechts auf Deutsch umschaltbar): findet FM27 in den
   Steam-Bibliotheken, installiert BepInEx und das Plugin, aktualisiert ohne die Einstellungen zu
   verlieren, deinstalliert (BepInEx bleibt, wenn weitere Mods da sind) und bearbeitet alle
   Einstellungen in einem Formular. Drei Reiter (Installation, Einstellungen, Über) mit

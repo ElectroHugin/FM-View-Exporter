@@ -10,7 +10,16 @@ namespace FMViewExporter.Setup
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SetupForm());
+            bool restart;
+            do
+            {
+                using (var form = new SetupForm())
+                {
+                    Application.Run(form);
+                    restart = form.RestartRequested;
+                }
+            }
+            while (restart);
         }
     }
 }
