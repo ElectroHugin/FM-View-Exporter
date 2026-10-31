@@ -70,8 +70,9 @@ Personality column; the Analyzer treats it as unknown for those players.
 
 | Column in the game | Header in the export | Note |
 | --- | --- | --- |
-| Rec. (first column) | `Rec.` | Your scouts' grade from `A+` to `F`, empty when unknown. Kept for scouting; the Analyzer ignores it for now. |
-| Player's Interest (Shortlist) | to be confirmed with the first export | How interested the player is in joining. Kept for transfers; the Analyzer ignores it for now. |
+| Rec. (Player Database) | `Rec.` | Your scouts' grade from `A+` to `F`, empty when unknown. Kept for scouting; the Analyzer ignores it for now. |
+| Recommendation (Shortlist) | `Recommendation` | The same grade with its label, e.g. `B+ Superb` or `D Last Resort`. Kept for scouting; the Analyzer ignores it for now. |
+| Player's Interest (Shortlist) | `Player's Interest` | How interested the player is in joining; often empty. Kept for transfers; the Analyzer ignores it for now. |
 
 ### Attributes
 

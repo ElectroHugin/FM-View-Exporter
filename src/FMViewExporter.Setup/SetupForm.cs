@@ -44,22 +44,25 @@ namespace FMViewExporter.Setup
             using (var graphics = CreateGraphics())
                 _scale = Math.Max(1f, graphics.DpiX / 96f);
             StartPosition = FormStartPosition.CenterScreen;
-            ClientSize = new Size(S(700), S(600));
+            ClientSize = new Size(S(720), S(600));
             MinimumSize = new Size(S(600), S(480));
             try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath); } catch { }
 
-            var tabs = new TabControl { Dock = DockStyle.Fill, Padding = new Point(S(14), S(5)) };
+            _tabs.Padding = new Point(S(14), S(5));
+            var tabs = _tabs;
             tabs.TabPages.Add(Page(T("Installation", "Installation"), BuildGamePage()));
             tabs.TabPages.Add(Page(T("Einstellungen", "Settings"), BuildSettingsPage()));
             tabs.TabPages.Add(Page(T("Über", "About"), BuildAboutPage()));
 
             // Docking folgt der umgekehrten Reihenfolge: zuerst das Fuellelement, dann der Kopf oben.
             Controls.Add(tabs);
-            Controls.Add(BuildHeader());
+            _header = BuildHeader();
+            Controls.Add(_header);
 
             _folder.TextChanged += (s, e) => RefreshState();
             Load += (s, e) =>
             {
+                FitToContent();
                 FitToScreen();
                 _folder.Text = GameLocator.Find() ?? "";
                 RefreshState();
@@ -67,6 +70,12 @@ namespace FMViewExporter.Setup
         }
 
         private readonly float _scale = 1f;
+        private readonly TabControl _tabs = new TabControl { Dock = DockStyle.Fill };
+        private Control _header;
+        private Control _gameGrid;
+        private Control _settingsGrid;
+        private Control _settingsBar;
+        private Control _aboutColumn;
 
         private int S(int pixels) => (int)Math.Round(pixels * _scale);
 
@@ -77,6 +86,25 @@ namespace FMViewExporter.Setup
             var page = new TabPage(title) { Padding = new Padding(10), UseVisualStyleBackColor = true };
             page.Controls.Add(content);
             return page;
+        }
+
+        /// <summary>Fenster so hoch machen, dass der laengste Reiter ohne Scrollen passt.</summary>
+        private void FitToContent()
+        {
+            try
+            {
+                var content = Math.Max(_gameGrid.PreferredSize.Height,
+                              Math.Max(_settingsGrid.PreferredSize.Height + _settingsBar.PreferredSize.Height,
+                                       _aboutColumn.PreferredSize.Height));
+                var tabChrome = _tabs.Height - _tabs.DisplayRectangle.Height;
+                var pagePadding = 2 * S(10);
+                var height = _header.Height + tabChrome + pagePadding + content + S(12);
+                var width = Math.Max(ClientSize.Width, _settingsGrid.PreferredSize.Width + 2 * S(10) + SystemInformation.VerticalScrollBarWidth + S(24));
+                ClientSize = new Size(width, Math.Max(ClientSize.Height, height));
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>Fenster nie groesser als der freie Bildschirm (kleine Laptops, hohe Skalierung).</summary>
@@ -142,6 +170,7 @@ namespace FMViewExporter.Setup
         private Control BuildGamePage()
         {
             var grid = new TableLayoutPanel { Dock = DockStyle.Top, ColumnCount = 3, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink };
+            _gameGrid = grid;
             grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             grid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
             grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
@@ -198,6 +227,7 @@ namespace FMViewExporter.Setup
         private Control BuildSettingsPage()
         {
             var grid = new TableLayoutPanel { Dock = DockStyle.Top, ColumnCount = 2, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink };
+            _settingsGrid = grid;
             grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             grid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 
@@ -235,6 +265,7 @@ namespace FMViewExporter.Setup
 
             // Speichern steht fest unten und ist damit immer sichtbar, auch wenn die Liste scrollt.
             var bar = new TableLayoutPanel { Dock = DockStyle.Bottom, ColumnCount = 2, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Padding = new Padding(0, 8, 0, 0) };
+            _settingsBar = bar;
             bar.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             bar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
             _save.Text = T("Einstellungen speichern", "Save settings");
@@ -386,6 +417,7 @@ namespace FMViewExporter.Setup
             // Spalte waagerecht mittig halten, senkrecht scrollen, wenn das Fenster klein ist.
             var scroll = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
             scroll.Controls.Add(column);
+            _aboutColumn = column;
             scroll.Resize += (s, e) => column.Left = Math.Max(0, (scroll.ClientSize.Width - column.Width) / 2) + scroll.AutoScrollPosition.X;
             return scroll;
         }

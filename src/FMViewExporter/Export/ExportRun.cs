@@ -158,18 +158,6 @@ namespace FMViewExporter.Export
             return true;
         }
 
-        /// <summary>Kurzer Name des Bildschirms fuer den Dateinamen, z. B. "Squad" -> "squad".</summary>
-        private static string ScreenFileName(string viewName)
-        {
-            switch (viewName)
-            {
-                case PlayerTable.UnknownScreen:
-                    return "player-database";
-                default:
-                    return viewName;
-            }
-        }
-
         private static void Write(PlayerTable table, List<string> headers, RowCollector rows, Stopwatch watch)
         {
             // Spalten ohne Kopf (Auswahlkaestchen) fallen weg.
@@ -182,7 +170,7 @@ namespace FMViewExporter.Export
 
             var folder = OutputPaths.EnsureFolder(OutputPaths.BaseFolder);
             var settings = Plugin.Settings;
-            var baseName = ExportFileNames.Build(settings.FilePrefix.Value, ScreenFileName(table.ViewName),
+            var baseName = ExportFileNames.Build(settings.FilePrefix.Value, table.ViewName,
                 settings.Timestamp.Value ? now : (DateTime?)null);
             var formats = settings.Formats.Value;
             var written = new List<string>();
