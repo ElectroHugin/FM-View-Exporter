@@ -54,5 +54,110 @@ namespace FMViewExporter.Core.Tests
             rows.Add(new[] { "2", "", "" }, 1);
             Assert.Equal(new[] { 1 }, rows.EmptyColumns());
         }
+
+        // Befund 3: Zeilenidentitaet und spaet nachgeladene Werte
+
+        [Fact]
+        public void Id_that_appears_later_is_merged_via_row_identity()
+        {
+            var rows = new RowCollector(3, 0);
+            Assert.True(rows.Add(new[] { "", "Spieler A", "" }, 0, "row:0"));
+            Assert.False(rows.Add(new[] { "123", "Spieler A", "15" }, 100000, "row:0"));
+            Assert.Equal(new[] { "123", "Spieler A", "15" }, rows.RowsInOrder().Single());
+
+            // Danach wird die Zeile auch ueber die ID gefunden.
+            Assert.False(rows.Add(new[] { "123", "Spieler A", "15" }, 200000, "row:0"));
+            Assert.Equal(1, rows.Count);
+        }
+
+        [Fact]
+        public void Without_row_identity_a_late_id_is_not_merged_silently_but_reported()
+        {
+            var rows = new RowCollector(3, 0);
+            rows.Add(new[] { "", "Spieler A", "" }, 0);
+            rows.Add(new[] { "123", "Spieler A", "15" }, 1);
+            Assert.Equal(2, rows.Count);
+            Assert.Equal(1, rows.PossibleDuplicates);
+        }
+
+        [Fact]
+        public void Values_loaded_later_fill_the_same_row_without_key_column()
+        {
+            var rows = new RowCollector(3, -1);
+            rows.Add(new[] { "Spieler A", "", "" }, 0, "row:0");
+            rows.Add(new[] { "Spieler A", "24", "" }, 1, "row:0");
+            rows.Add(new[] { "Spieler A", "24", "€1M" }, 2, "row:0");
+            Assert.Equal(new[] { "Spieler A", "24", "€1M" }, rows.RowsInOrder().Single());
+            Assert.Equal(0, rows.PossibleDuplicates);
+        }
+
+        [Fact]
+        public void Players_with_the_same_name_stay_separate()
+        {
+            var rows = new RowCollector(3, 0);
+            rows.Add(new[] { "1", "Max Müller", "20" }, 0, "row:0");
+            rows.Add(new[] { "2", "Max Müller", "20" }, 1, "row:24");
+            rows.Add(new[] { "", "Max Müller", "" }, 2, "row:48");
+            Assert.Equal(3, rows.Count);
+
+            var noKey = new RowCollector(2, -1);
+            noKey.Add(new[] { "Max Müller", "20" }, 0, "row:0");
+            noKey.Add(new[] { "Max Müller", "31" }, 1, "row:24");
+            Assert.Equal(2, noKey.Count);
+        }
+
+        [Fact]
+        public void Conflicting_values_at_the_same_row_identity_are_not_merged()
+        {
+            var rows = new RowCollector(3, -1);
+            rows.Add(new[] { "Spieler A", "24", "" }, 0, "row:0");
+            Assert.True(rows.Add(new[] { "Spieler B", "", "" }, 1, "row:0"));
+            Assert.Equal(2, rows.Count);
+        }
+
+        [Fact]
+        public void A_known_id_is_not_moved_to_another_player_with_same_row_identity()
+        {
+            var rows = new RowCollector(3, 0);
+            rows.Add(new[] { "1", "Spieler A", "" }, 0, "row:0");
+            Assert.True(rows.Add(new[] { "2", "Spieler A", "" }, 1, "row:0"));
+            Assert.Equal(new[] { "1", "2" }, rows.RowsInOrder().Select(r => r[0]));
+        }
+
+        [Fact]
+        public void Unmerged_row_without_id_is_reported()
+        {
+            var rows = new RowCollector(3, 0);
+            rows.Add(new[] { "1", "Spieler A", "" }, 0, "y:0");
+            rows.Add(new[] { "", "Spieler A", "15" }, 1, "y:500");
+            Assert.Equal(2, rows.Count);
+            Assert.Equal(1, rows.PossibleDuplicates);
+        }
+
+        [Fact]
+        public void Horizontal_scan_parts_are_merged()
+        {
+            // Links sichtbar: ID und Name; nach dem seitlichen Scrollen nur die rechten Spalten.
+            var rows = new RowCollector(4, 0);
+            rows.Add(new[] { "1", "A", "", "" }, 0, "row:0");
+            rows.Add(new[] { "2", "B", "", "" }, 24, "row:24");
+            rows.Add(new[] { "", "", "x", "y" }, 100000, "row:0");
+            rows.Add(new[] { "", "", "z", "w" }, 100024, "row:24");
+            Assert.Equal(new[] { new[] { "1", "A", "x", "y" }, new[] { "2", "B", "z", "w" } }, rows.RowsInOrder());
+        }
+
+        [Fact]
+        public void Merging_keeps_the_original_order()
+        {
+            var rows = new RowCollector(3, 0);
+            rows.Add(new[] { "", "A", "" }, 10, "row:0");
+            rows.Add(new[] { "", "B", "" }, 20, "row:24");
+            rows.Add(new[] { "", "C", "" }, 30, "row:48");
+            rows.Add(new[] { "3", "C", "x" }, 1, "row:48");
+            rows.Add(new[] { "1", "A", "x" }, 2, "row:0");
+            rows.Add(new[] { "2", "B", "x" }, 3, "row:24");
+            Assert.Equal(new[] { "A", "B", "C" }, rows.RowsInOrder().Select(r => r[1]));
+            Assert.Equal(new[] { "1", "2", "3" }, rows.RowsInOrder().Select(r => r[0]));
+        }
     }
 }

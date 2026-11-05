@@ -157,7 +157,7 @@ namespace FMViewExporter.Export
                     previousPosition = position;
 
                     var read = Timed(timing, () => visible.Select(r => (r.Top, r.ContentY, Cells: PlayerTable.ReadCells(r))).ToList());
-                    foreach (var (top, _, cells) in read)
+                    foreach (var (top, contentY, cells) in read)
                     {
                         if (cells.Count != headers.Count && !mismatchReported)
                         {
@@ -166,7 +166,9 @@ namespace FMViewExporter.Export
                         }
                         if (keyColumn >= 0 && keyColumn < cells.Count && cells[keyColumn].Length > 0)
                             stepKeys.Add(cells[keyColumn]);
-                        rows.Add(cells, step * 100000.0 + top);
+                        // Position im Listeninhalt = stabile Zeilenidentitaet (gleich nach Scrollen und
+                        // seitlichem Scannen); so findet eine erst spaeter gefuellte Unique ID ihre Zeile.
+                        rows.Add(cells, step * 100000.0 + top, RowId(contentY));
                     }
 
                     step++;
@@ -264,6 +266,10 @@ namespace FMViewExporter.Export
             }
         }
 
+        /// <summary>Zeilenidentitaet aus der Position im Listeninhalt (auf ganze Pixel gerundet).</summary>
+        private static string? RowId(float contentY) =>
+            float.IsNaN(contentY) || float.IsInfinity(contentY) ? null : "y:" + Math.Round(contentY).ToString(System.Globalization.CultureInfo.InvariantCulture);
+
         private static void Write(PlayerTable table, List<string> headers, RowCollector rows, Stopwatch watch)
         {
             // Spalten ohne Kopf (Auswahlkaestchen) fallen weg.
@@ -294,6 +300,9 @@ namespace FMViewExporter.Export
             }
 
             Plugin.Logger.LogMessage($"Export fertig: {export.Rows.Count} Zeilen, {export.Headers.Count} Spalten in {watch.Elapsed.TotalSeconds:0.0} s -> {string.Join(", ", written)}");
+
+            if (rows.PossibleDuplicates > 0)
+                Plugin.Logger.LogWarning($"{rows.PossibleDuplicates} Zeilen ohne Unique ID passen zu einer anderen Zeile und koennten doppelt sein. Sie wurden nicht zusammengefuehrt; bitte die Spalte \"Unique ID\" in die Ansicht aufnehmen.");
 
             var empty = rows.EmptyColumns().Where(i => headers[i].Length > 0).Select(i => headers[i]).ToList();
             if (empty.Count > 0)

@@ -17,6 +17,23 @@
 - Das Log nennt am Ende die Zeitaufteilung (Scrollschritte, Frames, Lesezeit), damit sich weitere
   Beschleunigungen gezielt messen lassen.
 
+- Deinstallieren: Fremde Patcher unter `BepInEx\patchers` zaehlen jetzt wie fremde Plugins.
+  Ist einer vorhanden, bleibt BepInEx stehen; entfernt werden nur Dateien und Einstellungen des
+  FM View Exporters (vorher konnte der ganze BepInEx-Ordner samt fremdem Patcher geloescht werden).
+- Setup: Ein vorhandenes, vollstaendiges BepInEx (gleicher oder neuerer Build als #755, oder eine
+  nicht bestimmbare Version etwa von einer anderen Mod) bleibt beim Installieren/Aktualisieren
+  unangetastet, es wird nur das Plugin geschrieben. Fehlt BepInEx, ist es unvollstaendig oder aelter,
+  installiert bzw. repariert das Setup es wie bisher. Eine vorhandene `doorstop_config.ini` wird nie
+  ueberschrieben.
+- Keine doppelten Zeilen mehr, wenn die Unique ID oder andere Werte erst nach dem ersten Lesen
+  erscheinen: Zeilen werden zusaetzlich ueber ihre Position in der Liste zugeordnet (nur wenn sich die
+  Werte nicht widersprechen; Namen allein fuehren nie Zeilen zusammen). Bleiben Zeilen ohne Unique ID
+  uebrig, die doppelt sein koennten, steht eine Warnung im Log.
+- HTML-Sortierung: Geldbetraege mit K/M/B (`€900K` < `€1M`), Tausendertrennzeichen (`950` < `1,200`),
+  Einheiten (`175 cm`) und Spannen (`10-12`, `€1M - €2M`, nach unterem, dann oberem Wert) sortieren
+  jetzt richtig. Die Sortierwerte werden beim Export berechnet; der sichtbare Text bleibt gleich.
+  Leere Zellen stehen immer am Ende, Text wird natuerlich sortiert (`Spieler 2` vor `Spieler 10`).
+
 ## 1.0.0 (31.10.2026)
 
 Erste vollstaendige Version fuer Football Manager 27: F9 exportiert Kader, Spieler-Datenbank und
