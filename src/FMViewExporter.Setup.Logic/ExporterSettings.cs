@@ -96,7 +96,7 @@ namespace FMViewExporter.Setup
             new SettingDefinition("Export", "ScanColumns", SettingKind.Boolean, "false",
                 "Auch seitlich scrollen", "Also scroll sideways",
                 "langsamer, in FM27 nicht nötig", "slower, not needed in FM27"),
-            new SettingDefinition("Export", "FramesPerStep", SettingKind.Number, "3",
+            new SettingDefinition("Export", "FramesPerStep", SettingKind.Number, "1",
                 "Wartezeit je Scrollschritt", "Wait per scroll step",
                 "bei fehlenden Werten erhöhen", "increase if values are missing"),
         };

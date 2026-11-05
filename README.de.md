@@ -159,7 +159,7 @@ nächsten F9, Tasten erst nach einem Neustart.
 | `Export.Timestamp` | `true` | `false` = fester Dateiname, jeder Export überschreibt den letzten |
 | `Export.Formats` | `Both` | `Both`, `CsvOnly` oder `HtmlOnly` |
 | `Export.ScanColumns` | `false` | `true` = auch seitlich durch alle Spalten scrollen (langsamer, in FM27 nicht nötig) |
-| `Export.FramesPerStep` | `3` | Wartezeit je Scrollschritt; bei fehlenden Werten erhöhen |
+| `Export.FramesPerStep` | `1` | Wartezeit je Scrollschritt; bei fehlenden Werten erhöhen |
 
 ---
 

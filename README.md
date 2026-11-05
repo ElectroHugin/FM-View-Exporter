@@ -158,7 +158,7 @@ next F9, hotkeys after a restart.
 | `Export.Timestamp` | `true` | `false` = fixed file name, each export overwrites the last one |
 | `Export.Formats` | `Both` | `Both`, `CsvOnly` or `HtmlOnly` |
 | `Export.ScanColumns` | `false` | `true` = also scroll sideways through all columns (slower, not needed in FM27) |
-| `Export.FramesPerStep` | `3` | Wait per scroll step; increase if values are missing |
+| `Export.FramesPerStep` | `1` | Wait per scroll step; increase if values are missing |
 
 ---
 

@@ -26,8 +26,8 @@ namespace FMViewExporter
                 "Both = CSV und HTML, CsvOnly = nur CSV, HtmlOnly = nur HTML.");
             ScanColumns = config.Bind("Export", "ScanColumns", false,
                 "true = beim Export auch seitlich durch alle Spalten scrollen. Langsamer; noetig, falls das Spiel Spalten ausserhalb des Bildes leer laesst.");
-            FramesPerStep = config.Bind("Export", "FramesPerStep", 3,
-                "Frames, die das Spiel nach jedem Scrollschritt zum Befuellen der Zeilen bekommt. Bei fehlenden Werten erhoehen.");
+            FramesPerStep = config.Bind("Export", "FramesPerStep", 1,
+                "Frames, die das Spiel nach jedem Scrollschritt mindestens bekommt; danach wartet der Export ohnehin, bis die Zeilen fertig sind. Bei fehlenden Werten erhoehen.");
         }
 
         public ConfigEntry<string> ExportHotkey { get; }

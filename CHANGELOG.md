@@ -6,6 +6,16 @@
   mit, so wie das Spiel sie zeigt. Beispiel: 1 gelber + 1 grauer Stern = `2.0` statt `1.0`.
   Betrifft vor allem gescoutete Spieler in Spieler-Datenbank und Shortlist (Hinweis aus dem
   FM Player Analyzer).
+- Schnellerer Export: Ob die Zeilen nach einem Scrollschritt fertig sind, prueft das Plugin nur
+  noch ueber Position, Unique ID und letzte Zelle; alle Zellen werden danach genau einmal gelesen
+  (vorher mindestens zweimal). Weniger teure Zugriffe aufs Spiel je Zelle, Scrollschritte von 95 %
+  statt 80 % der sichtbaren Hoehe (mit Sicherheitsnetz: ohne Ueberlappung wird kleiner
+  nachgescrollt) und `Export.FramesPerStep` jetzt standardmaessig `1` statt `3`. Bestehende
+  Einstellungsdateien behalten ihren Wert; wer `3` eingetragen hat, kann im Setup auf `1` stellen.
+- Waehrend des Exports wird die Bildraten-Begrenzung des Spiels kurz aufgehoben (bis 240 Bilder/s)
+  und danach wiederhergestellt. Es wird nichts gespeichert.
+- Das Log nennt am Ende die Zeitaufteilung (Scrollschritte, Frames, Lesezeit), damit sich weitere
+  Beschleunigungen gezielt messen lassen.
 
 ## 1.0.0 (31.10.2026)
 
