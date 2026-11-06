@@ -99,6 +99,9 @@ namespace FMViewExporter.Setup
             new SettingDefinition("Export", "FramesPerStep", SettingKind.Number, "1",
                 "Wartezeit je Scrollschritt", "Wait per scroll step",
                 "bei fehlenden Werten erhöhen", "increase if values are missing"),
+            new SettingDefinition("Export", "RowsPerStep", SettingKind.Number, "200",
+                "Zeilen je Scrollschritt", "Rows per scroll step",
+                "mehr = schneller; 0 = Liste nicht vergrößern", "more = faster; 0 = don't enlarge the list"),
         };
     }
 }

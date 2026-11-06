@@ -12,6 +12,10 @@
   statt 80 % der sichtbaren Hoehe (mit Sicherheitsnetz: ohne Ueberlappung wird kleiner
   nachgescrollt) und `Export.FramesPerStep` jetzt standardmaessig `1` statt `3`. Bestehende
   Einstellungsdateien behalten ihren Wert; wer `3` eingetragen hat, kann im Setup auf `1` stellen.
+- Neue Einstellung `Export.RowsPerStep` (Standard 200): Die Liste wird waehrend des Exports kurz
+  vergroessert, damit das Spiel pro Scrollschritt viel mehr Zeilen zeichnet. FM braucht pro Frame
+  etwa gleich lang, egal wie viele Zeilen sichtbar sind. `0` schaltet das ab.
+- Behoben: Jede Wartezeit dauerte einen Frame laenger als eingestellt.
 - Waehrend des Exports wird die Bildraten-Begrenzung des Spiels kurz aufgehoben (bis 240 Bilder/s)
   und danach wiederhergestellt. Es wird nichts gespeichert.
 - Das Log nennt am Ende die Zeitaufteilung (Scrollschritte, Frames, Lesezeit), damit sich weitere

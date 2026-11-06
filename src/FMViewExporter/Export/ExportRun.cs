@@ -57,8 +57,9 @@ namespace FMViewExporter.Export
             }
             try
             {
+                // "yield return n" heisst: in n Frames weitermachen. Dieser Frame zaehlt als erster.
                 if (_steps.MoveNext())
-                    _waitFrames = _steps.Current;
+                    _waitFrames = Math.Max(0, _steps.Current - 1);
                 else
                     Finished = true;
             }
@@ -118,11 +119,34 @@ namespace FMViewExporter.Export
 
             // Das Plugin wartet in Frames, also laeuft der Export so schnell wie die Bildrate.
             var frameRate = FrameRateUnlock.Apply();
+
+            // Liste hochziehen: Das Spiel braucht pro Frame etwa gleich lang, egal wie viele Zeilen
+            // es zeichnet, also bringen mehr Zeilen je Schritt weniger Schritte insgesamt.
+            TallList? tall = null;
+            var rowHeight = 30f;
+            var rowsPerStep = Plugin.Settings.RowsPerStep.Value;
+            try
+            {
+                var firstRows = table.FindVisibleRows();
+                if (firstRows.Count > 1 && Math.Abs(firstRows[1].Top - firstRows[0].Top) > 1f)
+                    rowHeight = Math.Abs(firstRows[1].Top - firstRows[0].Top);
+                tall = TallList.Apply(scroll, rowsPerStep, rowHeight);
+            }
+            catch (Exception ex)
+            {
+                Plugin.Logger.LogWarning($"Liste konnte nicht vergroessert werden: {ex.Message}");
+            }
             _cleanup = () =>
             {
+                tall?.Restore();
                 scroll.scrollOffset = original;
                 frameRate.Restore();
             };
+            if (tall != null)
+            {
+                yield return 3;
+                Plugin.Logger.LogInfo($"Liste vergroessert: {table.FindVisibleRows().Count} Zeilen je Schritt (Einstellung RowsPerStep = {rowsPerStep}).");
+            }
 
             var timing = new ExportTiming();
             var step = 0;
@@ -130,6 +154,7 @@ namespace FMViewExporter.Export
             HashSet<string>? previousKeys = null;
             string? previousSignature = null;
             var previousPosition = new Vector2(float.NaN, float.NaN);
+            var lastRowCount = 0;
             while (true)
             {
                 var x = 0f;
@@ -164,6 +189,7 @@ namespace FMViewExporter.Export
                     previousSignature = signature;
                     previousPosition = position;
 
+                    lastRowCount = visible.Count;
                     var read = Timed(timing, () => visible.Select(r => (r.Top, r.ContentY, Cells: PlayerTable.ReadCells(r))).ToList());
                     foreach (var (top, contentY, cells) in read)
                     {
@@ -187,6 +213,9 @@ namespace FMViewExporter.Export
                 }
 
                 var page = Math.Max(20f, scroll.contentViewport.layout.height * PageFraction);
+                // Nie weiter scrollen, als das Spiel tatsaechlich Zeilen gezeichnet hat.
+                if (lastRowCount > 1)
+                    page = Math.Min(page, Math.Max(20f, (lastRowCount - 1) * rowHeight));
 
                 // Sicherheitsnetz fuer die grossen Schritte: teilt dieser Schritt keinen Spieler mit
                 // dem vorherigen, koennten Zeilen dazwischen fehlen. Dann einen halben Schritt zurueck.
