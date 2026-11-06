@@ -29,6 +29,9 @@ namespace FMViewExporter.Export
         private readonly IEnumerator<int> _steps;
         private int _waitFrames;
         private Action? _cleanup;
+        private int _frames;
+        private double _frameSeconds;
+        private double _slowestFrame;
 
         public ExportRun()
         {
@@ -42,6 +45,11 @@ namespace FMViewExporter.Export
         {
             if (Finished)
                 return;
+            // Wie lange das Spiel fuer jeden Frame braucht (fuer die Zeitaufteilung im Log).
+            var delta = Time.unscaledDeltaTime;
+            _frames++;
+            _frameSeconds += delta;
+            _slowestFrame = Math.Max(_slowestFrame, delta);
             if (_waitFrames > 0)
             {
                 _waitFrames--;
@@ -206,7 +214,8 @@ namespace FMViewExporter.Export
             Write(table, headers, rows, watch);
             var other = watch.Elapsed - timing.Read;
             Plugin.Logger.LogInfo($"Zeitaufteilung: {step} Scrollschritte, {timing.Frames} Frames gewartet; " +
-                $"Lesen {timing.Read.TotalSeconds:0.0} s, Warten auf das Spiel und Schreiben {Math.Max(0, other.TotalSeconds):0.0} s.");
+                $"Lesen {timing.Read.TotalSeconds:0.0} s, Warten auf das Spiel und Schreiben {Math.Max(0, other.TotalSeconds):0.0} s; " +
+                $"Frame-Dauer im Schnitt {(_frames > 0 ? _frameSeconds / _frames * 1000 : 0):0} ms, laengster {_slowestFrame * 1000:0} ms.");
         }
 
         private sealed class ExportTiming

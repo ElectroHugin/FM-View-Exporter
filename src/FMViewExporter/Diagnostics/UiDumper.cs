@@ -45,6 +45,8 @@ namespace FMViewExporter.Diagnostics
                 dumper.Walk(panel.Root, 0);
             }
 
+            TableModel.Write(writer);
+
             writer.WriteLine();
             writer.WriteLine($"# {dumper.ElementCount} Elemente, {dumper.ListCount} Listen, {(DateTime.Now - started).TotalMilliseconds:0} ms");
             writer.Flush();
