@@ -120,8 +120,8 @@ namespace FMViewExporter.Export
             // Das Plugin wartet in Frames, also laeuft der Export so schnell wie die Bildrate.
             var frameRate = FrameRateUnlock.Apply();
 
-            // Liste hochziehen: Das Spiel braucht pro Frame etwa gleich lang, egal wie viele Zeilen
-            // es zeichnet, also bringen mehr Zeilen je Schritt weniger Schritte insgesamt.
+            // Liste hochziehen: mehr Zeilen je Schritt, also weniger Schritte. Hilft, wenn das Spiel
+            // pro Frame etwa gleich lang braucht, egal wie viele Zeilen es zeichnet.
             TallList? tall = null;
             var rowHeight = 30f;
             var rowsPerStep = Plugin.Settings.RowsPerStep.Value;
