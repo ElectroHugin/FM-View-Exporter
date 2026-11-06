@@ -553,11 +553,13 @@ namespace FMViewExporter.Setup
                 return;
             var game = Game;
             var update = game.HasPlugin;
+            InstallResult result;
             try
             {
                 Cursor = Cursors.WaitCursor;
+                // Vorhandenes, passendes BepInEx (auch von anderen Mods) bleibt stehen; dann nur das Plugin.
                 using (var payload = OpenPayload())
-                    game.Install(payload, pluginOnly: false);
+                    result = game.Install(payload);
             }
             catch (Exception ex)
             {
@@ -569,10 +571,14 @@ namespace FMViewExporter.Setup
                 Cursor = Cursors.Default;
             }
 
-            MessageBox.Show(this, update
+            var runtimeNote = result.Mode == InstallMode.Full && (result.Runtime == RuntimeState.Incomplete || result.Runtime == RuntimeState.Outdated)
+                ? T("\n\nBepInEx war unvollständig oder veraltet und wurde erneuert. Vorhandene Loader-Einstellungen (doorstop_config.ini) bleiben erhalten.",
+                    "\n\nBepInEx was incomplete or outdated and has been renewed. Existing loader settings (doorstop_config.ini) were kept.")
+                : "";
+            MessageBox.Show(this, (update
                     ? T("FM View Exporter wurde aktualisiert. Deine Einstellungen bleiben erhalten.", "FM View Exporter was updated. Your settings were kept.")
                     : T("FM View Exporter ist installiert.\n\nDer erste Spielstart dauert einige Minuten, weil BepInEx einmalig Dateien erzeugt. Danach im Kader oder in der Spieler-Datenbank F9 drücken.",
-                        "FM View Exporter is installed.\n\nThe first game start takes a few minutes while BepInEx prepares itself. Then press F9 in the squad or player database."),
+                        "FM View Exporter is installed.\n\nThe first game start takes a few minutes while BepInEx prepares itself. Then press F9 in the squad or player database.")) + runtimeNote,
                 Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             RefreshState();
         }

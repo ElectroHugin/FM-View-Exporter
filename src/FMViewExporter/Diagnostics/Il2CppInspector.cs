@@ -147,11 +147,19 @@ namespace FMViewExporter.Diagnostics
         /// Beschreibt alle Felder und Eigenschaften eines Objekts mit Typ und Wert.
         /// Mit depth &gt; 0 werden Unterobjekte aus Spiel-Namensraeumen ebenfalls aufgeklappt.
         /// </summary>
-        public static void Describe(Il2CppObject obj, string indent, int depth, Action<string> writeLine, ref int budget)
+        public static void Describe(Il2CppObject obj, string indent, int depth, Action<string> writeLine, ref int budget,
+            bool skipUnity = false)
         {
             var type = obj.GetIl2CppType();
             while (type != null && type.FullName != "System.Object" && budget > 0)
             {
+                // Bei Oberflaechen-Elementen interessieren nur die Klassen des Spiels, nicht die
+                // vielen Eigenschaften von Unitys VisualElement.
+                if (skipUnity && type.FullName.StartsWith("UnityEngine.", StringComparison.Ordinal))
+                {
+                    writeLine($"{indent}[{type.FullName}] (Unity, uebersprungen)");
+                    break;
+                }
                 writeLine($"{indent}[{type.FullName}]");
 
                 foreach (var field in type.GetFields(AllInstance))

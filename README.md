@@ -119,6 +119,12 @@ which turns them into role ratings, an optimal Best XI and signing advice.
 2. Export your squad, player database or shortlist with the matching view using **F9**.
 3. Import the CSV files in the Analyzer.
 
+> **Long lists take a while.** The plugin has to scroll through the list on screen, and FM
+> needs time to fill every row. A squad is done in seconds, but a player search with thousands
+> of players can take several minutes. FM itself only shows the first 10,000 results of a search.
+> For large databases the FM Player Analyzer can now read your save game directly, which is
+> much faster.
+
 The two projects share one column contract: the column names in
 [`docs/columns/fm27.csv`](docs/columns/fm27.csv) are what the Analyzer reads.
 
@@ -158,11 +164,19 @@ next F9, hotkeys after a restart.
 | `Export.Timestamp` | `true` | `false` = fixed file name, each export overwrites the last one |
 | `Export.Formats` | `Both` | `Both`, `CsvOnly` or `HtmlOnly` |
 | `Export.ScanColumns` | `false` | `true` = also scroll sideways through all columns (slower, not needed in FM27) |
-| `Export.FramesPerStep` | `3` | Wait per scroll step; increase if values are missing |
+| `Export.FramesPerStep` | `1` | Wait per scroll step; increase if values are missing |
+| `Export.RowsPerStep` | `200` | Rows drawn per scroll step during export; more = faster, `0` = off |
 
 ---
 
 ## ❓ FAQ
+
+**Why does exporting a long list take so long?**
+FM only fills the rows that are on screen, so the plugin scrolls through the whole list and FM
+calculates every row along the way. That takes seconds for a squad, but minutes for a player
+search with thousands of players. FM shows at most 10,000 search results, so larger searches
+need filters. To analyse a whole database, use the FM Player Analyzer's option to read the save
+game directly.
 
 **Is it really free?**
 Yes. Open source under GPLv3, no ads, no paid tier.

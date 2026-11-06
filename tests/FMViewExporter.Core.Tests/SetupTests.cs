@@ -95,13 +95,19 @@ namespace FMViewExporter.Core.Tests
 
         public void Dispose() => Directory.Delete(_game, true);
 
+        private static readonly string[] PackageFiles =
+        {
+            "winhttp.dll", "doorstop_config.ini", "FM View Exporter - README.txt", "BepInEx/core/BepInEx.Core.dll",
+            "BepInEx/core/BepInEx.Unity.IL2CPP.dll", "dotnet/coreclr.dll",
+            "BepInEx/plugins/FMViewExporter/FMViewExporter.dll", "BepInEx/config/de.electrohugin.fmviewexporter.cfg"
+        };
+
         private static MemoryStream Package()
         {
             var stream = new MemoryStream();
             using (var zip = new ZipArchive(stream, ZipArchiveMode.Create, true))
             {
-                foreach (var name in new[] { "winhttp.dll", "doorstop_config.ini", "FM View Exporter - README.txt", "BepInEx/core/BepInEx.Core.dll",
-                             "BepInEx/plugins/FMViewExporter/FMViewExporter.dll", "BepInEx/config/de.electrohugin.fmviewexporter.cfg" })
+                foreach (var name in PackageFiles)
                 {
                     using var writer = new StreamWriter(zip.CreateEntry(name).Open());
                     writer.Write("new " + name);
@@ -109,6 +115,32 @@ namespace FMViewExporter.Core.Tests
             }
             stream.Position = 0;
             return stream;
+        }
+
+        private void Write(string relative, string content)
+        {
+            var path = Path.Combine(new[] { _game }.Concat(relative.Split('/')).ToArray());
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.WriteAllText(path, content);
+        }
+
+        /// <summary>Laufzeit wie von einer anderen Mod oder einer frueheren Installation.</summary>
+        private void ExistingRuntime(string core = "other core")
+        {
+            Write("winhttp.dll", "mine winhttp");
+            Write("doorstop_config.ini", "[General]\nenabled = true\n# mine");
+            Write("BepInEx/core/BepInEx.Core.dll", core);
+            Write("BepInEx/core/BepInEx.Unity.IL2CPP.dll", "mine il2cpp");
+            Write("dotnet/coreclr.dll", "mine coreclr");
+        }
+
+        /// <summary>Gibt Versionen nach Dateiinhalt zurueck (die Testdateien sind keine echten DLLs).</summary>
+        private GameInstallation WithVersions(string installed, string packaged)
+        {
+            return new GameInstallation(_game)
+            {
+                ReadProductVersion = path => File.ReadAllText(path) == "new BepInEx/core/BepInEx.Core.dll" ? packaged : installed
+            };
         }
 
         private string Read(string relative) => File.ReadAllText(Path.Combine(new[] { _game }.Concat(relative.Split('/')).ToArray()));
@@ -159,6 +191,187 @@ namespace FMViewExporter.Core.Tests
             install.Uninstall();
             Assert.False(install.HasPlugin);
             Assert.True(install.HasBepInEx);
+        }
+
+        // Befund 1: fremde Patcher
+
+        [Fact]
+        public void Other_plugins_include_patchers()
+        {
+            Directory.CreateDirectory(Path.Combine(_game, "BepInEx", "patchers", "OtherMod"));
+            Assert.Equal(new[] { "patchers/OtherMod" }, new GameInstallation(_game).OtherPlugins());
+        }
+
+        [Fact]
+        public void Uninstall_keeps_bepinex_and_patcher_files_for_other_patchers()
+        {
+            var install = new GameInstallation(_game);
+            install.Install(Package(), pluginOnly: false);
+            Write("BepInEx/patchers/OtherMod/OtherMod.dll", "foreign");
+
+            install.Uninstall();
+
+            Assert.False(install.HasPlugin);
+            Assert.False(File.Exists(install.ConfigPath));
+            Assert.True(install.HasBepInEx);
+            Assert.True(File.Exists(Path.Combine(_game, "doorstop_config.ini")));
+            Assert.Equal("foreign", Read("BepInEx/patchers/OtherMod/OtherMod.dll"));
+        }
+
+        [Fact]
+        public void Uninstall_with_other_plugin_removes_only_exporter_files()
+        {
+            var install = new GameInstallation(_game);
+            install.Install(Package(), pluginOnly: false);
+            Write("BepInEx/plugins/OtherMod/OtherMod.dll", "foreign");
+
+            install.Uninstall();
+
+            Assert.False(install.HasPlugin);
+            Assert.False(File.Exists(install.ConfigPath));
+            Assert.True(install.HasBepInEx);
+            Assert.Equal("foreign", Read("BepInEx/plugins/OtherMod/OtherMod.dll"));
+        }
+
+        [Fact]
+        public void Uninstall_of_exporter_only_installation_ignores_empty_patcher_folder()
+        {
+            var install = new GameInstallation(_game);
+            install.Install(Package(), pluginOnly: false);
+            Directory.CreateDirectory(Path.Combine(_game, "BepInEx", "patchers"));
+
+            install.Uninstall();
+
+            Assert.False(Directory.Exists(Path.Combine(_game, "BepInEx")));
+            Assert.False(File.Exists(Path.Combine(_game, "winhttp.dll")));
+        }
+
+        // Befund 2: Installationsmodus
+
+        [Fact]
+        public void Mode_is_full_only_without_usable_runtime()
+        {
+            Assert.Equal(InstallMode.Full, GameInstallation.ChooseMode(RuntimeState.Missing));
+            Assert.Equal(InstallMode.Full, GameInstallation.ChooseMode(RuntimeState.Incomplete));
+            Assert.Equal(InstallMode.Full, GameInstallation.ChooseMode(RuntimeState.Outdated));
+            Assert.Equal(InstallMode.PluginOnly, GameInstallation.ChooseMode(RuntimeState.Compatible));
+            Assert.Equal(InstallMode.PluginOnly, GameInstallation.ChooseMode(RuntimeState.Unknown));
+        }
+
+        [Theory]
+        [InlineData("6.0.0-be.755+3fab71a", 755)]
+        [InlineData("6.0.0-be.791+abcdef0", 791)]
+        [InlineData("5.4.23.2", null)]
+        [InlineData(null, null)]
+        public void Reads_bepinex_build_number(string? version, int? expected)
+        {
+            Assert.Equal(expected, GameInstallation.BuildNumber(version));
+        }
+
+        [Fact]
+        public void Fresh_install_installs_runtime_and_exporter()
+        {
+            var install = new GameInstallation(_game);
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Missing, result.Runtime);
+            Assert.Equal(InstallMode.Full, result.Mode);
+            Assert.True(install.HasBepInEx);
+            Assert.True(install.HasPlugin);
+            Assert.Equal("new doorstop_config.ini", Read("doorstop_config.ini"));
+            Assert.Equal("new dotnet/coreclr.dll", Read("dotnet/coreclr.dll"));
+        }
+
+        [Fact]
+        public void Reinstall_over_own_runtime_updates_only_the_plugin()
+        {
+            var install = new GameInstallation(_game);
+            install.Install(Package());
+            Write("doorstop_config.ini", "custom");
+            Write("BepInEx/plugins/FMViewExporter/FMViewExporter.dll", "old plugin");
+
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Compatible, result.Runtime);
+            Assert.Equal(InstallMode.PluginOnly, result.Mode);
+            Assert.Equal("custom", Read("doorstop_config.ini"));
+            Assert.Equal("new BepInEx/plugins/FMViewExporter/FMViewExporter.dll", Read("BepInEx/plugins/FMViewExporter/FMViewExporter.dll"));
+        }
+
+        [Fact]
+        public void Update_with_newer_runtime_keeps_loader_files_and_settings()
+        {
+            ExistingRuntime();
+            Write("BepInEx/plugins/FMViewExporter/FMViewExporter.dll", "old plugin");
+            var install = WithVersions(installed: "6.0.0-be.791+abc", packaged: "6.0.0-be.755+3fab71a");
+
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Compatible, result.Runtime);
+            Assert.Equal(InstallMode.PluginOnly, result.Mode);
+            Assert.Equal("new BepInEx/plugins/FMViewExporter/FMViewExporter.dll", Read("BepInEx/plugins/FMViewExporter/FMViewExporter.dll"));
+            Assert.Equal("mine winhttp", Read("winhttp.dll"));
+            Assert.Equal("[General]\nenabled = true\n# mine", Read("doorstop_config.ini"));
+            Assert.Equal("other core", Read("BepInEx/core/BepInEx.Core.dll"));
+            Assert.Equal("mine coreclr", Read("dotnet/coreclr.dll"));
+        }
+
+        [Fact]
+        public void Runtime_of_unknown_version_is_left_alone()
+        {
+            ExistingRuntime();
+            var install = WithVersions(installed: "", packaged: "6.0.0-be.755+3fab71a");
+
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Unknown, result.Runtime);
+            Assert.Equal(InstallMode.PluginOnly, result.Mode);
+            Assert.Equal("other core", Read("BepInEx/core/BepInEx.Core.dll"));
+            Assert.True(install.HasPlugin);
+        }
+
+        [Fact]
+        public void Outdated_runtime_is_renewed_but_loader_settings_stay()
+        {
+            ExistingRuntime();
+            var install = WithVersions(installed: "6.0.0-be.700+aaa", packaged: "6.0.0-be.755+3fab71a");
+
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Outdated, result.Runtime);
+            Assert.Equal(InstallMode.Full, result.Mode);
+            Assert.Equal("new BepInEx/core/BepInEx.Core.dll", Read("BepInEx/core/BepInEx.Core.dll"));
+            Assert.Equal("new winhttp.dll", Read("winhttp.dll"));
+            Assert.Equal("[General]\nenabled = true\n# mine", Read("doorstop_config.ini"));
+        }
+
+        [Fact]
+        public void Incomplete_runtime_is_repaired()
+        {
+            ExistingRuntime();
+            File.Delete(Path.Combine(_game, "dotnet", "coreclr.dll"));
+            var install = new GameInstallation(_game);
+
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Incomplete, result.Runtime);
+            Assert.Equal(InstallMode.Full, result.Mode);
+            Assert.Equal("new dotnet/coreclr.dll", Read("dotnet/coreclr.dll"));
+            Assert.Equal("[General]\nenabled = true\n# mine", Read("doorstop_config.ini"));
+            Assert.True(install.HasPlugin);
+        }
+
+        [Fact]
+        public void Missing_doorstop_config_counts_as_incomplete_and_is_restored()
+        {
+            ExistingRuntime();
+            File.Delete(Path.Combine(_game, "doorstop_config.ini"));
+            var install = WithVersions(installed: "6.0.0-be.791+abc", packaged: "6.0.0-be.755+3fab71a");
+
+            var result = install.Install(Package());
+
+            Assert.Equal(RuntimeState.Incomplete, result.Runtime);
+            Assert.Equal("new doorstop_config.ini", Read("doorstop_config.ini"));
         }
     }
 }

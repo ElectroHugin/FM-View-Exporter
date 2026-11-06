@@ -121,6 +121,12 @@ der daraus Rollenbewertungen, eine optimale Startelf und Transfertipps macht.
 2. Kader, Spieler-Datenbank oder Shortlist mit der passenden Ansicht per **F9** exportieren.
 3. Die CSV-Dateien im Analyzer importieren.
 
+> **Lange Listen dauern.** Das Plugin muss durch die Liste auf dem Bildschirm scrollen, und FM
+> braucht Zeit, um jede Zeile zu befüllen. Ein Kader ist in Sekunden fertig, eine Spielersuche mit
+> tausenden Spielern kann mehrere Minuten dauern. FM zeigt bei einer Suche ohnehin nur die ersten
+> 10.000 Treffer. Für große Datenbanken kann der FM Player Analyzer jetzt den Spielstand direkt
+> auslesen, das geht deutlich schneller.
+
 Beide Projekte teilen sich eine Spaltenvereinbarung: Die Spaltennamen in
 [`docs/columns/fm27.csv`](docs/columns/fm27.csv) sind das, was der Analyzer einliest.
 
@@ -159,11 +165,19 @@ nächsten F9, Tasten erst nach einem Neustart.
 | `Export.Timestamp` | `true` | `false` = fester Dateiname, jeder Export überschreibt den letzten |
 | `Export.Formats` | `Both` | `Both`, `CsvOnly` oder `HtmlOnly` |
 | `Export.ScanColumns` | `false` | `true` = auch seitlich durch alle Spalten scrollen (langsamer, in FM27 nicht nötig) |
-| `Export.FramesPerStep` | `3` | Wartezeit je Scrollschritt; bei fehlenden Werten erhöhen |
+| `Export.FramesPerStep` | `1` | Wartezeit je Scrollschritt; bei fehlenden Werten erhöhen |
+| `Export.RowsPerStep` | `200` | Zeilen je Scrollschritt beim Export; mehr = schneller, `0` = aus |
 
 ---
 
 ## ❓ FAQ
+
+**Warum dauert der Export langer Listen so lange?**
+FM befüllt nur die Zeilen, die auf dem Bildschirm sind. Das Plugin scrollt deshalb durch die
+ganze Liste, und FM berechnet dabei jede Zeile. Bei einem Kader dauert das Sekunden, bei einer
+Spielersuche mit tausenden Spielern Minuten. FM zeigt höchstens 10.000 Suchtreffer, größere
+Suchen brauchen also Filter. Wer eine ganze Datenbank auswerten will, nutzt im FM Player Analyzer
+die Option, den Spielstand direkt auszulesen.
 
 **Ist das wirklich kostenlos?**
 Ja. Quelloffen unter GPLv3, keine Werbung, keine Bezahlversion.

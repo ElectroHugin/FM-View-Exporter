@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using FMViewExporter.Core;
 using FMViewExporter.Ui;
+using Il2CppInterop.Runtime;
 using UnityEngine.UIElements;
 
 namespace FMViewExporter.Export
@@ -164,24 +165,57 @@ namespace FMViewExporter.Export
             return result;
         }
 
-        /// <summary>
-        /// Liest alle gerade gezeichneten Zeilen. Jede Zeile hat so viele Zellen wie die Tabelle Spalten;
-        /// <c>Top</c> ist die Bildschirmposition der Zeile (fuer die Reihenfolge).
-        /// </summary>
-        public List<(float Top, List<string> Cells)> ReadVisibleRows()
+        /// <summary>Eine gerade gezeichnete Zeile mit ihren Zellen (noch nicht ausgelesen).</summary>
+        internal sealed class VisibleRow
         {
-            var result = new List<(float, List<string>)>();
+            public VisibleRow(float top, float contentY, List<VisualElement> cells)
+            {
+                Top = top;
+                ContentY = contentY;
+                Cells = cells;
+            }
+
+            /// <summary>Bildschirmposition der Zeile (fuer die Reihenfolge).</summary>
+            public float Top { get; }
+
+            /// <summary>Position der Zeile im Inhalt der ScrollView (unabhaengig vom Scrollstand).</summary>
+            public float ContentY { get; }
+
+            public List<VisualElement> Cells { get; }
+        }
+
+        /// <summary>
+        /// Findet alle gerade gezeichneten Zeilen, ohne die Zellen auszulesen. Jede Zeile hat so
+        /// viele Zellen wie die Tabelle Spalten.
+        /// </summary>
+        public List<VisibleRow> FindVisibleRows()
+        {
+            var result = new List<VisibleRow>();
+            var contentTop = Rows.contentContainer.worldBound.y;
             foreach (var row in Descendants(Rows, e => e.ClassListContains(RowClass)))
             {
                 if (IsHidden(row))
                     continue;
-                var cells = new List<string>();
-                foreach (var cell in Descendants(row, e => e.ClassListContains(CellClass)))
-                    cells.Add(ReadCell(cell));
-                if (cells.Count > 0)
-                    result.Add((row.worldBound.y, cells));
+                var cells = Descendants(row, e => e.ClassListContains(CellClass));
+                if (cells.Count == 0)
+                    continue;
+                var top = row.worldBound.y;
+                result.Add(new VisibleRow(top, top - contentTop, cells));
             }
             return result;
+        }
+
+        /// <summary>Text einer einzelnen Zelle; leer, wenn es die Spalte in der Zeile nicht gibt.</summary>
+        public static string ReadCell(VisibleRow row, int column) =>
+            column >= 0 && column < row.Cells.Count ? ReadCell(row.Cells[column]) : string.Empty;
+
+        /// <summary>Alle Zellen einer Zeile als Text.</summary>
+        public static List<string> ReadCells(VisibleRow row)
+        {
+            var cells = new List<string>(row.Cells.Count);
+            foreach (var cell in row.Cells)
+                cells.Add(ReadCell(cell));
+            return cells;
         }
 
         private static string ReadCell(VisualElement cell)
@@ -193,9 +227,14 @@ namespace FMViewExporter.Export
             {
                 if (IsHidden(e))
                     return false;
-                var text = e.TryCast<TextElement>()?.text;
+                // Jeder Zugriff auf ein Spielobjekt geht ueber IL2CPP und ist teuer, deshalb nur
+                // die noetigen: Elemente mit Text sind nie Sterne.
+                var text = AsTextElement(e)?.text;
                 if (!string.IsNullOrEmpty(text))
+                {
                     texts.Add(text!);
+                    return true;
+                }
                 if (e.ClassListContains(StarClass) || e.ClassListContains(StarClass + "-no-margin"))
                 {
                     stars++;
@@ -212,6 +251,20 @@ namespace FMViewExporter.Export
             if (value.Length == 0 && stars > 0)
                 value = StarRating.Format(total);
             return value;
+        }
+
+        // Ergebnis der Typpruefung je IL2CPP-Klasse, damit sie nicht fuer jedes Element neu laeuft.
+        private static readonly Dictionary<IntPtr, bool> TextClasses = new();
+
+        private static TextElement? AsTextElement(VisualElement element)
+        {
+            var klass = IL2CPP.il2cpp_object_get_class(element.Pointer);
+            if (!TextClasses.TryGetValue(klass, out var isText))
+            {
+                isText = element.TryCast<TextElement>() != null;
+                TextClasses[klass] = isText;
+            }
+            return isText ? new TextElement(element.Pointer) : null;
         }
 
         private static ScrollView? FindRowScrollView(VisualElement table)
@@ -245,7 +298,8 @@ namespace FMViewExporter.Export
         {
             try
             {
-                return element.resolvedStyle.display == DisplayStyle.None || !element.visible;
+                // visible zuerst: ein Aufruf weniger als resolvedStyle.display.
+                return !element.visible || element.resolvedStyle.display == DisplayStyle.None;
             }
             catch (Exception)
             {

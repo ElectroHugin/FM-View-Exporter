@@ -1,11 +1,42 @@
 # Changelog
 
-## 1.0.1 (noch nicht veroeffentlicht)
+## 1.0.1 (06.11.2026)
 
 - Sterne bei Ability und Potential: graue Sterne (unsichere Einschaetzung der Scouts) zaehlen jetzt
   mit, so wie das Spiel sie zeigt. Beispiel: 1 gelber + 1 grauer Stern = `2.0` statt `1.0`.
   Betrifft vor allem gescoutete Spieler in Spieler-Datenbank und Shortlist (Hinweis aus dem
   FM Player Analyzer).
+- Schnellerer Export: Ob die Zeilen nach einem Scrollschritt fertig sind, prueft das Plugin nur
+  noch ueber Position, Unique ID und letzte Zelle; alle Zellen werden danach genau einmal gelesen
+  (vorher mindestens zweimal). Weniger teure Zugriffe aufs Spiel je Zelle, Scrollschritte von 95 %
+  statt 80 % der sichtbaren Hoehe (mit Sicherheitsnetz: ohne Ueberlappung wird kleiner
+  nachgescrollt) und `Export.FramesPerStep` jetzt standardmaessig `1` statt `3`. Bestehende
+  Einstellungsdateien behalten ihren Wert; wer `3` eingetragen hat, kann im Setup auf `1` stellen.
+- Neue Einstellung `Export.RowsPerStep` (Standard 200): Die Liste wird waehrend des Exports kurz
+  vergroessert, damit das Spiel pro Scrollschritt viel mehr Zeilen zeichnet und weniger Schritte
+  noetig sind. `0` schaltet das ab.
+- Behoben: Jede Wartezeit dauerte einen Frame laenger als eingestellt.
+- Waehrend des Exports wird die Bildraten-Begrenzung des Spiels kurz aufgehoben (bis 240 Bilder/s)
+  und danach wiederhergestellt. Es wird nichts gespeichert.
+- Das Log nennt am Ende die Zeitaufteilung (Scrollschritte, Frames, Lesezeit), damit sich weitere
+  Beschleunigungen gezielt messen lassen.
+
+- Deinstallieren: Fremde Patcher unter `BepInEx\patchers` zaehlen jetzt wie fremde Plugins.
+  Ist einer vorhanden, bleibt BepInEx stehen; entfernt werden nur Dateien und Einstellungen des
+  FM View Exporters (vorher konnte der ganze BepInEx-Ordner samt fremdem Patcher geloescht werden).
+- Setup: Ein vorhandenes, vollstaendiges BepInEx (gleicher oder neuerer Build als #755, oder eine
+  nicht bestimmbare Version etwa von einer anderen Mod) bleibt beim Installieren/Aktualisieren
+  unangetastet, es wird nur das Plugin geschrieben. Fehlt BepInEx, ist es unvollstaendig oder aelter,
+  installiert bzw. repariert das Setup es wie bisher. Eine vorhandene `doorstop_config.ini` wird nie
+  ueberschrieben.
+- Keine doppelten Zeilen mehr, wenn die Unique ID oder andere Werte erst nach dem ersten Lesen
+  erscheinen: Zeilen werden zusaetzlich ueber ihre Position in der Liste zugeordnet (nur wenn sich die
+  Werte nicht widersprechen; Namen allein fuehren nie Zeilen zusammen). Bleiben Zeilen ohne Unique ID
+  uebrig, die doppelt sein koennten, steht eine Warnung im Log.
+- HTML-Sortierung: Geldbetraege mit K/M/B (`€900K` < `€1M`), Tausendertrennzeichen (`950` < `1,200`),
+  Einheiten (`175 cm`) und Spannen (`10-12`, `€1M - €2M`, nach unterem, dann oberem Wert) sortieren
+  jetzt richtig. Die Sortierwerte werden beim Export berechnet; der sichtbare Text bleibt gleich.
+  Leere Zellen stehen immer am Ende, Text wird natuerlich sortiert (`Spieler 2` vor `Spieler 10`).
 
 ## 1.0.0 (31.10.2026)
 

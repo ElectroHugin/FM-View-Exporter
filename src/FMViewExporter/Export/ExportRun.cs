@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using FMViewExporter.Core;
 using UnityEngine;
 
@@ -11,8 +13,8 @@ namespace FMViewExporter.Export
     /// <summary>
     /// Ein Exportvorgang. Das Spiel zeichnet nur die sichtbaren Zeilen (und eventuell nur die
     /// sichtbaren Spalten), deshalb wird die Liste Schritt fuer Schritt durchgescrollt. Zwischen
-    /// den Schritten bekommt das Spiel einige Frames, um die Zeilen neu zu befuellen.
-    /// Am Ende wird die urspruengliche Scrollposition wiederhergestellt.
+    /// den Schritten bekommt das Spiel Frames, um die Zeilen neu zu befuellen.
+    /// Am Ende werden die urspruengliche Scrollposition und die Bildrate wiederhergestellt.
     /// </summary>
     internal sealed class ExportRun
     {
@@ -20,8 +22,16 @@ namespace FMViewExporter.Export
         private const int MaxSettleFrames = 30;
         private const string KeyHeader = "Unique ID";
 
+        // Anteil der sichtbaren Hoehe je Scrollschritt. Die Ueberlappung wird ueber "Unique ID"
+        // zusammengefuehrt; fehlt sie, scrollt der Export kleiner nach.
+        private const float PageFraction = 0.95f;
+
         private readonly IEnumerator<int> _steps;
         private int _waitFrames;
+        private Action? _cleanup;
+        private int _frames;
+        private double _frameSeconds;
+        private double _slowestFrame;
 
         public ExportRun()
         {
@@ -35,6 +45,11 @@ namespace FMViewExporter.Export
         {
             if (Finished)
                 return;
+            // Wie lange das Spiel fuer jeden Frame braucht (fuer die Zeitaufteilung im Log).
+            var delta = Time.unscaledDeltaTime;
+            _frames++;
+            _frameSeconds += delta;
+            _slowestFrame = Math.Max(_slowestFrame, delta);
             if (_waitFrames > 0)
             {
                 _waitFrames--;
@@ -42,8 +57,9 @@ namespace FMViewExporter.Export
             }
             try
             {
+                // "yield return n" heisst: in n Frames weitermachen. Dieser Frame zaehlt als erster.
                 if (_steps.MoveNext())
-                    _waitFrames = _steps.Current;
+                    _waitFrames = Math.Max(0, _steps.Current - 1);
                 else
                     Finished = true;
             }
@@ -52,6 +68,8 @@ namespace FMViewExporter.Export
                 Finished = true;
                 Plugin.Logger.LogError($"Export abgebrochen: {ex}");
             }
+            if (Finished)
+                RunCleanup();
         }
 
         private IEnumerable<int> Run()
@@ -97,36 +115,94 @@ namespace FMViewExporter.Export
             var sweepColumns = Plugin.Settings.ScanColumns.Value;
             var settle = Math.Max(1, Plugin.Settings.FramesPerStep.Value);
             var mismatchReported = false;
+            var gapReported = false;
 
+            // Das Plugin wartet in Frames, also laeuft der Export so schnell wie die Bildrate.
+            var frameRate = FrameRateUnlock.Apply();
+
+            // Liste hochziehen: mehr Zeilen je Schritt, also weniger Schritte. Hilft, wenn das Spiel
+            // pro Frame etwa gleich lang braucht, egal wie viele Zeilen es zeichnet.
+            TallList? tall = null;
+            var rowHeight = 30f;
+            var rowsPerStep = Plugin.Settings.RowsPerStep.Value;
+            try
+            {
+                var firstRows = table.FindVisibleRows();
+                if (firstRows.Count > 1 && Math.Abs(firstRows[1].Top - firstRows[0].Top) > 1f)
+                    rowHeight = Math.Abs(firstRows[1].Top - firstRows[0].Top);
+                tall = TallList.Apply(scroll, rowsPerStep, rowHeight);
+            }
+            catch (Exception ex)
+            {
+                Plugin.Logger.LogWarning($"Liste konnte nicht vergroessert werden: {ex.Message}");
+            }
+            _cleanup = () =>
+            {
+                tall?.Restore();
+                scroll.scrollOffset = original;
+                frameRate.Restore();
+            };
+            if (tall != null)
+            {
+                yield return 3;
+                Plugin.Logger.LogInfo($"Liste vergroessert: {table.FindVisibleRows().Count} Zeilen je Schritt (Einstellung RowsPerStep = {rowsPerStep}).");
+            }
+
+            var timing = new ExportTiming();
             var step = 0;
             var y = 0f;
+            HashSet<string>? previousKeys = null;
+            string? previousSignature = null;
+            var previousPosition = new Vector2(float.NaN, float.NaN);
+            var lastRowCount = 0;
             while (true)
             {
                 var x = 0f;
+                var stepKeys = new HashSet<string>();
                 while (true)
                 {
-                    scroll.scrollOffset = new Vector2(x, y);
+                    var position = new Vector2(x, y);
+                    scroll.scrollOffset = position;
+                    timing.Frames += settle;
                     yield return settle;
 
-                    // Warten, bis zwei Lesungen hintereinander gleich sind (Zeilen fertig befuellt).
-                    var read = table.ReadVisibleRows();
+                    // Warten, bis die Zeilen zur neuen Position passen und zwei Lesungen hintereinander
+                    // gleich sind. Dafuer reichen Position, Schluessel und letzte Zelle jeder Zeile;
+                    // alle Zellen werden danach genau einmal gelesen.
+                    var moved = position != previousPosition;
+                    var visible = Timed(timing, table.FindVisibleRows);
+                    var signature = Timed(timing, () => Signature(visible, keyColumn));
                     for (var i = 0; i < MaxSettleFrames; i++)
                     {
+                        timing.Frames++;
                         yield return 1;
-                        var again = table.ReadVisibleRows();
-                        if (Same(read, again))
+                        var again = Timed(timing, table.FindVisibleRows);
+                        var againSignature = Timed(timing, () => Signature(again, keyColumn));
+                        var same = againSignature == signature;
+                        visible = again;
+                        signature = againSignature;
+                        // Sieht alles aus wie vor dem Scrollen, hat das Spiel die Zeilen noch nicht
+                        // neu befuellt: weiter warten.
+                        if (same && (!moved || signature != previousSignature))
                             break;
-                        read = again;
                     }
+                    previousSignature = signature;
+                    previousPosition = position;
 
-                    foreach (var (top, cells) in read)
+                    lastRowCount = visible.Count;
+                    var read = Timed(timing, () => visible.Select(r => (r.Top, r.ContentY, Cells: PlayerTable.ReadCells(r))).ToList());
+                    foreach (var (top, contentY, cells) in read)
                     {
                         if (cells.Count != headers.Count && !mismatchReported)
                         {
                             mismatchReported = true;
                             Plugin.Logger.LogWarning($"Zeile hat {cells.Count} Zellen, Kopf hat {headers.Count} Spalten. Zuordnung nach Reihenfolge.");
                         }
-                        rows.Add(cells, step * 100000.0 + top);
+                        if (keyColumn >= 0 && keyColumn < cells.Count && cells[keyColumn].Length > 0)
+                            stepKeys.Add(cells[keyColumn]);
+                        // Position im Listeninhalt = stabile Zeilenidentitaet (gleich nach Scrollen und
+                        // seitlichem Scannen); so findet eine erst spaeter gefuellte Unique ID ihre Zeile.
+                        rows.Add(cells, step * 100000.0 + top, RowId(contentY));
                     }
 
                     step++;
@@ -136,27 +212,101 @@ namespace FMViewExporter.Export
                     x = Math.Min(maxX, x + Math.Max(50f, scroll.contentViewport.layout.width * 0.9f));
                 }
 
+                var page = Math.Max(20f, scroll.contentViewport.layout.height * PageFraction);
+                // Nie weiter scrollen, als das Spiel tatsaechlich Zeilen gezeichnet hat.
+                if (lastRowCount > 1)
+                    page = Math.Min(page, Math.Max(20f, (lastRowCount - 1) * rowHeight));
+
+                // Sicherheitsnetz fuer die grossen Schritte: teilt dieser Schritt keinen Spieler mit
+                // dem vorherigen, koennten Zeilen dazwischen fehlen. Dann einen halben Schritt zurueck.
+                if (previousKeys != null && previousKeys.Count > 0 && stepKeys.Count > 0 &&
+                    !stepKeys.Overlaps(previousKeys) && y > 0 && step < MaxSteps)
+                {
+                    if (!gapReported)
+                    {
+                        gapReported = true;
+                        Plugin.Logger.LogInfo("Scrollschritt ohne Ueberlappung, scrolle kleiner nach.");
+                    }
+                    previousKeys = null;
+                    y = Math.Max(0f, y - page / 2);
+                    continue;
+                }
+                previousKeys = stepKeys;
+
                 var maxY = scroll.verticalScroller.highValue;
                 if (y >= maxY || step >= MaxSteps)
                     break;
-                y = Math.Min(maxY, y + Math.Max(20f, scroll.contentViewport.layout.height * 0.8f));
+                y = Math.Min(maxY, y + page);
             }
 
-            scroll.scrollOffset = original;
+            RunCleanup();
             Write(table, headers, rows, watch);
+            var other = watch.Elapsed - timing.Read;
+            Plugin.Logger.LogInfo($"Zeitaufteilung: {step} Scrollschritte, {timing.Frames} Frames gewartet; " +
+                $"Lesen {timing.Read.TotalSeconds:0.0} s, Warten auf das Spiel und Schreiben {Math.Max(0, other.TotalSeconds):0.0} s; " +
+                $"Frame-Dauer im Schnitt {(_frames > 0 ? _frameSeconds / _frames * 1000 : 0):0} ms, laengster {_slowestFrame * 1000:0} ms.");
         }
 
-        private static bool Same(List<(float Top, List<string> Cells)> a, List<(float Top, List<string> Cells)> b)
+        private sealed class ExportTiming
         {
-            if (a.Count != b.Count)
-                return false;
-            for (var i = 0; i < a.Count; i++)
-            {
-                if (a[i].Top != b[i].Top || !a[i].Cells.SequenceEqual(b[i].Cells))
-                    return false;
-            }
-            return true;
+            public int Frames;
+            public TimeSpan Read;
         }
+
+        private static T Timed<T>(ExportTiming timing, Func<T> action)
+        {
+            var start = Stopwatch.GetTimestamp();
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                timing.Read += TimeSpan.FromSeconds((Stopwatch.GetTimestamp() - start) / (double)Stopwatch.Frequency);
+            }
+        }
+
+        /// <summary>
+        /// Kurzer Fingerabdruck der sichtbaren Zeilen: Position, Schluessel und letzte Zelle.
+        /// Ohne Schluesselspalte wird die ganze Zeile genommen.
+        /// </summary>
+        private static string Signature(List<PlayerTable.VisibleRow> visible, int keyColumn)
+        {
+            var sb = new StringBuilder();
+            foreach (var row in visible)
+            {
+                sb.Append(row.Top.ToString("R", CultureInfo.InvariantCulture)).Append('\u001e');
+                if (keyColumn < 0)
+                {
+                    sb.Append(string.Join("\u001f", PlayerTable.ReadCells(row)));
+                }
+                else
+                {
+                    sb.Append(PlayerTable.ReadCell(row, keyColumn)).Append('\u001f');
+                    sb.Append(PlayerTable.ReadCell(row, row.Cells.Count - 1));
+                }
+                sb.Append('\u001d');
+            }
+            return sb.ToString();
+        }
+
+        private void RunCleanup()
+        {
+            var cleanup = _cleanup;
+            _cleanup = null;
+            try
+            {
+                cleanup?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Plugin.Logger.LogWarning($"Ausgangszustand konnte nicht wiederhergestellt werden: {ex.Message}");
+            }
+        }
+
+        /// <summary>Zeilenidentitaet aus der Position im Listeninhalt (auf ganze Pixel gerundet).</summary>
+        private static string? RowId(float contentY) =>
+            float.IsNaN(contentY) || float.IsInfinity(contentY) ? null : "y:" + Math.Round(contentY).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         private static void Write(PlayerTable table, List<string> headers, RowCollector rows, Stopwatch watch)
         {
@@ -188,6 +338,9 @@ namespace FMViewExporter.Export
             }
 
             Plugin.Logger.LogMessage($"Export fertig: {export.Rows.Count} Zeilen, {export.Headers.Count} Spalten in {watch.Elapsed.TotalSeconds:0.0} s -> {string.Join(", ", written)}");
+
+            if (rows.PossibleDuplicates > 0)
+                Plugin.Logger.LogWarning($"{rows.PossibleDuplicates} Zeilen ohne Unique ID passen zu einer anderen Zeile und koennten doppelt sein. Sie wurden nicht zusammengefuehrt; bitte die Spalte \"Unique ID\" in die Ansicht aufnehmen.");
 
             var empty = rows.EmptyColumns().Where(i => headers[i].Length > 0).Select(i => headers[i]).ToList();
             if (empty.Count > 0)
