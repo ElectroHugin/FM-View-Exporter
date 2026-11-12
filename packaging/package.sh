@@ -2,8 +2,10 @@
 # Baut aus dem fertigen Plugin zwei Zips:
 #   FMViewExporter-<version>-plugin.zip         nur das Plugin
 #   FMViewExporter-<version>-komplettpaket.zip  BepInEx + Plugin, direkt in den Spielordner entpacken
-# und das Setup-Programm mit eingebautem Komplettpaket:
+# das Setup-Programm mit eingebautem Komplettpaket:
 #   FMViewExporter-<version>-setup.exe
+# und ein Archiv fuer Linux (Proton):
+#   FMViewExporter-<version>-linux.tar.gz       Kommandozeile + Komplettpaket
 set -euo pipefail
 
 VERSION="${1:-dev}"
@@ -63,8 +65,22 @@ dotnet build "$ROOT/src/FMViewExporter.Setup" -c Release \
   -p:InformationalVersion="$VERSION" -o "$STAGE/setup"
 cp "$STAGE/setup/FMViewExporter-Setup.exe" "$DIST/FMViewExporter-$VERSION-setup.exe"
 
+# Kommandozeile fuer Linux (Proton), eine einzelne Datei; das Komplettpaket liegt daneben
+dotnet publish "$ROOT/src/FMViewExporter.Setup.Cli" -c Release -r linux-x64 \
+  --self-contained true -p:PublishSingleFile=true \
+  -p:InformationalVersion="$VERSION" -o "$STAGE/cli"
+
+# Archiv fuer Linux: Kommandozeile, Komplettpaket und Anleitung
+LINUX="$STAGE/linux"
+mkdir -p "$LINUX"
+cp "$STAGE/cli/fmviewexporter-setup" "$LINUX/"
+cp "$DIST/FMViewExporter-$VERSION-komplettpaket.zip" "$LINUX/"
+cp "$ROOT/packaging/README.linux.txt" "$LINUX/README.txt"
+cp "$ROOT/LICENSE" "$LINUX/LICENSE.txt"
+tar -czf "$DIST/FMViewExporter-$VERSION-linux.tar.gz" -C "$LINUX" .
+
 WINHTTP_SHA="$(sha256sum "$FULL/winhttp.dll" | cut -d' ' -f1)"
-(cd "$DIST" && sha256sum ./*.zip ./*.exe > SHA256SUMS.txt)
+(cd "$DIST" && sha256sum ./*.zip ./*.exe ./*.tar.gz > SHA256SUMS.txt)
 
 cat > "$DIST/release-notes.md" <<NOTES
 **FM View Exporter** exports the player list you are looking at in Football Manager 27 (squad, player database, shortlist) as CSV and HTML with one key press (F9). Free and open source (GPLv3), offline, never touches your save. More in the [README](https://github.com/ElectroHugin/FM-View-Exporter#readme).
@@ -72,6 +88,7 @@ cat > "$DIST/release-notes.md" <<NOTES
 | File | Use it when |
 | --- | --- |
 | \`FMViewExporter-$VERSION-setup.exe\` | **Recommended.** Finds FM27 on its own, installs BepInEx and the plugin, updates, uninstalls and edits the settings. |
+| \`FMViewExporter-$VERSION-linux.tar.gz\` | Linux with Steam Proton: a command line program that finds FM27, installs BepInEx and the plugin, and edits the settings. |
 | \`FMViewExporter-$VERSION-komplettpaket.zip\` | Manual install: BepInEx #$BEPINEX_BUILD + plugin, extract next to fm.exe. |
 | \`FMViewExporter-$VERSION-plugin.zip\` | Only the plugin, if BepInEx is already installed. |
 

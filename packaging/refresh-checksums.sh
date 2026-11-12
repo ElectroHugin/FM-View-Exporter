@@ -3,7 +3,7 @@
 # und traegt sie in SHA256SUMS.txt und dist/release-notes.md ein.
 set -euo pipefail
 DIST="$(cd "$(dirname "$0")/.." && pwd)/dist"
-(cd "$DIST" && sha256sum ./*.zip ./*.exe > SHA256SUMS.txt)
+(cd "$DIST" && sha256sum ./*.zip ./*.exe ./*.tar.gz > SHA256SUMS.txt)
 python3 - "$DIST" <<'PY'
 import pathlib, sys
 dist = pathlib.Path(sys.argv[1])

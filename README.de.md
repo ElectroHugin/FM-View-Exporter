@@ -13,7 +13,7 @@ Spaltenköpfen genau wie im Spiel.
 
 [![Neueste Version](https://img.shields.io/github/v/release/ElectroHugin/FM-View-Exporter?label=neueste%20Version)](https://github.com/ElectroHugin/FM-View-Exporter/releases)
 [![Lizenz: GPL v3](https://img.shields.io/badge/Lizenz-GPLv3-blue)](LICENSE)
-![Plattform](https://img.shields.io/badge/Plattform-Windows%2010%20%2F%2011-0078d4)
+![Plattform](https://img.shields.io/badge/Plattform-Windows%2010%20%2F%2011%20%2F%20Linux%20%28Proton%29-0078d4)
 ![Football Manager 27](https://img.shields.io/badge/Football%20Manager-27-1B6AF5)
 ![Mod-Lader](https://img.shields.io/badge/BepInEx-6%20IL2CPP-555)
 
@@ -21,6 +21,7 @@ Spaltenköpfen genau wie im Spiel.
 
 [Warum du es willst](#-warum-du-es-willst) ·
 [Loslegen](#-in-5-minuten-startklar) ·
+[Linux (Proton)](#-linux-steam-proton) ·
 [Mit dem FM Player Analyzer](#-gemacht-für-den-fm-player-analyzer) ·
 [Einstellungen](#-einstellungen) ·
 [FAQ](#-faq)
@@ -62,6 +63,9 @@ Datei, so wie früher der eingebaute Export.
 Unter [Releases](https://github.com/ElectroHugin/FM-View-Exporter/releases) die
 Datei **`FMViewExporter-…-setup.exe`** laden. Sie enthält alles, auch den Mod-Lader
 [BepInEx](https://github.com/BepInEx/BepInEx).
+
+> Unter Linux mit Steam Proton gibt es stattdessen ein Kommandozeilen-Programm:
+> siehe [Linux (Steam Proton)](#-linux-steam-proton).
 
 **2 · Setup starten**
 
@@ -106,6 +110,85 @@ liegen in `Dokumente\Sports Interactive\FM View Exporter`, zum Beispiel
 > - Update? Das neue Setup starten und **Aktualisieren** klicken. Deine Einstellungen bleiben erhalten.
 > - Deutsches Excel? Im Setup den CSV-Stil `German` wählen (siehe [Einstellungen](#-einstellungen)). Gilt ab dem nächsten F9, ohne Neustart.
 > - Exportansichten schlank halten. FM27 befüllt nur ungefähr die ersten 255 Spalten einer Ansicht, auch im Spiel selbst.
+
+---
+
+## 🐧 Linux (Steam Proton)
+
+Football Manager 27 läuft unter Linux mit Steam Proton. Das Plugin selbst ist
+ein normales Windows-Programm und bleibt unverändert; anders ist nur die
+Installation. Unter Windows gibt es das Setup-Programm, unter Linux ein
+Kommandozeilen-Programm mit denselben Aufgaben: Spiel finden, installieren,
+aktualisieren, entfernen, Einstellungen bearbeiten.
+
+**1 · Herunterladen**
+
+Unter [Releases](https://github.com/ElectroHugin/FM-View-Exporter/releases) die
+Datei **`FMViewExporter-…-linux.tar.gz`** laden und entpacken.
+
+**2 · Installieren**
+
+```sh
+chmod +x fmviewexporter-setup
+./fmviewexporter-setup install
+```
+
+Das Programm findet Football Manager 27 in deinen Steam-Bibliotheken selbst.
+Falls nicht, den Ordner mit `fm.exe` angeben:
+
+```sh
+./fmviewexporter-setup install --game "/pfad/zu/steamapps/common/Football Manager 27"
+```
+
+**3 · Steam sagen, dass der Mod-Lader geladen werden soll**
+
+Dieser Schritt ist der Unterschied zu Windows und wird leicht übersehen. In
+Steam Rechtsklick auf *Football Manager 27* → *Eigenschaften* → *Startoptionen*
+und dort eintragen:
+
+```
+WINEDLLOVERRIDES="winhttp.dll=n,b" %command%
+```
+
+Ohne diese Option lädt Wine seine eigene `winhttp.dll`, das Plugin startet
+nicht und beim Drücken von F9 passiert nichts.
+
+**4 · Spiel starten und exportieren**
+
+Der erste Start dauert einige Minuten, weil BepInEx sich einrichtet. Danach im
+Kader oder in der Spieler-Datenbank **F9** drücken.
+
+> **Wo die Dateien landen**
+> Das Plugin und seine Einstellungen liegen wie unter Windows direkt neben
+> `fm.exe` im Spielordner. Die Exporte landen im Dokumentenordner *im
+> Proton-Prefix*, zum Beispiel
+> `~/.local/share/Steam/steamapps/compatdata/<appid>/pfx/drive_c/users/steamuser/Documents/Sports Interactive/FM View Exporter`.
+> `./fmviewexporter-setup status` nennt den genauen Pfad. Wer die Exporte
+> stattdessen im eigenen Dokumentenordner haben möchte, setzt
+> `Export.OutputFolder` auf einen **Windows**-Pfad wie
+> `Z:\home\deinname\Dokumente\FM View Exporter`. Das Plugin läuft als
+> Windows-Programm in Wine; ein Linux-Pfad wie `/home/deinname/Dokumente`
+> landet deshalb im Prefix als `C:\home\deinname\Dokumente`. Proton bindet `Z:`
+> auf das Linux-Wurzelverzeichnis.
+
+**Einstellungen**
+
+```sh
+./fmviewexporter-setup settings set Export.FilePrefix fc-bayern
+./fmviewexporter-setup settings get Export.CsvStyle
+```
+
+Die Einstellungsdatei ist dieselbe wie unter Windows:
+`BepInEx/config/de.electrohugin.fmviewexporter.cfg` im Spielordner.
+
+**Entfernen**
+
+```sh
+./fmviewexporter-setup uninstall
+```
+
+Das entfernt das Plugin, seine Einstellungen und BepInEx, lässt aber andere
+Mods und die Spielstände unangetastet.
 
 ---
 
@@ -201,7 +284,7 @@ ist gerade keine Spielertabelle offen.
 ohne Mods.
 
 **Welche Versionen werden unterstützt?**
-Football Manager 27 über Steam unter Windows. Linux (Proton) folgt später.
+Football Manager 27 über Steam unter Windows und unter Linux mit Steam Proton.
 
 **Windows oder der Browser warnt vor dem Setup.**
 Das Setup ist neu und noch nicht signiert, und es installiert BepInEx, das sich über
@@ -211,7 +294,8 @@ Quellcode; die Prüfsummen stehen in den Release-Notes. Die Signierung über Sig
 ist geplant.
 
 **Wie deinstalliere ich es?**
-Setup starten und **Deinstallieren** klicken. Von Hand: im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
+Unter Windows Setup starten und **Deinstallieren** klicken, unter Linux
+`./fmviewexporter-setup uninstall`. Von Hand: im Spielordner `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`,
 `changelog.txt`, die beiden Textdateien `FM View Exporter - …` sowie die Ordner `BepInEx` und `dotnet`
 löschen. Spielstände bleiben unberührt.
 
@@ -232,6 +316,7 @@ und `LogOutput.log` anhängen. Hilfreich ist auch ein Abbild mit **F10** aus
 | [`src/FMViewExporter.Core`](src/FMViewExporter.Core) | Tabellenmodell, CSV- und HTML-Schreiber (ohne Unity, getestet) |
 | [`src/FMViewExporter`](src/FMViewExporter) | Das BepInEx-Plugin (.NET 6) |
 | [`src/FMViewExporter.Setup`](src/FMViewExporter.Setup) | Setup-Programm für Windows (.NET Framework 4.8): Installieren, Aktualisieren, Deinstallieren, Einstellungen |
+| [`src/FMViewExporter.Setup.Cli`](src/FMViewExporter.Setup.Cli) | Kommandozeilen-Programm für Linux (Proton): Installieren, Aktualisieren, Deinstallieren, Einstellungen |
 | [`src/FMViewExporter.Setup.Logic`](src/FMViewExporter.Setup.Logic) | Dessen Logik ohne Oberfläche (getestet) |
 | [`tests/`](tests) | Tests für den Kern |
 | [`lib/ref/`](lib/ref) | Referenz-Assemblies zum Kompilieren, siehe [lib/ref/README.md](lib/ref/README.md) |
@@ -241,7 +326,7 @@ und `LogOutput.log` anhängen. Hilfreich ist auch ein Abbild mit **F10** aus
 ```
 dotnet test tests/FMViewExporter.Core.Tests -c Release
 dotnet build src/FMViewExporter -c Release
-./packaging/package.sh dev   # Zips und setup.exe in dist/ (lädt BepInEx herunter)
+./packaging/package.sh dev   # Zips, setup.exe und linux.tar.gz in dist/ (lädt BepInEx herunter)
 ```
 
 GitHub Actions baut bei jedem Push. Ein Release entsteht über einen Tag `v*`
