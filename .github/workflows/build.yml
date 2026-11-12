@@ -73,6 +73,7 @@ jobs:
           path: |
             dist/*.zip
             dist/*.exe
+            dist/*.tar.gz
             dist/SHA256SUMS.txt
 
       - name: GitHub-Release
@@ -84,6 +85,7 @@ jobs:
           files: |
             dist/*.zip
             dist/*.exe
+            dist/*.tar.gz
             dist/SHA256SUMS.txt
           body_path: dist/release-notes.md
           prerelease: ${{ contains(env.RELEASE_TAG, '-') }}

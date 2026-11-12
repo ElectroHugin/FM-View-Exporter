@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.1.0 (12.11.2026)
+
+- Linux with Steam Proton: there is now a command line program
+  (`FMViewExporter-<version>-linux.tar.gz`) with the same jobs as the Windows
+  setup: find the game, install, update, uninstall and edit the settings.
+  Commands: `locate`, `install`, `update`, `uninstall`, `status`,
+  `settings get/set`.
+- Important for Linux: the Steam launch option
+  `WINEDLLOVERRIDES="winhttp.dll=n,b" %command%` must be set so that Proton
+  loads BepInEx's `winhttp.dll` instead of Wine's. Without it the plugin never
+  starts. The program points this out while installing.
+- The program finds FM27 in the Steam libraries on Linux (`~/.local/share/Steam`,
+  `~/.steam/steam` and the Flatpak and Snap installations) and in further
+  libraries listed in `libraryfolders.vdf`. The app id, and thus the Proton
+  prefix, is read from the `appmanifest_*.acf`.
+- On Linux the exports land in the Documents folder of the Proton prefix; the
+  program prints the exact path. With `Export.OutputFolder` they can be put in
+  any other folder.
+- The installation logic is the same as on Windows (the same file in
+  `Setup.Logic`), so installing, updating and uninstalling behave identically
+  on both platforms.
+
 ## 1.0.1 (06.11.2026)
 
 - Sterne bei Ability und Potential: graue Sterne (unsichere Einschaetzung der Scouts) zaehlen jetzt

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Kommandozeile fuer Linux (Proton): sucht das Spiel, installiert/aktualisiert/entfernt das Plugin
+       und bearbeitet die Einstellungen. Nutzt dieselbe Logik wie das Windows-Setup (Setup.Logic). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>FMViewExporter.Setup.Cli</RootNamespace>
+    <AssemblyName>fmviewexporter-setup</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FMViewExporter.Setup.Logic\FMViewExporter.Setup.Logic.csproj" />
+  </ItemGroup>
+</Project>
